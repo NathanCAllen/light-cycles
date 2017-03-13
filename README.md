@@ -35,3 +35,6 @@ Data Collected
 Algorithms and Special Techniques
 	Algorithm to compute Elo rating for individual players.
 	Algorithm to determine randomized features of map.
+
+#Comments by Ming
+* Very cool idea. Please tell me that one can use the traditional arrow keys to play the game. My only question: is React the right framework for this?
