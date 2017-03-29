@@ -1,9 +1,19 @@
 body {
-	background-color: black;
+	background-color: rgb(37,37,37);
 }
 
 h1 {
 	font-family: 'Orbitron';
-	color: green;
-	font-weight: 800;
+	color: rgb(61,180,193);
+	font-weight: 900;
+	font-size: 55px;
+	text-align: center;
+}
+
+h2 {
+	font-family: 'Orbitron';
+	color: rgb(61,180,193);
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
 }
