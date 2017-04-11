@@ -1,7 +1,7 @@
-var game = new Phaser.Game(1080, 720, Phaser.AUTO, 'light-bikes');
+var game = new Phaser.Game(1080, 720, Phaser.CANVAS, 'light-bikes');
 
-var LightBikes = function (light-bikes) {
-	this.map = null
+var LightBikes = function (game) {
+	this.map = null;
 	this.layer = null;
 	this.car = null;
 
@@ -32,16 +32,32 @@ LightBikes.prototype = {
 		this.load.crossOrigin = 'anonymous';
 		game.load.image('player','res/player.png');
 		game.load.tilemap('map', 'res/Board1.json', null, Phaser.Tilemap.TILED_JSON);
+		game.load.image('tile', 'res/Tile.png')
+		// game.load.image('enemy', 'res/enemy.png');
 	},
 
 	create: function() {
-		
+		this.map = this.add.tilemap('map');
+		this.map.addTilesetImage('tile','tile');
+
+		this.layer = this.map.createLayer('Tile Layer 1');
+
+		// this.map.setCollision(1, true, this.layer); //set edges as collision
+
+		this.player = this.add.sprite(32, 32, 'player');
+		this.player.anchor.set(0.5);
+
+		this.physics.arcade.enable(this.player);
+
+		this.cursors = this.input.keyboard.createCursorKeys();
+
+		this.move(Phaser.DOWN);
 	}
 
-	function update() {
-	}
+	// function update() {
+	// }
 
-	function createPlayer(){
-		var player = players.create(0,0, 'player');
-	}
+	// function createPlayer(){
+	// 	var player = players.create(0,0, 'player');
+	// }
 };
