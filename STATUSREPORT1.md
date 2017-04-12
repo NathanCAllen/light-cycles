@@ -5,3 +5,6 @@ Status report 1:
 2. We encountered challenges with phaser, specifically when implementing with our HTML doc. Additionally, we are having some difficulty with our server communication to the HTML.
 
 3. For this next week, we hope to get basic communication with our HTML and phaser working so that we see our client inputs influence the page display. Furthermore, we would like to be able to store and retrieve user info from our servers so we can calculate user stats and other users’ stats (to display leader board and individual progress of the player).
+
+#Comments by Ming
+* "Additionally, we are having some difficulty with our server communication to the HTML." => I'm not sure what this means.  Are you referring to using XHR or getting stuff into the game?
