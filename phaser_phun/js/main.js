@@ -1,6 +1,10 @@
-var game = new Phaser.Game(1080, 720, Phaser.CANVAS, 'light-bikes');
+var game = new Phaser.Game(1080, 720, Phaser.AUTO, '');
+
+console.log("Let's start the party!");
 
 var LightBikes = function (game) {
+
+	console.log("Pizza Party");
 	this.map = null;
 	this.layer = null;
 	this.car = null;
@@ -25,20 +29,23 @@ var LightBikes = function (game) {
 LightBikes.prototype = {
 
 	init: function () {
+		console.log("Init Party");
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 	},
 
 	preload: function() {
+		console.log("Preload Party");
 		this.load.crossOrigin = 'anonymous';
-		game.load.image('player','res/player.png');
-		game.load.tilemap('map', 'res/Board1.json', null, Phaser.Tilemap.TILED_JSON);
-		game.load.image('tile', 'res/Tile.png')
-		// game.load.image('enemy', 'res/enemy.png');
+		this.load.image('player','res/player.png');
+		this.load.tilemap('map', 'res/Board1.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.image('tile', 'res/Tile.png')
+		// this.load.image('enemy', 'res/enemy.png');
 	},
 
 	create: function() {
 		this.map = this.add.tilemap('map');
-		this.map.addTilesetImage('tile','tile');
+		console.log("Create Party");
+		this.map.addTilesetImage('Tile','tile');
 
 		this.layer = this.map.createLayer('Tile Layer 1');
 
@@ -51,7 +58,7 @@ LightBikes.prototype = {
 
 		this.cursors = this.input.keyboard.createCursorKeys();
 
-		this.move(Phaser.DOWN);
+		// this.move(Phaser.DOWN);
 	}
 
 	// function update() {
@@ -61,3 +68,5 @@ LightBikes.prototype = {
 	// 	var player = players.create(0,0, 'player');
 	// }
 };
+
+game.state.add('Game', LightBikes, true);
