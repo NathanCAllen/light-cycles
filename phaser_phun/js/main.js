@@ -51,8 +51,8 @@ LightBikes.prototype = {
 
 		this.map.setCollision(1, true, this.layer); //set edges as collision
 
-		this.car = this.add.sprite(32, 32, 'player');
-		this.car.anchor.set(1);
+		this.car = this.add.sprite(16, 16, 'player');
+		this.car.anchor.set(0.5);
 
 		this.physics.arcade.enable(this.car);
 
@@ -66,14 +66,18 @@ LightBikes.prototype = {
 		// console.log("Check Key Party");
 
 		if (this.cursors.left.isDown && this.current !== Phaser.LEFT) {
-			this.checkDirection(Phaser.LEFT);
+			// this.checkDirection(Phaser.LEFT);
+			this.move(Phaser.LEFT);
 		} else if (this.cursors.right.isDown && this.current !== Phaser.RIGHT) {
-			this.checkDirection(Phaser.RIGHT);
+			// this.checkDirection(Phaser.RIGHT);
+			this.move(Phaser.RIGHT);
 		} else if (this.cursors.up.isDown && this.current !== Phaser.UP) {
-			this.checkDirection(Phaser.UP);
+			// this.checkDirection(Phaser.UP);
+			this.move(Phaser.UP);
 		} else if (this.cursors.down.isDown && this.current !== Phaser.DOWN) {
-			console.log("Down Party");
-			this.checkDirection(Phaser.DOWN);
+			// console.log("Down Party");
+			// this.checkDirection(Phaser.DOWN);
+			this.move(Phaser.DOWN);
 		} else {
 			//  This forces them to hold the key down to turn the corner
 			this.turning = Phaser.NONE;
@@ -140,14 +144,16 @@ LightBikes.prototype = {
 
 		if (direction === Phaser.LEFT || direction === Phaser.RIGHT)
 		{
+			this.car.body.velocity.y = 0;
 			this.car.body.velocity.x = speed;
 		}
 		else
 		{
+			this.car.body.velocity.x = 0;
 			this.car.body.velocity.y = speed;
 		}
 
-		this.add.tween(this.car).to( { angle: this.getAngle(direction) }, this.turnSpeed, "Linear", true);
+		// this.add.tween(this.car).to( { angle: this.getAngle(direction) }, this.turnSpeed, "Linear", true);
 
 		this.current = direction;
 
