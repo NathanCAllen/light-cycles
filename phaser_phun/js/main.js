@@ -49,12 +49,12 @@ LightBikes.prototype = {
 
 		this.layer = this.map.createLayer('Tile Layer 1');
 
-		// this.map.setCollision(1, true, this.layer); //set edges as collision
+		this.map.setCollision(1, true, this.layer); //set edges as collision
 
 		this.player = this.add.sprite(32, 32, 'player');
-		this.player.anchor.set(0.5);
+		// this.player.anchor.set(0.5);
 
-		this.physics.arcade.enable(this.player);
+		// this.physics.arcade.enable(this.player);
 
 		this.cursors = this.input.keyboard.createCursorKeys();
 
