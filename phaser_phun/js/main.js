@@ -1,4 +1,4 @@
-var game = new Phaser.Game(320, 320, Phaser.CANVAS, '');
+var game = new Phaser.Game(1000, 1000, Phaser.CANVAS, '');
 
 console.log("Let's start the party!");
 
@@ -12,7 +12,7 @@ var LightBikes = function (game) {
 	this.safetile = 1;
 	this.gridsize = 32;
 
-	this.speed = 150;
+	this.speed = 120;
 	this.threshold = 3;
 	this.turnSpeed = 100;
 
@@ -39,28 +39,28 @@ LightBikes.prototype = {
 		console.log("Preload Party");
 		this.load.crossOrigin = 'anonymous';
 		this.load.image('player','res/player.png');
-		this.load.tilemap('map', 'res/Board1.json', null, Phaser.Tilemap.TILED_JSON);
-		this.load.image('tile', 'res/Tile.png')
+		this.load.tilemap('map', 'res/Board2.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.image('tile', 'res/Tileset.png')
 		// this.load.image('enemy', 'res/enemy.png');
 	},
 
 	create: function() {
 		this.map = this.add.tilemap('map');
 		console.log("Create Party");
-		this.map.addTilesetImage('Tile','tile');
+		this.map.addTilesetImage('Tileset1','tile');
 
 		this.layer = this.map.createLayer('Tile Layer 1');
 
-		this.map.setCollision(1, true, this.layer); //set edges as collision
+		this.map.setCollision(2, true, this.layer); //set edges as collision
 
-		this.car = this.add.sprite(16, 16, 'player');
+		this.car = this.add.sprite(48, 48, 'player');
 		this.car.anchor.set(0.5);
 
 		this.physics.arcade.enable(this.car);
 
 		this.cursors = this.input.keyboard.createCursorKeys();
 
-		// this.move(Phaser.DOWN);
+		this.move(Phaser.DOWN);
 	},
 
 	checkKeys: function () {
@@ -188,11 +188,15 @@ LightBikes.prototype = {
         },
 
         update: function () {
+
         	this.physics.arcade.collide(this.car, this.layer);
 
         	this.checkKeys();
 
-        	if ((this.car.x + 16) % 32 == 0 && (this.car.y + 16) % 32 == 0 && this.current !== this.next && this.next !== Phaser.NONE) {
+        	// console.log(this.car.x, this.car.y);
+        	console.log((this.car.x + 16) % 32, (this.car.y + 16) % 32);
+
+        	if (this.current !== this.next && this.next !== Phaser.NONE) {
         		this.move(this.next);
         	};
 
