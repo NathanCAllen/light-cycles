@@ -1,4 +1,4 @@
-var game = new Phaser.Game(1080, 720, Phaser.AUTO, '');
+var game = new Phaser.Game(320, 320, Phaser.CANVAS, '');
 
 console.log("Let's start the party!");
 
@@ -24,6 +24,8 @@ var LightBikes = function (game) {
 
 	this.current = Phaser.UP;
 	this.turning = Phaser.NONE;
+
+	this.next = Phaser.NONE;
 };
 
 LightBikes.prototype = {
@@ -66,18 +68,25 @@ LightBikes.prototype = {
 		// console.log("Check Key Party");
 
 		if (this.cursors.left.isDown && this.current !== Phaser.LEFT) {
+			console.log("Left Party");
 			// this.checkDirection(Phaser.LEFT);
-			this.move(Phaser.LEFT);
+			// this.move(Phaser.LEFT);
+			this.next = Phaser.LEFT;
 		} else if (this.cursors.right.isDown && this.current !== Phaser.RIGHT) {
+			console.log("Right Party");
 			// this.checkDirection(Phaser.RIGHT);
-			this.move(Phaser.RIGHT);
+			// this.move(Phaser.RIGHT);
+			this.next = Phaser.RIGHT;
 		} else if (this.cursors.up.isDown && this.current !== Phaser.UP) {
+			console.log("Up Party");
 			// this.checkDirection(Phaser.UP);
-			this.move(Phaser.UP);
+			// this.move(Phaser.UP);
+			this.next = Phaser.UP;
 		} else if (this.cursors.down.isDown && this.current !== Phaser.DOWN) {
-			// console.log("Down Party");
+			console.log("Down Party");
 			// this.checkDirection(Phaser.DOWN);
-			this.move(Phaser.DOWN);
+			// this.move(Phaser.DOWN);
+			this.next = Phaser.DOWN;
 		} else {
 			//  This forces them to hold the key down to turn the corner
 			this.turning = Phaser.NONE;
@@ -153,7 +162,7 @@ LightBikes.prototype = {
 			this.car.body.velocity.y = speed;
 		}
 
-		// this.add.tween(this.car).to( { angle: this.getAngle(direction) }, this.turnSpeed, "Linear", true);
+		this.add.tween(this.car).to( { angle: this.getAngle(direction) }, this.turnSpeed, "Linear", true);
 
 		this.current = direction;
 
@@ -182,6 +191,10 @@ LightBikes.prototype = {
         	this.physics.arcade.collide(this.car, this.layer);
 
         	this.checkKeys();
+
+        	if ((this.car.x + 16) % 32 == 0 && (this.car.y + 16) % 32 == 0 && this.current !== this.next && this.next !== Phaser.NONE) {
+        		this.move(this.next);
+        	};
 
  	        this.marker.x = this.math.snapToFloor(Math.floor(this.car.x), this.gridsize) / this.gridsize;
             	this.marker.y = this.math.snapToFloor(Math.floor(this.car.y), this.gridsize) / this.gridsize;
