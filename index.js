@@ -1,13 +1,18 @@
-var express = require('express');
+var express = require('express')
+  , http = require('http');
+
 var app = express();
-var server = require('http').Server(app);
+var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
+
+
 var default_ELO = 1200; // subject to change
-var rooms = ["room1", "room2", "room3", "room4"];
 
-
-app.set('port', (process.env.PORT || 5000));
+server.listen(8080, function(){
+	console.log("server running");
+});
+//app.set('port', (/*process.env.PORT ||*/ 8080/*)*/);
 app.use(express.static('public'))
 var path = require('path');
 
@@ -35,7 +40,7 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 
 
 //
-app.get("/stats", function(request, response){
+app.get("/global-stats", function(request, response){
 	db.collection("players", function(error, coll){
 			if (error){
 	 			console.log("Error: " + error);
@@ -61,7 +66,7 @@ app.post("/register", function(request, response){
 		"password": password,
 		"wins": 0,
 		"losses": 0,
-		"ELO": default_ELO, //Default ELO subject to change
+		"ELO": [default_ELO], //Default ELO subject to change
 		"record": []
 	};
 
@@ -93,7 +98,7 @@ app.post("/login", function(request, response){
 			coll.findOne({"username": username, "password": password}, function(error, item){
 				if (item == null){
 					//change this later to what we'll actually send
-					response.send("account not found");
+					response.send("username or password incorrect; try again");
 				}
 				else{
 					//check for password
@@ -111,48 +116,83 @@ app.get('/', function(request, response) {
 
 
 
-/*
+var empty_rooms = ["room1", "room2", "room3", "room4"];
+var waiting_rooms = [];
+var full_rooms = [];
+
 io.on('connection',function(socket){
 
     socket.on('newplayer',function(data){
-    	var new_player = {
-    		"id" : data.username,
-    		"opp": "";
-    		//x, y locations needs to be fixed
-    		"x": 0,
-    		"y": 0,
-    		"socket": socket
+    	console.log("in new_player server_side");
+    	console.log("data is " + data);
+    	var room = "";
+    	var player = {
+    		"id" : data, //this might just be data, not data.username
+
+    		/* neccesary user data goes here---TBD */
+    		"room": room
     	}
-    	//search for opponenets
-		for ( i = 0; i < players.length; i++){
-			if (players[i].opp = ""){
-				new_player.opp = players[i];
-				players[i].opp = new_player;
+
+    	//if waiting opponent, place into game
+		if (waiting_rooms.length != 0){
+			room = waiting_rooms[0];
+		//	socket.join(room);
+			//write this insertion function to insert it in order
+		//	insert_room(full_rooms, room);
+			full_rooms.push(room);
+			player.room = room;
+			waiting_rooms.splice(0,1);
+			socket.broadcast.to(room).emit('opponent found');
+			socket.emit("opponent found")
+		}
+		//if no waiting rooms, place inton empty rooms
+		else{
+			console.log("sending waiting client side");
+			socket.emit("waiting");
+			//if no empty rooms, make one
+			if (empty_rooms.length = 0){
+				//possibly make this better than adding one at a time, temp fix
+				num = waiting_rooms.length + full_rooms.length;
+				empty_rooms[0] = "room" + num;
+			}
+			else{
+				room = empty_rooms[0];
+			//	insert(waiting_rooms, room);
+				waiting_rooms.push
+				empty_rooms.splice(0,1);
 			}
 		}
-		players.push(new_player);
-        socket.player = new_player;
-        if (new_player.opp != ""){
-        	socket.emit('opponenet', socket,.player.opp);
+		player.room = room;
+		socket.player = player;
+		socket.join(room);
 
-        	new_player.opp.socket.emit('found_player',socket.player); //change this to broadcast only to opponent
-    	}
 
-        socket.on('click',function(data){
-            console.log('click to '+data.x+', '+data.y);
-            socket.player.x = data.x;
-            socket.player.y = data.y;
-            io.emit('move',socket.player);
-        });
+	});
+ 	//lol who knows how gameplay will work fuck everything
+   
 
-        socket.on('disconnect',function(){
-            io.emit('remove',socket.player.id);
-        });
-    });
+  /*  socket.on('disconnect',function(){
+    	//maybe add something to this to prevent proliferation of rooms; not an essential add
+
+        //if waiting and not in-game
+        if (waiting_rooms.indexOf(player.room) != -1){
+        	room = waiting_rooms.indexOf(player.room);
+        	waiting_rooms.splice(waiting_rooms.indexOf(player.room), 1);
+        	insert_room(empty_rooms, room))
+        }
+        //else if in-game
+        else{
+        	room = full_rooms.indexOf(player.room);
+        	full_rooms.splice(full_rooms.indexOf(player.room), 1);
+        	insert_room(empty_rooms, room)
+        }
+		socket.broadcast.to(room).emit('forfeit');
+*/
 });
 
-*/
 
+/*
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
+*/
