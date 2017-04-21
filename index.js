@@ -12,7 +12,8 @@ var default_ELO = 1200; // subject to change
 server.listen(8080, function(){
 	console.log("server running");
 });
-//app.set('port', (/*process.env.PORT ||*/ 8080/*)*/);
+
+
 app.use(express.static('public'))
 var path = require('path');
 
@@ -191,8 +192,7 @@ io.on('connection',function(socket){
 });
 
 
-/*
-app.listen(app.get('port'), function() {
+
+app.listen(process.env.PORT, function() {
   console.log('Node app is running on port', app.get('port'));
 });
-*/
