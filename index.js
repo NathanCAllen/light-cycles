@@ -10,7 +10,7 @@ var io = require('socket.io').listen(server);
 var default_ELO = 1200; // subject to change
 
 server.listen(8080, function(){
-	console.log("server running");
+	console.log("local server running");
 });
 
 
@@ -88,6 +88,9 @@ app.post("/register", function(request, response){
 
 });
 app.post("/login", function(request, response){
+	console.log("in login");
+	console.log("username is " + request.body.username);
+	console.log("username is " + request.body.password);
 	var username = request.body.username;
 	var password = request.body.password;
 	db.collection("players", function(error, coll){
@@ -103,7 +106,7 @@ app.post("/login", function(request, response){
 				}
 				else{
 					//check for password
-					response.send("valid account")
+					response.sendFile(path.join(__dirname + "/private/" + "waiting-room.html"))
 				}
 			});
 		}
@@ -116,7 +119,15 @@ app.get('/', function(request, response) {
 });
 
 
-
+function insert_room(arr, room){
+	for (i = 0; i < arr.length; i++){
+		if (room < arr[i]){
+			arr.splice(i,0,room);
+			return;
+		}
+	}
+	arr.push(room);
+}
 var empty_rooms = ["room1", "room2", "room3", "room4"];
 var waiting_rooms = [];
 var full_rooms = [];
@@ -193,6 +204,4 @@ io.on('connection',function(socket){
 
 
 
-app.listen(process.env.PORT, function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+app.listen(process.env.PORT, function(){});

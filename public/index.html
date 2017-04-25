@@ -7,6 +7,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
 </head>
 <!-- take this out later and move it to game files -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="test_client.js"></script>
 
 <body>
 	<h1>Light Cycles 2</h1>
@@ -15,7 +17,7 @@
 	<p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
 
 	
-	<form>
+	<form method="post" action="/login">
 	  <fieldset class="stats" id="leaderBoard">
         <legend>Leader Board</legend>
         <p>1. foo 43245345</p>
@@ -35,20 +37,23 @@
         <p>
           <label>Username</label>
           <input type = "text"
+                 name = "username"
                  id = "username"
                  value = "Username" />
         </p>
         <p>
           <label>Password</label>
           <input type = "password"
+                  name = "password"
                   id = "password"
                   value = "secret" />
-        </p>
+
+    <button type="submit">Login</button>
+
+        
         
       </fieldset>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
-<script src="test_client.js"></script>
 
 </body>
 
