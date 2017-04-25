@@ -1,4 +1,4 @@
-var game = new Phaser.Game(1000, 1000, Phaser.CANVAS, '');
+var game = new Phaser.Game(640, 640, Phaser.CANVAS, '');
 
 console.log("Let's start the party!");
 
@@ -39,19 +39,19 @@ LightBikes.prototype = {
 		console.log("Preload Party");
 		this.load.crossOrigin = 'anonymous';
 		this.load.image('player','res/player.png');
-		this.load.tilemap('map', 'res/Board2.json', null, Phaser.Tilemap.TILED_JSON);
-		this.load.image('tile', 'res/Tileset.png')
+		this.load.tilemap('map', 'res/Tilemap.json', null, Phaser.Tilemap.TILED_JSON);
+		this.load.image('tile', 'res/Tileset2.png')
 		// this.load.image('enemy', 'res/enemy.png');
 	},
 
 	create: function() {
 		this.map = this.add.tilemap('map');
 		console.log("Create Party");
-		this.map.addTilesetImage('Tileset1','tile');
+		this.map.addTilesetImage('Tileset2','tile');
 
 		this.layer = this.map.createLayer('Tile Layer 1');
 
-		this.map.setCollision(2, true, this.layer); //set edges as collision
+		this.map.setCollision(1, true, this.layer); //set edges as collision
 
 		this.car = this.add.sprite(48, 48, 'player');
 		this.car.anchor.set(0.5);
@@ -189,12 +189,17 @@ LightBikes.prototype = {
 
         update: function () {
 
+        	this.addTrail();
+
         	this.physics.arcade.collide(this.car, this.layer);
+
+        	if (this.car.body.velocity.y == 0 && this.car.body.velocity.x == 0) {
+        		this.gameOver("You ");
+        	};
 
         	this.checkKeys();
 
         	// console.log(this.car.x, this.car.y);
-        	console.log((this.car.x + 16) % 32, (this.car.y + 16) % 32);
 
         	if (this.current !== this.next && this.next !== Phaser.NONE) {
         		this.move(this.next);
@@ -213,6 +218,39 @@ LightBikes.prototype = {
         		this.turn();
         	};
 
+        },
+
+        gameOver: function (loser) {
+        	game.paused = true;
+		var style = {fill: '#FFF'};
+		var text = this.add.text(game.width * .5, game.height * .5, "Game Over!", style);
+		text.anchor.set(.5, .5);
+        },
+
+        addTrail: function() {
+        	var origin_x, origin_y, width, height;
+        	if (this.current == Phaser.UP) {
+        		height = 2;
+        		width = 16;
+        		origin_y = this.car.y + 25;
+        		origin_x = this.car.x - 8;
+        	} else if (this.current == Phaser.DOWN) {
+        		height = 2;
+        		width = 16;
+        		origin_y = this.car.y - 26;
+        		origin_x = this.car.x - 8;
+        	} else if (this.current == Phaser.LEFT) {
+        		height = 16;
+        		width = 2;
+        		origin_y = this.car.y - 8;
+        		origin_x = this.car.x + 25;        		
+        	} else {
+        		height = 16;
+        		width = 2;
+        		origin_y = this.car.y - 8;
+        		origin_x = this.car.x + 26;        		
+        	}
+		// game.replace(2, 1, origin_x, origin_y, width, height, this.layer);
         }
 };
 
