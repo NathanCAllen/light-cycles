@@ -15,3 +15,7 @@ Status Report 3:
        3) With a week and a half left and many semester projects finishing in the next couple of days, we plan to make 
        a major push in terms of progress over the next week. Finishing game mechanics, wrapping up design, and connecting 
        the UI buttons/actions and displays with the server information will be major accomplishments we plan on executing.
+
+#Comments by Ming
+* Good chopping things
+* "{“username”: “attackerman”, “password”: “Very Secure Password”, “wins”: 6, “losses”: 7, “ELO”:1452, “Past_Games”: [{“opponent”: “other_username”, “win”: true, “opponent ELO”: 1400}, /*all past games */]}" => from your status 2, how do you add to the past games?  Doesn't look like good design at a glace...
