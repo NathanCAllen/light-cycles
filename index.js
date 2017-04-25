@@ -148,9 +148,8 @@ io.on('connection',function(socket){
     	//if waiting opponent, place into game
 		if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
-		//	socket.join(room);
 			//write this insertion function to insert it in order
-		//	insert_room(full_rooms, room);
+			insert_room(full_rooms, room);
 			full_rooms.push(room);
 			player.room = room;
 			waiting_rooms.splice(0,1);
@@ -159,10 +158,11 @@ io.on('connection',function(socket){
 		}
 		//if no waiting rooms, place inton empty rooms
 		else{
-			console.log("sending waiting client side");
+			console.log("sending waiting to client side");
 			socket.emit("waiting");
+
 			//if no empty rooms, make one
-			if (empty_rooms.length = 0){
+			if (empty_rooms.length == 0){
 				//possibly make this better than adding one at a time, temp fix
 				num = waiting_rooms.length + full_rooms.length;
 				empty_rooms[0] = "room" + num;
@@ -177,29 +177,33 @@ io.on('connection',function(socket){
 		player.room = room;
 		socket.player = player;
 		socket.join(room);
+		console.log("room is " + room);
+		console.log("number or rooms should be one and it is  " + io.sockets.adapter.rooms[room].length);
 
 
 	});
+
  	//lol who knows how gameplay will work fuck everything
    
 
-  /*  socket.on('disconnect',function(){
+    socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
         //if waiting and not in-game
+        room = player.room;
         if (waiting_rooms.indexOf(player.room) != -1){
-        	room = waiting_rooms.indexOf(player.room);
         	waiting_rooms.splice(waiting_rooms.indexOf(player.room), 1);
-        	insert_room(empty_rooms, room))
+        	insert_room(empty_rooms, room)
         }
         //else if in-game
         else{
-        	room = full_rooms.indexOf(player.room);
         	full_rooms.splice(full_rooms.indexOf(player.room), 1);
         	insert_room(empty_rooms, room)
         }
 		socket.broadcast.to(room).emit('forfeit');
-*/
+		socket.leave(room);
+
+	});
 });
 
 
