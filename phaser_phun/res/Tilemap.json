@@ -19,11 +19,11 @@
         {
          "columns":2,
          "firstgid":1,
-         "image":"Tileset2 (2 pixels).png",
+         "image":"Tileset2.png",
          "imageheight":2,
          "imagewidth":2,
          "margin":0,
-         "name":"Tileset2 (2 pixels)",
+         "name":"Tileset2",
          "spacing":0,
          "tilecount":4,
          "tileheight":1,
