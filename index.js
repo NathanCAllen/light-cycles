@@ -14,7 +14,8 @@ server.listen(8080, function(){
 });
 
 
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.use(express.static("phaser_phun"));
 var path = require('path');
 
 
@@ -40,7 +41,7 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 
-//
+/*
 app.get("/global-stats", function(request, response){
 	db.collection("players", function(error, coll){
 			if (error){
@@ -57,7 +58,7 @@ app.get("/global-stats", function(request, response){
 		});
 
 });
-
+*/
 app.post("/register", function(request, response){
 	//may want to beef up the security on this
 	var username = request.body.username;
@@ -114,7 +115,7 @@ app.post("/login", function(request, response){
 });
 
 app.get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + "/public/" + "index.html"));
+    response.sendFile(path.join(__dirname + "/public/" + "home.html"));
 
 });
 
