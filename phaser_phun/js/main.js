@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
+var game = new Phaser.Game(640, 640, Phaser.CANVAS, '');
 
 console.log("Let's start the party!");
 
@@ -250,7 +250,21 @@ LightBikes.prototype = {
         		origin_y = this.car.y - 8;
         		origin_x = this.car.x + 26;        		
         	}
-		this.map.replace(2, 1, origin_x, origin_y, width, height, this.layer);
+		// this.map.putTile(1, origin_x, origin_y);
+
+		// var tiles = this.map.tiles;
+		// tiles[origin_x * width + origin_y] = 1;
+		// this.map.tiles[origin_x * width + origin_y] = 1;
+		// console.log(this.map.layers[0].data[origin_x * width + origin_y]);
+
+		console.log(this.map.getTile(origin_x, origin_y).index);
+
+		for (int i = 0; i < width; i++); {
+			for (int j = 0; j < height; j++); {
+				this.map.getTile(origin_x + i, origin_y + j).index = 1;
+				this.map.getTile(origin_x + i, origin_y + j).canCollide = true;
+			};
+		};
         }
 };
 
