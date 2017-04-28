@@ -22,13 +22,13 @@ app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- // server.listen(8080, function(){
- // 	console.log("local server running");
- // });
-
-  server.listen(process.env.PORT, function(){
- 	console.log("non-local server running");
+ server.listen(8080, function(){
+ 	console.log("local server running");
  });
+
+ //  server.listen(process.env.PORT, function(){
+ // 	console.log("non-local server running");
+ // });
 
  // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
 
@@ -80,8 +80,11 @@ var default_ELO = 1200; // subject to change
 
 app.post("/register", function(request, response){
 	//may want to beef up the security on this
-	var username = request.body.username;
-	var password = request.body.password;
+	var username = request.body.user;
+	var password = request.body.pwd;
+	console.log("in register");
+	console.log("username is " + username);
+	console.log("passwrd is " + password);
 	var new_player = {
 		"username" : username,
 		"password": password,
@@ -94,12 +97,14 @@ app.post("/register", function(request, response){
 	db.collection("players", function(error, coll){
 		//check if username already takn
 		coll.findOne({"username":username}, function(error, item){
+			console.log("searched username is " + JSON.stringify(item));
 			if (item != null){
+
 					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"))
 			}
 			else{
 				coll.insert(new_player, function(error, update){
-					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
+					response.sendFile(path.join(__dirname + "/public/" + "registration-success.html"))
 				});
 
 			}
