@@ -9,6 +9,15 @@
 <!-- take this out later and move it to game files -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="test_client.js"></script>
+<script> 
+function cookie(){
+  alert("lol");
+  console.log("plz print");
+  var input = document.getElementById("login").value;
+  alert(input);
+  return false;
+}
+</script>
 
 <body>
 	<h1>Light Cycles 2</h1>
@@ -17,7 +26,7 @@
 	<p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
 
 	
-	<form method="post" action="/login">
+	<form  onsubmit = "alert('umm')">
 	  <fieldset class="stats" id="leaderBoard">
         <legend>Leader Board</legend>
         <p>1. foo 43245345</p>
@@ -39,6 +48,7 @@
           <input type = "text"
                  name = "username"
                  id = "username"
+                 
                  value = "Username" />
         </p>
         <p>

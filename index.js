@@ -1,21 +1,38 @@
+
 var express = require('express')
   , http = require('http');
 
-var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+ var app = express();
+
+ var server = http.createServer(app);
+
+ var io = require('socket.io').listen(server);
 
 
-
-var default_ELO = 1200; // subject to change
-
-server.listen(8080, function(){
-	console.log("local server running");
-});
+var port = process.env.PORT || 8080;
 
 
-app.use(express.static('public'))
+ //var server = http.createServer(app);
+
+
 var path = require('path');
+
+
+app.use(express.static('public'));
+app.use(express.static("phaser_phun"));
+
+
+ server.listen(8080, function(){
+ 	console.log("local server running");
+ });
+
+ //  server.listen(process.env.PORT, function(){
+ // 	console.log("non-local server running");
+ // });
+
+ // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
+
+
 
 
 app.use(function(req, res, next) {
@@ -40,7 +57,7 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 
-//
+/*
 app.get("/global-stats", function(request, response){
 	db.collection("players", function(error, coll){
 			if (error){
@@ -57,6 +74,9 @@ app.get("/global-stats", function(request, response){
 		});
 
 });
+*/
+
+var default_ELO = 1200; // subject to change
 
 app.post("/register", function(request, response){
 	//may want to beef up the security on this
@@ -115,7 +135,7 @@ app.post("/login", function(request, response){
 });
 
 app.get('/', function(request, response) {
-    response.sendFile(path.join(__dirname + "/public/" + "index.html"));
+    response.sendFile(path.join(__dirname + "/public/" + "home.html"));
 
 });
 
@@ -149,60 +169,60 @@ io.on('connection',function(socket){
     	//if waiting opponent, place into game
 		if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
-		//	socket.join(room);
-			//write this insertion function to insert it in order
-		//	insert_room(full_rooms, room);
-			full_rooms.push(room);
+			insert_room(full_rooms, room);
 			player.room = room;
 			waiting_rooms.splice(0,1);
 			socket.broadcast.to(room).emit('opponent found');
 			socket.emit("opponent found")
 		}
-		//if no waiting rooms, place inton empty rooms
+		//if no waiting rooms, place  empty rooms
 		else{
-			console.log("sending waiting client side");
+			console.log("sending waiting to client side");
 			socket.emit("waiting");
+
 			//if no empty rooms, make one
-			if (empty_rooms.length = 0){
+			if (empty_rooms.length == 0){
 				//possibly make this better than adding one at a time, temp fix
 				num = waiting_rooms.length + full_rooms.length;
 				empty_rooms[0] = "room" + num;
 			}
 			else{
 				room = empty_rooms[0];
-			//	insert(waiting_rooms, room);
-				waiting_rooms.push
+				insert_room(waiting_rooms, room);
 				empty_rooms.splice(0,1);
 			}
 		}
 		player.room = room;
 		socket.player = player;
 		socket.join(room);
+		console.log("room is " + room);
+		console.log("number or rooms should be one and it is  " + io.sockets.adapter.rooms[room].length);
 
 
 	});
+
  	//lol who knows how gameplay will work fuck everything
    
 
-  /*  socket.on('disconnect',function(){
+    socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
         //if waiting and not in-game
+        room = player.room;
         if (waiting_rooms.indexOf(player.room) != -1){
-        	room = waiting_rooms.indexOf(player.room);
         	waiting_rooms.splice(waiting_rooms.indexOf(player.room), 1);
-        	insert_room(empty_rooms, room))
+        	insert_room(empty_rooms, room)
         }
         //else if in-game
         else{
-        	room = full_rooms.indexOf(player.room);
         	full_rooms.splice(full_rooms.indexOf(player.room), 1);
         	insert_room(empty_rooms, room)
         }
 		socket.broadcast.to(room).emit('forfeit');
-*/
+		socket.leave(room);
+
+	});
 });
 
 
 
-app.listen(process.env.PORT, function(){});
