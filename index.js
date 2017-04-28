@@ -2,34 +2,30 @@
 var express = require('express')
   , http = require('http');
 
+var path = require('path');
 
-// var port = process.env.PORT || 3000;
-// var server = express()
-//   .listen(PORT, () => console.log('Listening on ' + port));
-
+var server = express()
 var port = process.env.port || 8080;
+var index = path.join(__dirname, 'public/home.html');
 
-// var server = express()
-//   .listen(port, function(){ console.log("web app running/listening")});
 
  var app = express();
  var server = http.createServer(app);
-  var io = require('socket.io').listen(server);
+ var io = require('socket.io').listen(server);
 
 
-
-
-
-
-server.listen(port, function(){
-	console.log("local server running");
-});
- //app.listen(process.env.PORT, function(){});
 
 
 app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
-var path = require('path');
+
+
+ server.listen(process.env.port, function(){
+ 	console.log("real server running");
+ });
+ //app.listen(process.env.PORT, function(){});
+
+
 
 
 app.use(function(req, res, next) {
