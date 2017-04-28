@@ -1,17 +1,30 @@
+
 var express = require('express')
   , http = require('http');
 
-var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+
+// var port = process.env.PORT || 3000;
+// var server = express()
+//   .listen(PORT, () => console.log('Listening on ' + port));
+
+var port = process.env.port || 8080;
+
+// var server = express()
+//   .listen(port, function(){ console.log("web app running/listening")});
+
+ var app = express();
+ var server = http.createServer(app);
+  var io = require('socket.io').listen(server);
 
 
 
-var default_ELO = 1200; // subject to change
 
-server.listen(8080, function(){
+
+
+server.listen(port, function(){
 	console.log("local server running");
 });
+ //app.listen(process.env.PORT, function(){});
 
 
 app.use(express.static('public'));
@@ -59,6 +72,9 @@ app.get("/global-stats", function(request, response){
 
 });
 */
+
+var default_ELO = 1200; // subject to change
+
 app.post("/register", function(request, response){
 	//may want to beef up the security on this
 	var username = request.body.username;
@@ -149,15 +165,13 @@ io.on('connection',function(socket){
     	//if waiting opponent, place into game
 		if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
-			//write this insertion function to insert it in order
 			insert_room(full_rooms, room);
-			full_rooms.push(room);
 			player.room = room;
 			waiting_rooms.splice(0,1);
 			socket.broadcast.to(room).emit('opponent found');
 			socket.emit("opponent found")
 		}
-		//if no waiting rooms, place inton empty rooms
+		//if no waiting rooms, place  empty rooms
 		else{
 			console.log("sending waiting to client side");
 			socket.emit("waiting");
@@ -170,8 +184,7 @@ io.on('connection',function(socket){
 			}
 			else{
 				room = empty_rooms[0];
-			//	insert(waiting_rooms, room);
-				waiting_rooms.push
+				insert_room(waiting_rooms, room);
 				empty_rooms.splice(0,1);
 			}
 		}
@@ -209,4 +222,3 @@ io.on('connection',function(socket){
 
 
 
-app.listen(process.env.PORT, function(){});
