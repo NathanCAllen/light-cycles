@@ -95,11 +95,11 @@ app.post("/register", function(request, response){
 		//check if username already takn
 		coll.findOne({"username":username}, function(error, item){
 			if (item != null){
-				response.send("username already taken");
+					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"))
 			}
 			else{
 				coll.insert(new_player, function(error, update){
-					response.send("succesfully registered!");
+					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
 				});
 
 			}
@@ -123,11 +123,11 @@ app.post("/login", function(request, response){
 			coll.findOne({"username": username, "password": password}, function(error, item){
 				if (item == null){
 					//change this later to what we'll actually send
-					response.send("username or password incorrect; try again");
+					response.sendFile(path.join(__dirname + "/public/" + "login-incorrect.html"))
 				}
 				else{
 					//check for password
-					response.sendFile(path.join(__dirname + "/private/" + "waiting-room.html"))
+					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
 				}
 			});
 		}
