@@ -55,6 +55,7 @@ app.post("/register", function(request, response){
 	});
 
 });
+
 app.post("/login", function(request, response){
 	var username = request.body.username;
 	var password = request.body.password;
