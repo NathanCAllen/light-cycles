@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Light Cycles 2: A Reactionary Tale</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
+</head>
+<!-- take this out later and move it to game files -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="test_client.js"></script>
+
+<script>
+  function onLogin() {
+    var username = document.getElementById("userinput1");
+    var password = document.getElementById("userinput2");
+    localStorage.setItem("username",username);
+    localStorage.setItem("password",password);
+  }
+</script>
+
+<body>
+	<h1>Light Cycles 2</h1>
+	<h2>A Reactionary Tale</h2>
+
+	<p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
+
+	
+	<form method="post" action="/login">
+	  <fieldset class="stats" id="leaderBoard">
+        <legend>Leader Board</legend>
+        <p>1. foo 43245345</p>
+        <p>2. bar 3425345</p>
+        <p>3. doo 345</p>
+      </fieldset>
+
+      <fieldset class="stats" id="userStats">
+        <legend>User Stats</legend>
+        <p>Rank: 224</p>
+        <p>Wins: 20</p>
+        <p>Losses: 12</p>       
+      </fieldset>
+
+      <fieldset id="login">
+        <legend>Login</legend>
+        <p>
+          <label>Username</label>
+          <input type = "text"
+                 name = "username"
+                 id = "username"
+                 value = "Username"
+                 id = "userinput1" />
+        </p>
+        <p>
+          <label>Password</label>
+          <input type = "password"
+                  name = "password"
+                  id = "password"
+                  value = "secret"
+                  id = "userinput2" />
+
+          <input type="submit" value="Login" onclick="onLogin()">
+        </p>   
+      </fieldset>
+    </form>
+
+    <form action="/register" method="POST" name="Register">
+      <fieldset id="register">
+        <legend>Register</legend>
+        <p>
+          <label>Username</label>
+          <input type="text" id="username" value="Username">
+        </p>
+        <p>
+          <label>Password</label>
+          <input type="password" id="password" value="secret">
+          <input type="submit" value="Register">
+        </p>
+      </fieldset>
+    </form> 
+
+</body>
+
+</html>
