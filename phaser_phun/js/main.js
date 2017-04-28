@@ -10,7 +10,7 @@ var LightBikes = function (game) {
 	this.car = null;
 	this.enemy = null;
 	
-	this.stage.scale.pageAlignHorizontally = true;
+	//this.stage.scale.pageAlignHorizontally = true;
 	this.width = 640;
 	this.height = 640;
 
