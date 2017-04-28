@@ -22,13 +22,13 @@ app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- // server.listen(8080, function(){
- // 	console.log("local server running");
- // });
-
-  server.listen(process.env.PORT, function(){
- 	console.log("non-local server running");
+ server.listen(8080, function(){
+ 	console.log("local server running");
  });
+
+ //  server.listen(process.env.PORT, function(){
+ // 	console.log("non-local server running");
+ // });
 
  // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
 
