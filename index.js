@@ -107,6 +107,7 @@ app.post("/register", function(request, response){
 	});
 
 });
+
 app.post("/login", function(request, response){
 	console.log("in login");
 	console.log("username is " + request.body.username);
