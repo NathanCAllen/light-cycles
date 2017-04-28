@@ -1,4 +1,4 @@
-var game = new Phaser.Game(640, 640, Phaser.CANVAS, '');
+var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
 console.log("Let's start the party!");
 
@@ -9,7 +9,8 @@ var LightBikes = function (game) {
 	this.layer = null;
 	this.car = null;
 	this.enemy = null;
-
+	
+	this.stage.scale.pageAlignHorizontally = true;
 	this.width = 640;
 	this.height = 640;
 
