@@ -2,28 +2,35 @@
 var express = require('express')
   , http = require('http');
 
-var path = require('path');
-
-var server = express()
-var port = process.env.port || 8080;
-var index = path.join(__dirname, 'public/home.html');
-
-
  var app = express();
+
  var server = http.createServer(app);
+
  var io = require('socket.io').listen(server);
 
 
+var port = process.env.PORT || 8080;
+
+
+ //var server = http.createServer(app);
+
+
+var path = require('path');
 
 
 app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- server.listen(process.env.port, function(){
- 	console.log("real server running");
+ // server.listen(8080, function(){
+ // 	console.log("local server running");
+ // });
+
+  server.listen(process.env.PORT, function(){
+ 	console.log("non-local server running");
  });
- //app.listen(process.env.PORT, function(){});
+
+ // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
 
 
 
