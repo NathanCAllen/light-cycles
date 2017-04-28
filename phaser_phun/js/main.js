@@ -69,7 +69,8 @@ LightBikes.prototype = {
 		this.physics.arcade.enable(this.enemy[0]);
 
 		this.cursors = this.input.keyboard.createCursorKeys();
-
+		
+		this.car[0].next = Phaser.DOWN;
 		this.move(this.car, Phaser.DOWN);
 		this.move(this.enemy, Phaser.DOWN)
 	},
