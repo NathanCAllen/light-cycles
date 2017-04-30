@@ -75,17 +75,15 @@ LightBikes.prototype = {
 
                 // this.move(this.bike, Phaser.RIGHT);
                 this.bike.next = Phaser.RIGHT;
-                this.bike.current = Phaser.RIGHT;
                 // this.move(this.enemy, Phaser.LEFT);
                 this.enemy.next = Phaser.LEFT;
-                this.enemy.current = Phaser.LEFT;
 
-                game.paused = true;
-                Client.socket.emit('newplayer', username);
+                // game.paused = true;
+                // Client.socket.emit('newplayer', username);
 
-                Client.socket.on("start", function() {
-                        game.paused = false;
-                });
+                // Client.socket.on("start", function() {
+                //         game.paused = false;
+                // });
 
                 this.enemyMovement();
         },
@@ -104,19 +102,19 @@ LightBikes.prototype = {
 
         checkKeys: function (player) {
 
-                if (this.cursors.left.isDown && player.current !== Phaser.RIGHT) {
+                if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
                         console.log("Left Party");
                         Client.socket.emit("left");
                         player.next = Phaser.LEFT;
-                } else if (this.cursors.right.isDown && player.current !== Phaser.LEFT) {
+                } else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
                         console.log("Right Party");
                         Client.socket.emit("right");
                         player.next = Phaser.RIGHT;
-                } else if (this.cursors.up.isDown && player.current !== Phaser.DOWN) {
+                } else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
                         console.log("Up Party");
                         Client.socket.emit("up");
                         player.next = Phaser.UP;
-                } else if (this.cursors.down.isDown && player.current !== Phaser.UP) {
+                } else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
                         console.log("Down Party");
                         Client.socket.emit("down");
                         player.next = Phaser.DOWN;
