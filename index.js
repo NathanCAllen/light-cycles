@@ -53,7 +53,7 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 app.post("/matchmake", function(request, response){
 	response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"));
 });
-app.post("/global-stats", function(){
+app.post("/global-stats", function(request, resposne){
 	db.collection("players", function(error, coll){
 			if (error){
 	 			console.log("Error: " + error);
