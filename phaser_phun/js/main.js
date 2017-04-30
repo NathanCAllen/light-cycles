@@ -5,8 +5,15 @@ console.log("Let's start the party!");
 var Client = {};
 Client.socket = io.connect();
 var username = localStorage.getItem("username");
+<<<<<<< HEAD
+=======
 console.log("username is " + username);
 Client.socket.emit('newplayer', username);
+<<<<<<< HEAD
+=======
+var pink = "pinky";
+>>>>>>> origin/master
+>>>>>>> f1ae3084a7f33bae4808f5eb8407205958c6b22e
 
 var LightBikes = function (game) {
 
@@ -59,12 +66,12 @@ LightBikes.prototype = {
 
                 this.layer = this.map.createLayer('Tile Layer 1');
 
-                this.map.setCollision(1, true, this.layer); //set edges as collision
+                this.map.setCollision(1, true, this.layer);
 
                 this.bike = [];
-                this.bike.push(this.add.sprite(48, 0, 'player'));
+                this.bike.push(this.add.sprite(0, 320, 'player'));
                 this.enemy = [];
-                this.enemy.push(this.add.sprite(240, 0, 'enemy'));
+                this.enemy.push(this.add.sprite(624, 320, 'enemy'));
                 // this.increaseLength(this.bike);
                 // this.increaseLength(this.enemy);
                 this.bike[0].anchor.set(0);
@@ -76,7 +83,14 @@ LightBikes.prototype = {
                 this.cursors = this.input.keyboard.createCursorKeys();
 
                 this.move(this.bike, Phaser.DOWN);
-                this.move(this.enemy, Phaser.DOWN)
+                this.move(this.enemy, Phaser.DOWN);
+
+                game.paused = true;
+                Client.socket.emit('newplayer', username);
+
+                Client.socket.on("start", function() {
+                        game.paused = false;
+                });
         },
 
         increaseLength: function (player) {

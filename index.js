@@ -162,7 +162,10 @@ io.on('connection',function(socket){
     		"room": room
     	}
     	if (data == 'bleep' || data == "frank"){
-		room = "special";
+			room = "special";
+			socket.broadcast.to(room).emit('start');
+			socket.emit("start");
+
 	    	}
     	//if waiting opponent, place into game
 		else if (waiting_rooms.length != 0){
@@ -170,8 +173,8 @@ io.on('connection',function(socket){
 			insert_room(full_rooms, room);
 			player.room = room;
 			waiting_rooms.splice(0,1);
-			socket.broadcast.to(room).emit('opponent found');
-			socket.emit("opponent found")
+			socket.broadcast.to(room).emit('start');
+			socket.emit("start");
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
