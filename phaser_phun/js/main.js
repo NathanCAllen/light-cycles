@@ -107,22 +107,22 @@ LightBikes.prototype = {
 
 	enemyMovement: function () {
 
-		// if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
-		// 	console.log("Left Party");
-		// 	player.next = Phaser.LEFT;
-		// } else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
-		// 	console.log("Right Party");
-		// 	player.next = Phaser.RIGHT;
-		// } else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
-		// 	console.log("Up Party");
-		// 	player.next = Phaser.UP;
-		// } else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
-		// 	console.log("Down Party");
-		// 	player.next = Phaser.DOWN;
-		// } else {
-		// 	//  This forces them to hold the key down to turn the corner
-		// 	this.turning = Phaser.NONE;
-		// }
+		if (this.cursors.left.isDown && this.enemy.next !== Phaser.RIGHT) {
+			console.log("Left Party");
+			this.enemy.next = Phaser.LEFT;
+		} else if (this.cursors.right.isDown && this.enemy.next !== Phaser.LEFT) {
+			console.log("Right Party");
+			this.enemy.next = Phaser.RIGHT;
+		} else if (this.cursors.up.isDown && this.enemy.next !== Phaser.DOWN) {
+			console.log("Up Party");
+			this.enemy.next = Phaser.UP;
+		} else if (this.cursors.down.isDown && this.enemy.next !== Phaser.UP) {
+			console.log("Down Party");
+			this.enemy.next = Phaser.DOWN;
+		} else {
+			//  This forces them to hold the key down to turn the corner
+			this.turning = Phaser.NONE;
+		}
         },
 
         move: function (player, direction) {
