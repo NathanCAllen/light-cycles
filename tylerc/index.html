@@ -5,23 +5,44 @@
 	<title>Light Cycles 2: A Reactionary Tale</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <!-- take this out later and move it to game files -->
 <script src="/socket.io/socket.io.js"></script>
 <script src="test_client.js"></script>
 
+
 <script>
+
+  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game, Really", "Escapade X", "Rated #1 On-Line Video Game of 2017", "An Excercise in Futility", "Just Like in Spy Kids 3-D"]
+
   function onLogin() {
     var username = document.getElementById("userinput1");
     var password = document.getElementById("userinput2");
     localStorage.setItem("username",username);
     localStorage.setItem("password",password);
+    var count = parseInt(localStorage.getItem("count"),10)+1;
+    localStorage.setItem("count",count);
   }
+
+  function onRegister() {
+    localStorage.setItem("count",1);
+  }
+
+  $(document).ready(function(){
+    var number = parseInt(localStorage.getItem("count"),10);
+    if (number != null) {
+      $("#title").html("Light Cycles " + number);
+    }
+    number = Math.floor(Math.random()*subtitles.length);
+    $("#subtitle").html(subtitles[number]);
+  });
+
 </script>
 
 <body>
-	<h1>Light Cycles 2</h1>
-	<h2>A Reactionary Tale</h2>
+	<h1 id="title">Light Cycles 2</h1>
+	<h2 id="subtitle">A Reactionary Tale</h2>
 
 	<p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
 
@@ -74,11 +95,10 @@
         <p>
           <label>Password</label>
           <input type="password" id="password" value="secret">
-          <input type="submit" value="Register">
+          <input type="submit" value="Register" onclick="onRegister()">
         </p>
       </fieldset>
     </form> 
 
 </body>
-
 </html>
