@@ -75,8 +75,10 @@ LightBikes.prototype = {
 
                 // this.move(this.bike, Phaser.RIGHT);
                 this.bike.next = Phaser.RIGHT;
+                this.bike.current = Phaser.RIGHT;
                 // this.move(this.enemy, Phaser.LEFT);
                 this.enemy.next = Phaser.LEFT;
+                this.enemy.current = Phaser.LEFT;
 
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
@@ -253,7 +255,7 @@ LightBikes.prototype = {
 
                 this.checkKeys(this.bike);
 
-                if ((this.getTimeStamp() - this.lastUpdate) < 500) {
+                if ((this.getTimeStamp() - this.lastUpdate) < 250) {
                         return;
                 };
 
