@@ -192,6 +192,7 @@ LightBikes.prototype = {
         update: function () {
 
         	this.checkCollideSelf(this.car);
+        	
         	this.checkCollideSelf(this.enemy);
 
         	if ((this.getTimeStamp() - this.lastUpdate) < 100) {
