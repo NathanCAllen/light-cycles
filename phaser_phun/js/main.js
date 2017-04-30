@@ -5,6 +5,12 @@ console.log("Let's start the party!");
 var Client = {};
 Client.socket = io.connect();
 var username = localStorage.getItem("username");
+<<<<<<< HEAD
+=======
+console.log("username is " + username);
+Client.socket.emit('newplayer', username);
+var pink = "pinky";
+>>>>>>> origin/master
 
 var LightBikes = function (game) {
 
