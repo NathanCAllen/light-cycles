@@ -2,13 +2,22 @@
 <html>
 <head>
   <title>Light Cycles 2: A Reactionary Tale</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <?php
+    include 'Mobile_Detect.php';
+    $detect = new Mobile_Detect;
+
+    if ($detect->isMobile()) 
+    {
+      ?>
+      <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    <?php }
+    else
+     { ?>
+      <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    <?php } ?>
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
 </head>
-<!-- take this out later and move it to game files -->
-<!-- <script src="/socket.io/socket.io.js"></script>
-<script src="test_client.js"></script>
- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 
 function ELO_sort(a,b){
@@ -20,7 +29,7 @@ function ELO_sort(a,b){
     return -1;
   return 0;
 }
-$.post( "global_stats", function(data){
+$.post( "global-stats", function(data){
   var stats  = "<legend>Leader Board</legend>";
   var player;
   var ELO;
@@ -32,7 +41,7 @@ $.post( "global_stats", function(data){
 
   }
 
-      $(".leaderBoard").html(stats);
+      $("#leaderBoard").html(stats);
 
 });
 
