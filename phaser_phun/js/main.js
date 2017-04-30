@@ -1,10 +1,6 @@
 function start_function(){
-        Client.socket.emit('newplayer', username);
-
-        Client.socket.on("start", function() {
-                game.paused = false;
-        });
-};
+        game.paused = false;
+};  
 
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
@@ -88,10 +84,11 @@ LightBikes.prototype = {
                 this.enemyMovement();
 
                 game.paused = true;
-
-                setTimeout('start_function()', 3000);
-                
-            },
+                Client.socket.emit('newplayer', username);
+                Client.socket.on("start", function() {
+                        setTimeout('start_function()', 3000);  
+                }
+        },
 
         increaseLength: function (player) {
                 var x = player[0].x;
