@@ -162,16 +162,7 @@ io.on('connection',function(socket){
     		/* neccesary user data goes here---TBD */
     		"room": room
     	}
-    	if (data == 'bleep' || data == "frank"){
-			room = "special";
-			player.room = room;
-			socket.player = player;
-			socket.join(room);
-			if (io.sockets.adapter.rooms[room].length == 2){
-				io.sockets.in(room).emit("start");			
-			}
 
-	    }
     	//if waiting opponent, place into game
 		else if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
@@ -181,8 +172,9 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-
-			io.sockets.in(room).emit("start");			
+			var start_time = new Dstart_timete().getTime();
+			start_time = start_time + 10000;
+			io.sockets.in(room).emit("start", a);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
