@@ -82,13 +82,14 @@ LightBikes.prototype = {
 
                 game.paused = true;
 
-                 setTimeout(5000, function(){
+                 setTimeout(start_function(), 5000)
+                 function start_function(){
                     Client.socket.emit('newplayer', username);
 
                     Client.socket.on("start", function() {
                         game.paused = false;
                     });
-                 }); 
+                 }; 
             },
 
         increaseLength: function (player) {
