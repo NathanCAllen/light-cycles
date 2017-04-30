@@ -163,8 +163,10 @@ io.on('connection',function(socket){
     	}
     	if (data == 'bleep' || data == "frank"){
 			room = "special";
-			socket.broadcast.to(room).emit('start');
-			socket.emit("start");
+			if (io.sockets.adapter.rooms[room].length == 2){
+				socket.broadcast.to(room).emit('start');
+				socket.emit("start");
+			}
 
 	    	}
     	//if waiting opponent, place into game
@@ -196,8 +198,7 @@ io.on('connection',function(socket){
 		player.room = room;
 		socket.player = player;
 		socket.join(room);
-		console.log("room is " + room);
-		console.log("number or rooms should be one and it is  " + io.sockets.adapter.rooms[room].length);
+		console.log("number or players in room " + room + " is  " + io.sockets.adapter.rooms[room].length);
 
 
 	});
