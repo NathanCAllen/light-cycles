@@ -249,7 +249,7 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                if ((this.getTimeStamp() - this.lastUpdate) < 100) {
+                if ((this.getTimeStamp() - this.lastUpdate) < 1000) {
                         return;
                 };
 
