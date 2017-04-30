@@ -167,8 +167,7 @@ io.on('connection',function(socket){
 			socket.player = player;
 			socket.join(room);
 			if (io.sockets.adapter.rooms[room].length == 2){
-				socket.broadcast.to(room).emit('start');
-				socket.emit("start");
+				io.sockets.in(room).emit("start");			
 			}
 
 	    }
@@ -182,8 +181,7 @@ io.on('connection',function(socket){
 			socket.player = player;
 			socket.join(room);
 
-			socket.broadcast.to(room).emit('start');
-			socket.emit("start");
+			io.sockets.in(room).emit("start");			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
