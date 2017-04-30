@@ -89,7 +89,7 @@ LightBikes.prototype = {
 
                 game.paused = true;
 
-                setTimeout('start_function()', 3000)
+                setTimeout('start_function()', 3000);
                 
             },
 
