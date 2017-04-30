@@ -84,6 +84,8 @@ LightBikes.prototype = {
                 Client.socket.on("start", function() {
                         game.paused = false;
                 });
+
+                this.enemyMovement();
         },
 
         increaseLength: function (player) {
@@ -249,16 +251,16 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                if ((this.getTimeStamp() - this.lastUpdate) < 1000) {
+                this.checkKeys(this.bike);
+
+                if ((this.getTimeStamp() - this.lastUpdate) < 500) {
                         return;
                 };
 
                 this.physics.arcade.collide(this.bike[0], this.layer);
                 this.physics.arcade.collide(this.enemy[0], this.layer);
 
-                this.checkKeys(this.bike);
 
-                this.enemyMovement();
 
                 this.lastUpdate = new Date();
 
