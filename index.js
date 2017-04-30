@@ -9,12 +9,6 @@ var express = require('express')
  var io = require('socket.io').listen(server);
 
 
-var port = process.env.PORT || 8080;
-
-
- //var server = http.createServer(app);
-
-
 var path = require('path');
 
 
@@ -22,15 +16,14 @@ app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- // server.listen(8080, function(){
- // 	console.log("local server running");
- // });
-
-  server.listen(process.env.PORT, function(){
- 	console.log("non-local server running");
+ server.listen(8080, function(){
+ 	console.log("local server running");
  });
 
- // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
+ //  server.listen(process.env.PORT, function(){
+ // 	console.log("non-local server running");
+ // });
+
 
 
 
@@ -127,11 +120,9 @@ app.post("/login", function(request, response){
 		else{
 			coll.findOne({"username": username, "password": password}, function(error, item){
 				if (item == null){
-					//change this later to what we'll actually send
 					response.sendFile(path.join(__dirname + "/public/" + "login-incorrect.html"))
 				}
 				else{
-					//check for password
 					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
 				}
 			});
@@ -165,7 +156,7 @@ io.on('connection',function(socket){
     	console.log("data is " + data);
     	var room = "";
     	var player = {
-    		"id" : data, //this might just be data, not data.username
+    		"id" : data, 
 
     		/* neccesary user data goes here---TBD */
     		"room": room
@@ -208,7 +199,29 @@ io.on('connection',function(socket){
 
  	//lol who knows how gameplay will work fuck everything
    
+ 	socket.on('left', function(){
+ 		socket.broadcast.to(socket.player.room).emit('left');
 
+ 	});
+
+ 	socket.on('right', function(){
+ 		socket.broadcast.to(socket.player.room).emit('right');
+
+ 	});
+
+ 	socket.on('up', function(){
+ 		socket.broadcast.to(socket.player.room).emit('up');
+
+ 	});
+
+ 	socket.on('down', function(){
+ 		socket.broadcast.to(socket.player.room).emit('down');
+
+ 	});
+
+ 	socket.on('win', function(){
+ 		
+ 	});
     socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
