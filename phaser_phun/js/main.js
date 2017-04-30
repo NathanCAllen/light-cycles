@@ -7,7 +7,6 @@ Client.socket = io.connect();
 var username = localStorage.getItem("username");
 console.log("username is " + username);
 Client.socket.emit('newplayer', username);
-var pink = "pinky";
 
 var LightBikes = function (game) {
 
