@@ -164,7 +164,7 @@ io.on('connection',function(socket){
     	}
 
     	//if waiting opponent, place into game
-		else if (waiting_rooms.length != 0){
+		if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
 			insert_room(full_rooms, room);
 			waiting_rooms.splice(0,1);
