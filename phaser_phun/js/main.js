@@ -253,7 +253,7 @@ LightBikes.prototype = {
 
                 this.checkKeys(this.bike);
 
-                if ((this.getTimeStamp() - this.lastUpdate) < 250) {
+                if ((this.getTimeStamp() - this.lastUpdate) < 375) {
                         return;
                 };
 
