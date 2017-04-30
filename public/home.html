@@ -2,7 +2,19 @@
 <html>
 <head>
   <title>Light Cycles 2: A Reactionary Tale</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <?php
+    include 'Mobile_Detect.php';
+    $detect = new Mobile_Detect;
+
+    if ($detect->isMobile()) 
+    {
+      ?>
+      <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    <?php }
+    else
+     { ?>
+      <link rel="stylesheet" type="text/css" href="mobileStyle.css">
+    <?php } ?>
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
 </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

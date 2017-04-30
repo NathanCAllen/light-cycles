@@ -88,7 +88,7 @@ LightBikes.prototype = {
                 Client.socket.on("start", function() {
                         setTimeout('start_function()', 3000);
                         this.lastUpdate = new Date().getTime();
-                }
+                });
         },
 
         increaseLength: function (player) {
