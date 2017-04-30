@@ -81,12 +81,15 @@ LightBikes.prototype = {
                 this.enemyMovement();
 
                 game.paused = true;
-                Client.socket.emit('newplayer', username);
 
-                Client.socket.on("start", function() {
+                setTimeout(5000, function(){
+                    Client.socket.emit('newplayer', username);
+
+                    Client.socket.on("start", function() {
                         game.paused = false;
-                });
-        },
+                    });
+                }); 
+            },
 
         increaseLength: function (player) {
                 var x = player[0].x;
