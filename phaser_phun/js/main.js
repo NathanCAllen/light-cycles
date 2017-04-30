@@ -2,6 +2,11 @@ var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
 console.log("Let's start the party!");
 
+var Client = {};
+Client.socket = io.connect();
+var username = localStorage.getItem("username");
+Client.socket.emit('newplayer', username);
+
 var LightBikes = function (game) {
 
 	console.log("Pizza Party");
@@ -89,15 +94,19 @@ LightBikes.prototype = {
 
 		if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
 			console.log("Left Party");
+			Client.socket.emit("left");
 			player.next = Phaser.LEFT;
 		} else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
 			console.log("Right Party");
+			Client.socket.emit("right");
 			player.next = Phaser.RIGHT;
 		} else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
 			console.log("Up Party");
+			Client.socket.emit("up");
 			player.next = Phaser.UP;
 		} else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
 			console.log("Down Party");
+			Client.socket.emit("down");
 			player.next = Phaser.DOWN;
 		} else {
 			//  This forces them to hold the key down to turn the corner
@@ -106,23 +115,36 @@ LightBikes.prototype = {
         },
 
 	enemyMovement: function () {
-
-		if (this.cursors.left.isDown && this.enemy.next !== Phaser.RIGHT) {
-			console.log("Left Party");
+		Client.socket.on("left", function() {
 			this.enemy.next = Phaser.LEFT;
-		} else if (this.cursors.right.isDown && this.enemy.next !== Phaser.LEFT) {
-			console.log("Right Party");
+		});
+		Client.socket.on("right", function() {
 			this.enemy.next = Phaser.RIGHT;
-		} else if (this.cursors.up.isDown && this.enemy.next !== Phaser.DOWN) {
-			console.log("Up Party");
+		});
+		Client.socket.on("up", function() {
 			this.enemy.next = Phaser.UP;
-		} else if (this.cursors.down.isDown && this.enemy.next !== Phaser.UP) {
-			console.log("Down Party");
+		});
+		Client.socket.on("down", function() {
 			this.enemy.next = Phaser.DOWN;
-		} else {
-			//  This forces them to hold the key down to turn the corner
-			this.turning = Phaser.NONE;
-		}
+		});
+
+
+		// if (this.cursors.left.isDown && this.enemy.next !== Phaser.RIGHT) {
+		// 	console.log("Left Party");
+		// 	this.enemy.next = Phaser.LEFT;
+		// } else if (this.cursors.right.isDown && this.enemy.next !== Phaser.LEFT) {
+		// 	console.log("Right Party");
+		// 	this.enemy.next = Phaser.RIGHT;
+		// } else if (this.cursors.up.isDown && this.enemy.next !== Phaser.DOWN) {
+		// 	console.log("Up Party");
+		// 	this.enemy.next = Phaser.UP;
+		// } else if (this.cursors.down.isDown && this.enemy.next !== Phaser.UP) {
+		// 	console.log("Down Party");
+		// 	this.enemy.next = Phaser.DOWN;
+		// } else {
+		// 	//  This forces them to hold the key down to turn the corner
+		// 	this.turning = Phaser.NONE;
+		// }
         },
 
         move: function (player, direction) {
@@ -172,10 +194,10 @@ LightBikes.prototype = {
 
         checkBoundaries: function (player) {
         	if(player[0].x >= this.width - 1 || player[0].x < 0) {
-			this.gameOver("You ");
+			this.gameOver("You");
 		}
 		if(player[0].y >= this.height - 1 || player[0].y < 0) {
-			this.gameOver("You ");
+			this.gameOver("You");
 		}
         },
 
@@ -183,17 +205,30 @@ LightBikes.prototype = {
 		for(var i = 2; i < player.length; i++) {
 			if(player[0].body.hitTest(player[i].x, player[i].y)) {
 				// console.log(i);
-				this.gameOver("You ");
+				this.gameOver("You");
 			}
 		}
 
         },
 
+        checkCollideOther: function () {
+        	for (var i = 1; i < this.car.length; i++) {
+        		if (this.enemy[0].body.hitTest(this.car[i].x, this.car[i].y)) {
+        			this.gameOver(this.enemy.name);
+        		}
+        	}
+        	for (var i = 1; i < this.enemy.length; i++) {
+        		if (this.car[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
+        			this.gameOver("You");
+        		}
+        	}
+        },
+
         update: function () {
 
         	this.checkCollideSelf(this.car);
-        	
         	this.checkCollideSelf(this.enemy);
+        	this.checkCollideOther();
 
         	if ((this.getTimeStamp() - this.lastUpdate) < 100) {
         		// console.log("Steady now");
@@ -216,9 +251,9 @@ LightBikes.prototype = {
 
        		this.move(this.enemy, this.enemy.next);
 
-        	if (this.turning !== Phaser.NONE) {
-        		this.turn();
-        	};
+        	// if (this.turning !== Phaser.NONE) {
+        	// 	this.turn();
+        	// };
 
         },
 
