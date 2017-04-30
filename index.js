@@ -16,13 +16,13 @@ app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- server.listen(8080, function(){
- 	console.log("local server running");
- });
-
- //  server.listen(process.env.PORT, function(){
- // 	console.log("non-local server running");
+ // server.listen(8080, function(){
+ // 	console.log("local server running");
  // });
+
+  server.listen(process.env.PORT, function(){
+ 	console.log("non-local server running");
+ });
 
 
 
@@ -161,9 +161,11 @@ io.on('connection',function(socket){
     		/* neccesary user data goes here---TBD */
     		"room": room
     	}
-
+    	if (data == 'bleep' || data == "frank"){
+		room = "special";
+	    	}
     	//if waiting opponent, place into game
-		if (waiting_rooms.length != 0){
+		else if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
 			insert_room(full_rooms, room);
 			player.room = room;
@@ -219,9 +221,9 @@ io.on('connection',function(socket){
 
  	});
 
- 	socket.on('win', function(){
- 		
- 	});
+ 	// socket.on('win', function(){
+
+ 	// });
     socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
