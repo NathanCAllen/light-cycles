@@ -168,6 +168,7 @@ io.on('connection',function(socket){
 			socket.join(room);
 			if (io.sockets.adapter.rooms[room].length == 2){
 				socket.broadcast.to(room).emit('start');
+				socket.emit("start");
 			}
 
 	    }
@@ -180,8 +181,9 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			
+
 			socket.broadcast.to(room).emit('start');
+			socket.emit("start");
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
@@ -202,9 +204,6 @@ io.on('connection',function(socket){
 			socket.join(room);
 
 		}
-		player.room = room;
-		socket.player = player;
-		socket.join(room);
 		console.log("number or players in room " + room + " is  " + io.sockets.adapter.rooms[room].length);
 
 
