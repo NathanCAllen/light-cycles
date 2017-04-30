@@ -78,14 +78,14 @@ LightBikes.prototype = {
                 // this.move(this.enemy, Phaser.LEFT);
                 this.enemy.next = Phaser.LEFT;
 
+                this.enemyMovement();
+
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
 
                 Client.socket.on("start", function() {
                         game.paused = false;
                 });
-
-                this.enemyMovement();
         },
 
         increaseLength: function (player) {
