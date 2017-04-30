@@ -73,10 +73,10 @@ LightBikes.prototype = {
 
                 this.cursors = this.input.keyboard.createCursorKeys();
 
-                this.move(this.bike, Phaser.RIGHT);
+                // this.move(this.bike, Phaser.RIGHT);
                 this.bike.next = Phaser.RIGHT;
-                this.move(this.enemy, Phaser.LEFT);
-                this.bike.next = Phaser.LEFT;
+                // this.move(this.enemy, Phaser.LEFT);
+                this.enemy.next = Phaser.LEFT;
 
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
