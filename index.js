@@ -50,8 +50,10 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 
-/*
-app.get("/global-stats", function(request, response){
+app.post("/matchmake", function(request, response){
+	response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"));
+});
+app.post("/global-stats", function(){
 	db.collection("players", function(error, coll){
 			if (error){
 	 			console.log("Error: " + error);
@@ -67,7 +69,6 @@ app.get("/global-stats", function(request, response){
 		});
 
 });
-*/
 
 var default_ELO = 1200; // subject to change
 
