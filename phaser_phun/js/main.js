@@ -1,10 +1,10 @@
- function start_function(){
-                    Client.socket.emit('newplayer', username);
+function start_function(){
+        Client.socket.emit('newplayer', username);
 
-                    Client.socket.on("start", function() {
-                        game.paused = false;
-                    });
-                 }; 
+        Client.socket.on("start", function() {
+                game.paused = false;
+        });
+};
 
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
@@ -21,8 +21,7 @@ var LightBikes = function (game) {
         this.layer = null;
         this.bike = null;
         this.enemy = null;
-        
-        // this.stage.scale.pageAlignHorizontally = true;
+
         this.width = 640;
         this.height = 640;
 
@@ -65,7 +64,7 @@ LightBikes.prototype = {
 
                 this.layer = this.map.createLayer('Tile Layer 1');
 
-                this.map.setCollision(1, true, this.layer);
+                // this.map.setCollision(1, true, this.layer);
 
                 this.bike = [];
                 this.bike.push(this.add.sprite(0, 320, 'player'));
