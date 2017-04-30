@@ -86,7 +86,8 @@ LightBikes.prototype = {
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function() {
-                        setTimeout('start_function()', 3000);  
+                        setTimeout('start_function()', 3000);
+                        this.lastUpdate = new Date().getTime();
                 }
         },
 
@@ -264,7 +265,7 @@ LightBikes.prototype = {
 
 
 
-                this.lastUpdate = new Date();
+                this.lastUpdate = new Date().getTime();
 
                 this.move(this.bike, this.bike.next);
 
