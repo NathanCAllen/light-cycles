@@ -176,9 +176,11 @@ io.on('connection',function(socket){
 			room = waiting_rooms[0];
 			insert_room(full_rooms, room);
 			waiting_rooms.splice(0,1);
+
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
+			
 			socket.broadcast.to(room).emit('start');
 		}
 		//if no waiting rooms, place  empty rooms
