@@ -205,12 +205,12 @@ io.on('connection',function(socket){
  	//lol who knows how gameplay will work fuck everything
    
  	socket.on('left', function(){
- 		socket.broadcast.to(socket.player.room).emit('left');
+ 		socket.broadcast.to(socket.player.room).emit('right');
 
  	});
 
  	socket.on('right', function(){
- 		socket.broadcast.to(socket.player.room).emit('right');
+ 		socket.broadcast.to(socket.player.room).emit('left');
 
  	});
 
