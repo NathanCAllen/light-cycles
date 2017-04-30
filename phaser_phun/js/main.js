@@ -82,7 +82,6 @@ LightBikes.prototype = {
                 Client.socket.emit('newplayer', username);
 
                 Client.socket.on("start", function() {
-                    alert("game is unpausing");
                         game.paused = false;
                 });
 
