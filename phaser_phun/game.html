@@ -2,24 +2,26 @@
 <html>
 <head>
   <title>Light Cycles 2</title>
-  <link rel="stylesheet" type="text/css" href="game-style.css">
+  <?php
+    include 'Mobile_Detect.php';
+    $detect = new Mobile_Detect;
+
+    if ($detect->isMobile()) 
+    {
+      ?>
+      <link rel="stylesheet" type="text/css" href="mobile-game-style.css">
+    <?php }
+    else
+     { ?>
+      <link rel="stylesheet" type="text/css" href="game-style.css">
+    <?php } ?>
   <script class="item" id="a" src="lib/phaser.min.js"></script>
-  <script class="item" id="b" src="/socket.io/socket.io.js"></script>
-  <script class="item" id="gameboard" src="js/main.js"></script>
+  <script class="item" id="b"src="/socket.io/socket.io.js"></script>
+  <script class="item" id="gameboard"src="js/main.js"></script>
   <meta charset="utf-8"/>
 </head>
 <body>
-        <style type="text/css">
-                /*we can move this to a different file at a later date*/
-                body {
-                        background-color: rgb(61,180,193); 
-                        /*color needs to be changed to match game outline*/
-                }
-                canvas {
-                        display : block;
-                        margin : auto;
-                }
-        </style>
-        <p> <img class="item" id="arrowKeys" src="res/arrow-keys.png" alt="arrow keys" /></p>
+	<p> <img class="item" id="arrowKeys" src="res/arrow-keys.png" alt="arrow keys" /></p>
+        
 </body>
 </html>
