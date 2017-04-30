@@ -5,10 +5,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
 </head>
-<!-- take this out later and move it to game files -->
-<!-- <script src="/socket.io/socket.io.js"></script>
-<script src="test_client.js"></script>
- -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 
 function ELO_sort(a,b){
@@ -32,7 +29,7 @@ $.post( "global_stats", function(data){
 
   }
 
-      $(".leaderBoard").html(stats);
+      $("#leaderBoard").html(stats);
 
 });
 
