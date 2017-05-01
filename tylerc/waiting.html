@@ -10,10 +10,6 @@
 
 	<script>
 
-  		$(document).ready(function(){
-    		getStats();
-  		});
-
   		var username = localStorage.getItem("username");
 
   		$.post( "player-stats", username, function(data){
