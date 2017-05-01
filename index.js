@@ -246,7 +246,7 @@ io.on('connection',function(socket){
 				
 	 			playr.record.push("win");
 	 			playr.games_played = playr.games_played + 1;
-	 			playr.wins = playrs.wins + 1;
+	 			playr.wins = playr.wins + 1;
 	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
 	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
 				
