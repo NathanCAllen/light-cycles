@@ -91,7 +91,7 @@ LightBikes.prototype = {
                         console.log("now is " + time);
                         console.log("time difference is " + (delay - time));
                         setTimeout('start_function()', delay - time);
-                        this.lastUpdate = new Date().getTime();
+                    //    this.lastUpdate = new Date().getTime();
                 });
         },
 
