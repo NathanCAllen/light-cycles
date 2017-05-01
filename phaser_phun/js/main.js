@@ -2,7 +2,7 @@ function start_function(){
         game.paused = false;
 };  
 
-var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
+var game = new Phaser.Game(640, 640, Phaser.HEADLESS, '');
 
 console.log("Let's start the party!");
 
