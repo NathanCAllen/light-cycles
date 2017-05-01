@@ -241,7 +241,6 @@ LightBikes.prototype = {
         },
 
         update: function () {
-
                 var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
                 var collideOther = this.checkCollideOther();
@@ -251,10 +250,13 @@ LightBikes.prototype = {
                         youDie = true;
                 }
                 if (youDie && theyDie) {
+                    Client.socket.emit("draw");
                         this.gameOver(0);
                 } else if (youDie) {
+                    Client.socket.emit("lose");
                         this.gameOver(1);
                 } else if (theyDie) {
+                    Cliennt.socket.emit("win");
                         this.gameOver(2);
                 }
 
@@ -282,6 +284,7 @@ LightBikes.prototype = {
         },
 
         gameOver: function (loser) {
+
                 game.paused = true;
                 var style = {fill: '#F00'};
                 var text = this.add.text(game.width * .5, game.height * .5, "Game Over" + loser, style);
