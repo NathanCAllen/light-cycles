@@ -137,7 +137,7 @@ app.get('/', function(request, response) {
 
 });
 
-app.post("/time", function(request, repsonse){
+app.post("/time", function(request, response){
 	x = new Date().getTime();
 	response.send(x);
 })
