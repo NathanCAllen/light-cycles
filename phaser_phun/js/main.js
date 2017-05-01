@@ -256,7 +256,7 @@ LightBikes.prototype = {
                     Client.socket.emit("lose");
                         this.gameOver(1);
                 } else if (theyDie) {
-                    Cliennt.socket.emit("win");
+                    Client.socket.emit("win");
                         this.gameOver(2);
                 }
 
