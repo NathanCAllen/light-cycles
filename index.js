@@ -229,14 +229,14 @@ io.on('connection',function(socket){
 	 			console.log("Error: " + error);
 				response.send(500);
 	 		}
-	 		coll.findOne({"username": socket.player.username}, function(error, playr){
+	 		coll.findOne({"username": socket.player.id}, function(error, playr){
 				if (error){
 	 				console.log("Error: " + error);
 					response.send(500);
 	 			} 
 	 			playr.record.push("draw");
 	 			playr.games_played = playr.games_played + 1;
-	 			coll.update({"username" : socket.player.usernam}, playr, function(error, updates){
+	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
 					if (error){
 		 			console.log("Error: " + error);
 					response.send(500);
@@ -254,7 +254,7 @@ io.on('connection',function(socket){
 	 			console.log("Error: " + error);
 				response.send(500);
 	 		}
-	 		coll.findOne({"username": socket.player.username}, function(error, playr){
+	 		coll.findOne({"username": socket.player.id}, function(error, playr){
 				if (error){
 	 				console.log("Error: " + error);
 					response.send(500);
@@ -263,7 +263,7 @@ io.on('connection',function(socket){
 	 			playr.games_played = playr.games_played + 1;
 	 			playr.wins = playrs.wins + 1;
 	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
-	 			coll.update({"username" : socket.player.usernam}, playr, function(error, updates){
+	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
 					if (error){
 		 			console.log("Error: " + error);
 					response.send(500);
