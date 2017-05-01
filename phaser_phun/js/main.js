@@ -1,6 +1,4 @@
 function start_function(){
-    var y = new Date()
-    console.log("about to unpause at " + y.getTime());
         game.paused = false;
 };  
 
@@ -87,10 +85,9 @@ LightBikes.prototype = {
 
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
-                Client.socket.on("start", function() {
-                        var x = new Date();
-                        console.log("in start at " + x.getTime())
-                        setTimeout('start_function()', 3000);
+                Client.socket.on("start", function(delay) {
+                        var time = new Date().getTime();
+                        setTimeout('start_function()', delay - time);
                         this.lastUpdate = new Date().getTime();
                 });
         },
