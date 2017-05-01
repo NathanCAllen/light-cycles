@@ -2,7 +2,7 @@ function start_function(){
         game.paused = false;
 };  
 
-var game = new Phaser.Game(640, 640, Phaser.HEADLESS, '');
+var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
 console.log("Let's start the party!");
 
@@ -87,7 +87,7 @@ LightBikes.prototype = {
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(delay) {
                         console.log("meeting time is " + delay);
-                        var time = new Date().getTime();
+                        var time = new Date().getUTCMilliseconds());
                         console.log("now is " + time);
                         console.log("time difference is " + (delay - time));
                         setTimeout('start_function()', delay - time);

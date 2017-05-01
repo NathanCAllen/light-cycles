@@ -172,7 +172,7 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			var start_time = new Date().getTime();
+			var start_time = new Date().getUTCMilliseconds();
 			start_time = start_time + 10000;
 			io.sockets.in(room).emit("start", start_time);			
 		}
