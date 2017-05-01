@@ -52,23 +52,29 @@ fieldset.stats {
 	text-align: left;	
 
 }
+fieldset.log {
+	width: 100%;
+	display: flex;
+}
 
 #login {
+	width: 30%;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
 	font-size: 30px;
 	text-align: center;
+	margin: auto;
 
 }
 
 #register {
+	width: 30%;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
 	font-size: 30px;
 	text-align: center;
-	margin-left: 40%;
-	margin-right: 40%;
+	margin: auto;
 	margin-top: 10px;
 }
