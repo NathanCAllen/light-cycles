@@ -139,7 +139,8 @@ app.get('/', function(request, response) {
 
 app.post("/time", function(request, response){
 	x = new Date().getTime();
-	response.send(x);
+	var ret = {"time": x};
+	response.send(ret);
 })
 
 function insert_room(arr, room){

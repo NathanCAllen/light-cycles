@@ -87,7 +87,8 @@ LightBikes.prototype = {
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(delay) {
                         console.log("meeting time is " + delay);
-                        $.post("time", function(time){
+                        $.post("time", function(data){
+                            var time = data.time;
                             console.log("now is " + time);
                             console.log("time difference is " + (delay - time));
                             setTimeout('start_function()', delay - time);
