@@ -164,7 +164,7 @@ io.on('connection',function(socket){
     	}
 
     	//if waiting opponent, place into game
-		else if (waiting_rooms.length != 0){
+		if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
 			insert_room(full_rooms, room);
 			waiting_rooms.splice(0,1);
@@ -172,7 +172,7 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			var start_time = new Dstart_timete().getTime();
+			var start_time = new Date().getTime();
 			start_time = start_time + 10000;
 			io.sockets.in(room).emit("start", a);			
 		}
