@@ -125,7 +125,7 @@ app.post("/login", function(request, response){
 					response.sendFile(path.join(__dirname + "/public/" + "login-incorrect.html"))
 				}
 				else{
-					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
+					response.sendFile(path.join(__dirname + "/phaser_phun/" + "waiting.html"))
 				}
 			});
 		}
