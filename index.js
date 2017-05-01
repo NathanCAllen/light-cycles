@@ -84,6 +84,7 @@ app.post("/register", function(request, response){
 		"password": password,
 		"wins": 0,
 		"losses": 0,
+		"games_played":0,
 		"ELO": [default_ELO], //Default ELO subject to change
 		"record": []
 	};
@@ -221,10 +222,56 @@ io.on('connection',function(socket){
  		socket.broadcast.to(socket.player.room).emit('down');
 
  	});
+ 	socket.on("draw", function(){
 
- 	// socket.on('win', function(){
+ 		db.collection("players", function(error, coll){
+			if (error){
+	 			console.log("Error: " + error);
+				response.send(500);
+	 		}
+	 		coll.findOne({"username": socket.player.username}, function(error, playr){
+				if (error){
+	 				console.log("Error: " + error);
+					response.send(500);
+	 			} 
+	 			playr.record.push("draw");
+	 			playr.games_played = playr.games_played + 1;
+	 			coll.update({"username" : socket.player.usernam}, playr, function(error, updates){
+					if (error){
+		 			console.log("Error: " + error);
+					response.send(500);
+		 			}
+	 			});
+	 		});
+	 	});
 
- 	// });
+ 	});
+ 	
+
+ 	 socket.on('win', function(){
+ 	 	db.collection("players", function(error, coll){
+			if (error){
+	 			console.log("Error: " + error);
+				response.send(500);
+	 		}
+	 		coll.findOne({"username": socket.player.username}, function(error, playr){
+				if (error){
+	 				console.log("Error: " + error);
+					response.send(500);
+	 			} 
+	 			playr.record.push("win");
+	 			playr.games_played = playr.games_played + 1;
+	 			playr.wins = playrs.wins + 1;
+	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
+	 			coll.update({"username" : socket.player.usernam}, playr, function(error, updates){
+					if (error){
+		 			console.log("Error: " + error);
+					response.send(500);
+		 			}
+	 			});
+	 		});
+	 	});
+ 	 });
     socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
