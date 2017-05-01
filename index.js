@@ -174,7 +174,7 @@ io.on('connection',function(socket){
 			socket.join(room);
 			var start_time = new Date().getTime();
 			start_time = start_time + 10000;
-			io.sockets.in(room).emit("start", a);			
+			io.sockets.in(room).emit("start", start_time);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
