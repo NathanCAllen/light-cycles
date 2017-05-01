@@ -136,6 +136,27 @@ app.get('/', function(request, response) {
 
 });
 
+app.post("/player-stats", function(request, response) {
+	console.log("retrieving player stats");
+	var username = request.body.username;
+	db.collection("players", function(error, coll){
+		if (error) {
+			console.log("Error: " + error);
+			response.send(500);
+		}
+		else {
+			coll.findOne({"username":username}, function(error, item) {
+				if (item == null) {
+					response.send("this shouldn't be possible");
+				}
+				else {
+					response.send(JSON.stringify(item));
+				}
+			})
+		}
+	});
+});
+
 
 function insert_room(arr, room){
 	for (i = 0; i < arr.length; i++){
