@@ -9,12 +9,6 @@ var express = require('express')
  var io = require('socket.io').listen(server);
 
 
-var port = process.env.PORT || 8080;
-
-
- //var server = http.createServer(app);
-
-
 var path = require('path');
 
 
@@ -22,15 +16,14 @@ app.use(express.static('public'));
 app.use(express.static("phaser_phun"));
 
 
- server.listen(8080, function(){
- 	console.log("local server running");
- });
-
- //  server.listen(process.env.PORT, function(){
- // 	console.log("non-local server running");
+ // server.listen(8080, function(){
+ // 	console.log("local server running");
  // });
 
- // app.listen(process.env.PORT, function(){console.log("port is +" proces.env.PORT)});
+  server.listen(process.env.PORT, function(){
+ 	console.log("non-local server running");
+ });
+
 
 
 
@@ -57,8 +50,10 @@ var db = MongoClient.connect(mongoUri, function(error, databaseConnection) {
 });
 
 
-/*
-app.get("/global-stats", function(request, response){
+app.post("/matchmake", function(request, response){
+	response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"));
+});
+app.post("/global-stats", function(request, response){
 	db.collection("players", function(error, coll){
 			if (error){
 	 			console.log("Error: " + error);
@@ -74,14 +69,16 @@ app.get("/global-stats", function(request, response){
 		});
 
 });
-*/
 
 var default_ELO = 1200; // subject to change
 
 app.post("/register", function(request, response){
 	//may want to beef up the security on this
-	var username = request.body.username;
-	var password = request.body.password;
+	var username = request.body.user;
+	var password = request.body.pwd;
+	console.log("in register");
+	console.log("username is " + username);
+	console.log("passwrd is " + password);
 	var new_player = {
 		"username" : username,
 		"password": password,
@@ -94,12 +91,14 @@ app.post("/register", function(request, response){
 	db.collection("players", function(error, coll){
 		//check if username already takn
 		coll.findOne({"username":username}, function(error, item){
+			console.log("searched username is " + JSON.stringify(item));
 			if (item != null){
-				response.send("username already taken");
+
+					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"))
 			}
 			else{
 				coll.insert(new_player, function(error, update){
-					response.send("succesfully registered!");
+					response.sendFile(path.join(__dirname + "/public/" + "registration-success.html"))
 				});
 
 			}
@@ -122,12 +121,10 @@ app.post("/login", function(request, response){
 		else{
 			coll.findOne({"username": username, "password": password}, function(error, item){
 				if (item == null){
-					//change this later to what we'll actually send
-					response.send("username or password incorrect; try again");
+					response.sendFile(path.join(__dirname + "/public/" + "login-incorrect.html"))
 				}
 				else{
-					//check for password
-					response.sendFile(path.join(__dirname + "/private/" + "waiting-room.html"))
+					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
 				}
 			});
 		}
@@ -160,25 +157,27 @@ io.on('connection',function(socket){
     	console.log("data is " + data);
     	var room = "";
     	var player = {
-    		"id" : data, //this might just be data, not data.username
+    		"id" : data, 
 
     		/* neccesary user data goes here---TBD */
     		"room": room
     	}
 
     	//if waiting opponent, place into game
-		if (waiting_rooms.length != 0){
+		else if (waiting_rooms.length != 0){
 			room = waiting_rooms[0];
 			insert_room(full_rooms, room);
-			player.room = room;
 			waiting_rooms.splice(0,1);
-			socket.broadcast.to(room).emit('opponent found');
-			socket.emit("opponent found")
+
+			player.room = room;
+			socket.player = player;
+			socket.join(room);
+			var start_time = new Dstart_timete().getTime();
+			start_time = start_time + 10000;
+			io.sockets.in(room).emit("start", a);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
-			console.log("sending waiting to client side");
-			socket.emit("waiting");
 
 			//if no empty rooms, make one
 			if (empty_rooms.length == 0){
@@ -191,19 +190,41 @@ io.on('connection',function(socket){
 				insert_room(waiting_rooms, room);
 				empty_rooms.splice(0,1);
 			}
+			player.room = room;
+			socket.player = player;
+			socket.join(room);
+
 		}
-		player.room = room;
-		socket.player = player;
-		socket.join(room);
-		console.log("room is " + room);
-		console.log("number or rooms should be one and it is  " + io.sockets.adapter.rooms[room].length);
+		console.log("number or players in room " + room + " is  " + io.sockets.adapter.rooms[room].length);
 
 
 	});
 
  	//lol who knows how gameplay will work fuck everything
    
+ 	socket.on('left', function(){
+ 		socket.broadcast.to(socket.player.room).emit('right');
 
+ 	});
+
+ 	socket.on('right', function(){
+ 		socket.broadcast.to(socket.player.room).emit('left');
+
+ 	});
+
+ 	socket.on('up', function(){
+ 		socket.broadcast.to(socket.player.room).emit('up');
+
+ 	});
+
+ 	socket.on('down', function(){
+ 		socket.broadcast.to(socket.player.room).emit('down');
+
+ 	});
+
+ 	// socket.on('win', function(){
+
+ 	// });
     socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 

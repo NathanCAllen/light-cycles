@@ -1,0 +1,10 @@
+body {
+	background-color: rgb(61,180,193);
+}
+
+#arrowKeys {
+	max-width: 20%;
+}
+
+.item {
+	display: inline;
