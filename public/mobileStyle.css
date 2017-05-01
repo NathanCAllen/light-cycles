@@ -19,7 +19,7 @@ h2 {
 }
 
 #logo {
-	max-width: 70%;
+	max-width: 100%;
 	display: block;
 	margin: 0 auto;
 }
@@ -27,6 +27,7 @@ h2 {
 
 
 #leaderBoard {
+	width: 80;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
@@ -37,6 +38,7 @@ h2 {
 }
 
 #userStats {
+	width: 80%;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
@@ -47,6 +49,7 @@ h2 {
 }
 
 #login {
+	width: 80%;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
@@ -57,6 +60,7 @@ h2 {
 }
 
 #register {
+	width: 80%;
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
