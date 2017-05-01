@@ -241,6 +241,9 @@ LightBikes.prototype = {
         },
 
         update: function () {
+                var t = new Date().getUTCMilliseconds();
+                console.log(t);
+
                 var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
                 var collideOther = this.checkCollideOther();
