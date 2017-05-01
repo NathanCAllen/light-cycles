@@ -18,39 +18,63 @@
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
 </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 <script>
 
-function ELO_sort(a,b){
-  a_len = a.ELO.length;
-  b_len = b.ELO.length;
-  if (a.ELO[a_len - 1] < b.ELO[b_len - 1])
-    return 1;
-  if (a.ELO[a_len - 1] > b.ELO[b_len - 1])
-    return -1;
-  return 0;
-}
-$.post( "global-stats", function(data){
-  var stats  = "<legend>Leader Board</legend>";
-  var player;
-  var ELO;
-  data = JSON.parse(data);
-  data.sort(ELO_sort);
-  for (i = 0; i < 3; i++){
-    player = data[i];
-    ELO = player.ELO[player.ELO.length - 1];
-    stats = stats + "<p>" + i + "." + player.username + " " + ELO + "<p>";
-
+  function ELO_sort(a,b){
+    a_len = a.ELO.length;
+    b_len = b.ELO.length;
+    if (a.ELO[a_len - 1] < b.ELO[b_len - 1])
+      return 1;
+    if (a.ELO[a_len - 1] > b.ELO[b_len - 1])
+      return -1;
+    return 0;
   }
 
-      $("#leaderBoard").html(stats);
+  $.post( "global-stats", function(data){
+    var stats  = "<legend>Leader Board</legend>";
+    var player;
+    var ELO;
+    data = JSON.parse(data);
+    data.sort(ELO_sort);
+    for (i = 0; i < 3; i++){
+      player = data[i];
+      ELO = player.ELO[player.ELO.length - 1];
+      stats = stats + "<p>" + i + "." + player.username + " " + ELO + "<p>";
+    }
+    $("#leaderBoard").html(stats);
+  });
 
-});
+  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game, Really", "Escapade X", "Rated #1 On-Line Video Game of 2017", "An Excercise in Futility", "Just Like in Spy Kids 3-D", "Why Did I Do This", "Where Else Did I Make a Typo"];
 
+  function onLogin() {
+    var username = document.getElementById("userinput1");
+    var password = document.getElementById("userinput2");
+    localStorage.setItem("username",username);
+    localStorage.setItem("password",password);
+    var count = parseInt(localStorage.getItem("count"),10)+1;
+    localStorage.setItem("count",count);
+  }
+
+  function onRegister() {
+    localStorage.setItem("count",1);
+    alert("this worked!");
+  }
+
+  $(document).ready(function(){
+    var number = parseInt(localStorage.getItem("count"),10);
+    if (number != null) {
+      $("#title").html("Light Cycles " + number);
+    }
+    number = Math.floor(Math.random()*subtitles.length);
+    $("#subtitle").html(subtitles[number]);
+  });
 
   function onLogin() {
     var username = document.getElementById("username").value;
     localStorage.setItem("username",username);
   }
+  
 </script>
 
 <body>
