@@ -86,6 +86,7 @@ LightBikes.prototype = {
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(delay) {
+                        console.log(delay);
                         var time = new Date().getTime();
                         setTimeout('start_function()', delay - time);
                         this.lastUpdate = new Date().getTime();
