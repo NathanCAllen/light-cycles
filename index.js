@@ -84,6 +84,7 @@ app.post("/register", function(request, response){
 		"password": password,
 		"wins": 0,
 		"losses": 0,
+		"games_played":0,
 		"ELO": [default_ELO], //Default ELO subject to change
 		"record": []
 	};
@@ -157,6 +158,11 @@ app.post("/player-stats", function(request, response) {
 	});
 });
 
+app.post("/time", function(request, response){
+	x = new Date().getTime();
+	var ret = {"time": x};
+	response.send(ret);
+})
 
 function insert_room(arr, room){
 	for (i = 0; i < arr.length; i++){
@@ -195,7 +201,7 @@ io.on('connection',function(socket){
 			socket.join(room);
 			var start_time = new Date().getTime();
 			start_time = start_time + 10000;
-			io.sockets.in(room).emit("start", a);			
+			io.sockets.in(room).emit("start", start_time);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
@@ -242,10 +248,38 @@ io.on('connection',function(socket){
  		socket.broadcast.to(socket.player.room).emit('down');
 
  	});
+ 	socket.on("draw", function(){
 
- 	// socket.on('win', function(){
+ 		db.collection("players", function(error, coll){
+			
+	 		coll.findOne({"username": socket.player.id}, function(error, playr){
+				
+	 			playr.record.push("draw");
+	 			playr.games_played = playr.games_played + 1;
+	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
+					
+	 			});
+	 		});
+	 	});
 
- 	// });
+ 	});
+ 	
+
+ 	 socket.on('win', function(){
+ 	 	db.collection("players", function(error, coll){
+			
+	 		coll.findOne({"username": socket.player.id}, function(error, playr){
+				
+	 			playr.record.push("win");
+	 			playr.games_played = playr.games_played + 1;
+	 			playr.wins = playr.wins + 1;
+	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
+	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
+				
+	 			});
+	 		});
+	 	});
+ 	 });
     socket.on('disconnect',function(player){
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 

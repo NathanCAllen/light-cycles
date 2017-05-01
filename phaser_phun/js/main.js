@@ -86,9 +86,16 @@ LightBikes.prototype = {
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(delay) {
-                        var time = new Date().getTime();
-                        setTimeout('start_function()', delay - time);
-                        this.lastUpdate = new Date().getTime();
+                        console.log("meeting time is " + delay);
+                        $.post("time", function(data){
+                            var time = data.time;
+                            console.log("now is " + time);
+                            console.log("time difference is " + (delay - time));
+                            setTimeout('start_function()', delay - time);
+    
+                        });
+                       
+                    //    this.lastUpdate = new Date().getTime();
                 });
         },
 
@@ -238,6 +245,8 @@ LightBikes.prototype = {
         },
 
         update: function () {
+                var t = new Date().getUTCMilliseconds();
+                console.log(t);
 
                 var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
@@ -248,10 +257,13 @@ LightBikes.prototype = {
                         youDie = true;
                 }
                 if (youDie && theyDie) {
+                    Client.socket.emit("draw");
                         this.gameOver(0);
                 } else if (youDie) {
+                    Client.socket.emit("lose");
                         this.gameOver(1);
                 } else if (theyDie) {
+                    Client.socket.emit("win");
                         this.gameOver(2);
                 }
 
@@ -279,6 +291,7 @@ LightBikes.prototype = {
         },
 
         gameOver: function (loser) {
+
                 game.paused = true;
                 var style = {fill: '#F00'};
                 var text = this.add.text(game.width * .5, game.height * .5, "Game Over" + loser, style);
