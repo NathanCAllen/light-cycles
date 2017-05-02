@@ -198,13 +198,12 @@ io.on('connection',function(socket){
     socket.on('newplayer',function(data){
     	console.log("in new_player server_side");
     	console.log("data is " + data);
-    	var room = "";
     	var player = {
     		"id" : data, 
     		"player1": false,
     		"p1_move": "",
     		"p2_move": "",
-    		"room": room
+    		"room": ""
     	}
 
     	//search for people waiting in game
@@ -263,7 +262,7 @@ io.on('connection',function(socket){
 			// }
 
 		
-		console.log("number or players in room " + socket.player.room + " is  " + io.sockets.adapter.rooms[room].length);
+		console.log("number or players in room " + socket.player.room + " is  " + io.sockets.adapter.rooms[socket.player.room].length);
 
 
 	});
