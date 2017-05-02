@@ -18,20 +18,10 @@ var LightBikes = function (game) {
         this.width = 640;
         this.height = 640;
 
-        // this.safetile = 1;
-        // this.gridsize = 32;
-
         this.speed = 16;
-        // this.threshold = 3;
-        // this.turnSpeed = 100;
-
-        // this.lastUpdate = 0;
-
-        // this.marker = new Phaser.Point();
         this.turnPoint = new Phaser.Point();
 
         this.directions = [null, null, null, null, null];
-        // this.opposites = [Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP];
 };
 
 LightBikes.prototype = {
