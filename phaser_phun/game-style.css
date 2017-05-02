@@ -4,27 +4,27 @@ body {
 
 
 .arrow {
-	max-width: 20%;
+	max-width: 15%;
 	position: fixed;
 }
 
 #left {
-	right: 30%;
-	bottom: 40%;
+	left: 64%;
+	top: 20%;
 }
 
 #right {
 	right: 0px;
-	bottom: 40%;
+	top: 20%;
 }
 
 #down {
-	bottom: 15%;
-	right: 15%;
+	top: 40%;
+	left: 75%;
 }
 
 #up {
-	bottom: 65%;
-	right: 15%;
+	top: 0px;
+	left: 75%;
 }
 
