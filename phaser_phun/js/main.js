@@ -197,38 +197,74 @@ LightBikes.prototype = {
                         var move = moves.my_move;
                         var opp_move = moves.their_move;
 
+                        if (move == "" || opp_move == "") {
+                                return;
+                        }
+
                         console.log("move is:" + move);
                         console.log("opp_move is:" + opp_move);
 
-                        switch (move) {
-                                case "left":
-                                        console.log("move_left");
-                                        g.move(g.bike, Phaser.LEFT);
-                                case "right":
-                                        console.log("move_right");
-                                        g.move(g.bike, Phaser.RIGHT);
-                                case "up":
-                                        console.log("move_up");
-                                        g.move(g.bike, Phaser.UP);
-                                case "down":
-                                        console.log("move_down");
-                                        g.move(g.bike, Phaser.DOWN);
+                        // switch (move) {
+                        //         case "left":
+                        //                 console.log("move_left");
+                        //                 g.move(g.bike, Phaser.LEFT);
+                        //         case "right":
+                        //                 console.log("move_right");
+                        //                 g.move(g.bike, Phaser.RIGHT);
+                        //         case "up":
+                        //                 console.log("move_up");
+                        //                 g.move(g.bike, Phaser.UP);
+                        //         case "down":
+                        //                 console.log("move_down");
+                        //                 g.move(g.bike, Phaser.DOWN);
+                        // }
+
+                        if (move == "left") {
+                                console.log("move_left");
+                                g.move(g.bike, Phaser.LEFT);
+
+                        } else if (move == "right") {
+                                console.log("move_right");
+                                g.move(g.bike, Phaser.RIGHT);
+                        } else if (move == "up") {
+                                console.log("move_up");
+                                g.move(g.bike, Phaser.UP);
+
+                        } else if (move == "down") {
+                                console.log("move_down");
+                                g.move(g.bike, Phaser.DOWN);
                         }
 
-                        switch (opp_move) {
-                                case "left":
-                                        console.log("enemy_right");
-                                        g.move(g.enemy, Phaser.RIGHT);
-                                case "right":
-                                        console.log("enemy_left");
-                                        g.move(g.enemy, Phaser.LEFT);
-                                case "up":
-                                        console.log("enemy_up");
-                                        g.move(g.enemy, Phaser.UP);
-                                case "down":
-                                        console.log("enemy_down");
-                                        g.move(g.enemy, Phaser.DOWN);
+                        if (opp_move == "left") {
+                                console.log("opp_left");
+                                g.move(g.enemy, Phaser.LEFT);
+
+                        } else if (opp_move == "right") {
+                                console.log("opp_right");
+                                g.move(g.enemy, Phaser.RIGHT);
+                        } else if (opp_move == "up") {
+                                console.log("opp_up");
+                                g.move(g.enemy, Phaser.UP);
+
+                        } else if (opp_move == "down") {
+                                console.log("opp_down");
+                                g.move(g.enemy, Phaser.DOWN);
                         }
+
+                        // switch (opp_move) {
+                        //         case "left":
+                        //                 console.log("enemy_right");
+                        //                 g.move(g.enemy, Phaser.RIGHT);
+                        //         case "right":
+                        //                 console.log("enemy_left");
+                        //                 g.move(g.enemy, Phaser.LEFT);
+                        //         case "up":
+                        //                 console.log("enemy_up");
+                        //                 g.move(g.enemy, Phaser.UP);
+                        //         case "down":
+                        //                 console.log("enemy_down");
+                        //                 g.move(g.enemy, Phaser.DOWN);
+                        // }
                 });
 
 
