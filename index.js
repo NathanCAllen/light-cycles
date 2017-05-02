@@ -325,7 +325,7 @@ io.on('connection',function(socket){
 		if (socket.player){
 			room = socket.player.room;
 			if (room != ""){
-				room_exists = io.sockets.adapter.rooms[room]
+				room_exists = io.sockets.adapter.rooms[room];
 				if(room_exists){
 					if(waiting_rooms.indexOf(room) != -1){
 						waiting_rooms.splice(waiting_rooms.indexOf(room), 1);
