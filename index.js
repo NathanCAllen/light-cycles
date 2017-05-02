@@ -221,8 +221,7 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			start_time = start_time + 10000;
-			io.sockets.in(room).emit("start", start_time);			
+			io.sockets.in(room).emit("start");			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
