@@ -10,6 +10,11 @@
 		    localStorage.setItem("password",password);
 		    var count = parseInt(localStorage.getItem("count"),10)+1;
 		    localStorage.setItem("count",count);
+
+		    function onLogin() {
+   			var username = document.getElementById("username").value;
+  			localStorage.setItem("username",username);
+  }
   }
       </script>
 
@@ -41,8 +46,9 @@
 
 </fieldset>
 
-<button id="exit-button" type="submit" value="login"
-onclick="onLogin()">Return to profile</button>
+<form method="post" id="exit-button" action="/login">
+	<input type="submit" value="login" onclick="onLogin()">
+	</form>
 
 
 </script>
