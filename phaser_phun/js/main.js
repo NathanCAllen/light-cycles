@@ -85,7 +85,8 @@ LightBikes.prototype = {
 
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
-                Client.socket.on("start", function(delay) {
+                Client.socket.on("start", start_function());
+
                         // console.log("meeting time is " + delay);
                         // $.post("time", function(time){
                         //     console.log("now is " + time);
@@ -95,12 +96,12 @@ LightBikes.prototype = {
                         // });
                        
                     //    this.lastUpdate = new Date().getTime();
-                });
+                // });
 
                 this.getFirstMove();
         },
 
-        getFirstMove() {
+        getFirstMove: function() {
                 //tell players to input direction
                 this.bike.next = -1;
                 while (this.bike.next == -1) {
@@ -168,6 +169,10 @@ LightBikes.prototype = {
                 });
 
                 Client.socket.on("execute_move", function (moves) {
+                        if (game.paused) {
+                                return;
+                        }
+
                         var move = moves.my_move;
                         var opp_move = moves.their_move;
 
