@@ -142,6 +142,8 @@ LightBikes.prototype = {
                         }
                 });
 
+                console.log("checkKeys ran");
+
                 // if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
                 //         console.log("Left Party");
                 //         Client.socket.emit("my_move", "left");
