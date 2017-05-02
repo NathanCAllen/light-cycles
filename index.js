@@ -211,6 +211,7 @@ io.on('connection',function(socket){
     		if (io.sockets.adapter.rooms[rooms[i]].length == 1){
     			player.room = rooms[i];
     			socket.join(rooms[i]);
+    			io.sockets.in(room).emit("start", rooms[i]);			
     			break;
     		}
     	}
@@ -262,7 +263,7 @@ io.on('connection',function(socket){
 			// }
 
 		
-		console.log("number or players in room " + socket.player.room + " is  " + io.sockets.adapter.rooms[socket.player.room].length);
+		console.log("number or players in room " + player.room + " is  " + io.sockets.adapter.rooms[player.room].length);
 
 
 	});
