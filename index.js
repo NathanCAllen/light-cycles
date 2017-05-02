@@ -167,14 +167,14 @@ function insert_room(arr, room){
 	}
 	arr.push(room);
 }
-var empty_rooms = ["room1", "room2", "room3", "room4"];
-var waiting_rooms = [];
-var full_rooms = [];
+
+var empty_rooms = ["room0", "room1","room2", "room3"];
+var used_rooms = [];
 io.on('connection',function(socket){
 
     setInterval(function(){
         send_moves(socket);
-    }, 500);
+    }, 150);
 
 	function send_moves(socket){
 		//if the player has not been initalized OR not player1
@@ -199,77 +199,85 @@ io.on('connection',function(socket){
     socket.on('newplayer',function(data){
     	console.log("in new_player server_side");
     	console.log("data is " + data);
-    	var room = "";
     	var player = {
     		"id" : data, 
     		"player1": false,
     		"p1_move": "",
     		"p2_move": "",
-    		/* neccesary user data goes here---TBD */
-    		"room": room
+    		"room": ""
     	}
 
-    	//if waiting opponent, place into game
-		if (waiting_rooms.length != 0){
-			room = waiting_rooms[0];
-			insert_room(full_rooms, room);
-			waiting_rooms.splice(0,1);
 
-			player.room = room;
-			socket.player = player;
-			socket.join(room);
-			io.sockets.in(room).emit("start", room);			
-		}
-		//if no waiting rooms, place  empty rooms
-		else{
+    	//search for people waiting in game
+    	if (used_rooms.length != 0){
+    		for (i = 0; i < used_rooms.length; i++){
+    			if (io.sockets.adapter.rooms[used_rooms[i]].length == 1){
+    				player.room = used_rooms[i];
+    				socket.join(used_rooms[i]);
+    				io.sockets.in(used_rooms[i]).emit("start", used_rooms[i]);			
+    				break;
+    			}
+    		}
+    	}
 
-			//if no empty rooms, make one
-			if (empty_rooms.length == 0){
-				//possibly make this better than adding one at a time, temp fix
-				num = waiting_rooms.length + full_rooms.length;
-				empty_rooms[0] = "room" + num;
-			}
-			else{
-				room = empty_rooms[0];
-				insert_room(waiting_rooms, room);
-				empty_rooms.splice(0,1);
-			}
-			player.player1 = true;
-			player.room = room;
-			socket.player = player;
-			socket.join(room);
+    	//enter an empty room
+    	else {
+     		player.player1 = true;
 
-		}
-		console.log("number or players in room " + room + " is  " + io.sockets.adapter.rooms[room].length);
+    		if (empty_rooms.length != 0){
+    			player.room = empty_rooms[0];
+    			empty_rooms.splice(0,1);
+    			insert_room(used_rooms, player.room);
+    			socket.join(player.room);
+
+    		}
+    	
+    		//if all rooms are full
+    		if (player.room == ""){
+    			var new_room = "room" + (used_rooms.length + empty_rooms.length);
+    			player.room = new_room;
+    			used_rooms.push(new_room);
+    			socket.join(new_room);
+    		}
+    	}
+    	socket.player = player;
+
+  
+
+		
+		console.log("number or players in room " + player.room + " is  " + io.sockets.adapter.rooms[player.room].length);
 
 
 	});
 
- 	//lol who knows how gameplay will work fuck everything
    
  	socket.on('my_move', function(move){
- 		if (socket.player.player1){
- 			socket.player.p1_move = move;
- 		}
- 		else{
- 			socket.broadcast.to(socket.player.room).emit('bounce_move', move);
+ 		if (socket.player){
+ 			if (socket.player.player1){
+ 				socket.player.p1_move = move;
+ 			}
+ 			else{
+ 				socket.broadcast.to(socket.player.room).emit('bounce_move', move);
+ 			}
  		}
  		
 
  	});
 
  	socket.on('opp_move', function(move){
-		if (socket.player.player1){
- 			socket.player.p2_move = move;
- 		}
- 		else{
- 			console.log("this shouldn't be happening");
- 		}
+ 		if(socket.player){
+			if (socket.player.player1){
+ 				socket.player.p2_move = move;
+ 			}
+ 			else{
+ 				console.log("this shouldn't be happening");
+ 			}
+ 	}
  	});
 
  	
  	socket.on("draw", function(){
-
+ 		socket.leave(socket.player.room);
  		db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
@@ -286,6 +294,7 @@ io.on('connection',function(socket){
  	
 
  	 socket.on('win', function(){
+ 	 	leave_room(socket);
  	 	db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
@@ -300,24 +309,50 @@ io.on('connection',function(socket){
 	 		});
 	 	});
  	 });
-    socket.on('disconnect',function(player){
+
+ 	 socket.on("lose", function(){
+		leave_room(socket); 	
+		db.collection("players", function(error, coll){
+			
+	 		coll.findOne({"username": socket.player.id}, function(error, playr){
+				
+	 			playr.record.push("lose");
+	 			playr.games_played = playr.games_played + 1;
+	 			playr.losses = playr.losses + 1;
+	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] - 50);
+	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
+				
+	 			});
+	 		});
+	 	});
+ 	 });
+    socket.on('disconnect',function(){
+    	leave_room(socket);
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
-        //if waiting and not in-game
-        room = player.room;
-        if (waiting_rooms.indexOf(player.room) != -1){
-        	waiting_rooms.splice(waiting_rooms.indexOf(player.room), 1);
-        	insert_room(empty_rooms, room)
-        }
-        //else if in-game
-        else{
-        	full_rooms.splice(full_rooms.indexOf(player.room), 1);
-        	insert_room(empty_rooms, room)
-        }
-		socket.broadcast.to(room).emit('forfeit');
-		socket.leave(room);
+    	// if we wanna do game end
+	//	socket.broadcast.to(socket.player.room).emit('forfeit');
 
 	});
+
+	function leave_room(socket){
+
+		if (socket.player){
+			room = socket.player.room;
+			if (room != ""){
+				console.log("room is " + room);
+				room_arr = io.sockets.adapter.rooms[room]
+				if(room_arr){
+					if (io.sockets.adapter.rooms[room].length == 1){
+						used_rooms.splice(used_rooms.indexOf(room), 1);
+						insert_room(empty_rooms, room);
+					}
+					socket.leave(room);
+					socket.player.room = "";
+				}
+			}
+		}
+	}
 });
 
 
