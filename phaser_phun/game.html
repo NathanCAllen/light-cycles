@@ -37,57 +37,55 @@
 
   <script>
 
+
+  function simulateKeyPress(character) {
+    jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(0) });
+  }
+
+  // $(function() {
+  //   $('body').keypress(function(e) {
+  //     alert(e.which);
+  //   });
+
+  //   simulateKeyPress("e");
+  // });
+
+
   $('#left').click(function(){
-    $(document.body).trigger({
-      type: 'keypress',
-      which: 37,
-      keyCode: 37
-    });
+    simulateKeyPress("ArrowLeft");
   });
 
   $('#right').click(function(){
-    $(document.body).trigger({
-      type: 'keypress',
-      which: 39,
-      keyCode: 39
-    });
+    simulateKeyPress("ArrowRight");
   });
 
   $('#down').click(function(){
-    $(document.body).trigger({
-      type: 'keypress',
-      which: 40,
-      keyCode: 40
-    });
+    simulateKeyPress("ArrowDown");
   });
 
   $('#up').click(function(){
-    $(document.body).trigger({
-      type: 'keypress',
-      which: 38,
-      keyCode: 38
-    });
+    simulateKeyPress("ArrowUp");
   });
 
-  var e = JQuery.Event('keypress');
-  e.which = 37;
-  $('#left').trigger(e);
+  // var e = JQuery.Event('keypress');
+  // e.which = 37;
+  // $('#left').trigger(e);
 
-  var f = JQuery.Event('keypress');
-  e.which = 39;
-  $('#right').trigger(f);
+  // var f = JQuery.Event('keypress');
+  // e.which = 39;
+  // $('#right').trigger(f);
   
-  var g = JQuery.Event('keypress');
-  e.which = 40;
-  $('#down').trigger(e);
+  // var g = JQuery.Event('keypress');
+  // e.which = 40;
+  // $('#down').trigger(e);
 
-  var e = JQuery.Event('keypress');
-  e.which = 38;
-  $('#up').trigger(e);
+  // var e = JQuery.Event('keypress');
+  // e.which = 38;
+  // $('#up').trigger(e);
 
   
 
-}
+
 </script>
         
 </body>
