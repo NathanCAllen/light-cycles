@@ -203,7 +203,7 @@ io.on('connection',function(socket){
     		waiting_rooms.splice(0,1);
     		insert_room(full_rooms, player.room);
     		socket.join(player.room);
-    		io.sockets.in(waiting_rooms[0]).emit("start", player.room);			
+    		io.sockets.in(player.room).emit("start", player.room);			
     			
     		
     	}
