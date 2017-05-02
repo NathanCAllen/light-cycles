@@ -2,9 +2,29 @@ body {
 	background-color: rgb(61,180,193);
 }
 
-#arrowKeys {
-	max-width: 20%;
+
+.arrow {
+	width: 30%;
+	position: fixed;
 }
 
-.item {
-	display: inline;
+#left {
+	left: 10%;
+	bottom: 10%;
+}
+
+#right {
+	right: 10%;
+	bottom: 10%;
+}
+
+#down {
+	bottom: 0px;
+	left: 35%;
+}
+
+#up {
+	bottom: 20%;
+	left: 35%;
+}
+
