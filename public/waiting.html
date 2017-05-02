@@ -14,7 +14,7 @@
       var username = {"username":localStorage.getItem("username")};
 
   		$.post( "player-stats", username, function(data){
-  			var stats  = "<legend>"player.username+" Stats</legend>";
+  			var stats  = "<legend>"+ player.username+" Stats</legend>";
   			var player;
   			var wins;
   			var losses;
