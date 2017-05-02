@@ -318,6 +318,7 @@ io.on('connection',function(socket){
     socket.on('disconnect',function(){
     	leave_room(socket);
 
+
 	});
 
 	function leave_room(socket){
@@ -337,7 +338,6 @@ io.on('connection',function(socket){
 					}
 					socket.leave(room);
 					socket.player.room = "";
-					socket.broadcast.to(room).emit('forfeit');
 
 				}
 			}
