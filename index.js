@@ -168,7 +168,7 @@ io.on('connection',function(socket){
 
     setInterval(function(){
         send_moves(socket);
-    }, 150);
+    }, 120);
 
 	function send_moves(socket){
 		//if the player has not been initalized OR not player1
