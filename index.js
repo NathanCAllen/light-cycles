@@ -21,7 +21,7 @@ app.use(express.static("phaser_phun"));
  // });
 
   server.listen(process.env.PORT, function(){
- 	console.log("non-local server running");
+ 	console.log("Heroku server running");
  });
 
 
