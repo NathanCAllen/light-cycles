@@ -2,6 +2,16 @@
 <html>
 <head>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+      		function onLogin() {
+		    var username = document.getElementById("userinput1");
+		    var password = document.getElementById("userinput2");
+		    localStorage.setItem("username",username);
+		    localStorage.setItem("password",password);
+		    var count = parseInt(localStorage.getItem("count"),10)+1;
+		    localStorage.setItem("count",count);
+  }
+      </script>
 
         <title>Light Cycles</title>
 
@@ -31,12 +41,10 @@
 
 </fieldset>
 
-<button id="exit-button" onclick="redirect()">Return to profile</button>
+<button id="exit-button" type="submit" value="login"
+onclick="onLogin()">Return to profile</button>
 
-<script type="text/javascript">
-        function redirect() {
-                window.location = "https://light-cycles.herokuapp.com/login";
-        }
+
 </script>
 
 </body>
