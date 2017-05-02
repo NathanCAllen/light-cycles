@@ -191,23 +191,25 @@ LightBikes.prototype = {
 
         },
 
-        checkCollideOther: function () {
+        checkCollideOther: function (youDie, theyDie) {
                 var x = 0;
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
-                                x += 1;
-                                break;
+                                // x += 1;
+                                // break;
+                                theyDie = true;
                         }
                 }
                 
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
-                                x += 2;
-                                break;
+                                // x += 2;
+                                // break;
+                                youDie = true;
                         }
                 }
 
-                return x;
+                // return x;
         },
 
         update: function () {
@@ -216,15 +218,16 @@ LightBikes.prototype = {
                 var collideOther = 0;
                 youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
-                collideOther = this.checkCollideOther();
-                if (collideOther == 1) {
-                        theyDie = true;
-                } else if (collideOther == 2) {
-                        youDie = true;
-                } else if (collideOther == 3) {
-                        youDie = true;
-                        theyDie = true;
-                }
+                // collideOther = this.checkCollideOther();
+                this.checkCollideOther(youDie, theyDie);
+                // if (collideOther == 1) {
+                //         theyDie = true;
+                // } else if (collideOther == 2) {
+                //         youDie = true;
+                // } else if (collideOther == 3) {
+                //         youDie = true;
+                //         theyDie = true;
+                // }
                 
                 if (youDie && theyDie) {
                         Client.socket.emit("draw");
