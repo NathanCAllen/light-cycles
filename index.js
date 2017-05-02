@@ -21,18 +21,13 @@ app.use(express.static("phaser_phun"));
  // });
 
   server.listen(process.env.PORT, function(){
- 	console.log("non-local server running");
+ 	console.log("Heroku server running");
  });
 
 
 
 
 
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -175,7 +170,8 @@ function insert_room(arr, room){
 }
 
 var empty_rooms = ["room0", "room1","room2", "room3"];
-var used_rooms = [];
+var waiting_rooms = [];
+var full_rooms = [];
 io.on('connection',function(socket){
 
     setInterval(function(){
@@ -215,15 +211,14 @@ io.on('connection',function(socket){
 
 
     	//search for people waiting in game
-    	if (used_rooms.length != 0){
-    		for (i = 0; i < used_rooms.length; i++){
-    			if (io.sockets.adapter.rooms[used_rooms[i]].length == 1){
-    				player.room = used_rooms[i];
-    				socket.join(used_rooms[i]);
-    				io.sockets.in(used_rooms[i]).emit("start", used_rooms[i]);			
-    				break;
-    			}
-    		}
+    	if (waiting_rooms.length != 0){
+    		player.room = waiting_rooms[i];
+    		waiting_rooms.splice(0,1);
+    		insert_room(full_rooms, player.room);
+    		socket.join(player.room);
+    		io.sockets.in(waiting_rooms[i]).emit("start", player.room);			
+    			
+    		
     	}
 
     	//enter an empty room
@@ -233,16 +228,16 @@ io.on('connection',function(socket){
     		if (empty_rooms.length != 0){
     			player.room = empty_rooms[0];
     			empty_rooms.splice(0,1);
-    			insert_room(used_rooms, player.room);
+    			insert_room(waiting_rooms, player.room);
     			socket.join(player.room);
 
     		}
     	
     		//if all rooms are full
     		if (player.room == ""){
-    			var new_room = "room" + (used_rooms.length + empty_rooms.length);
+    			var new_room = "room" + (waiting_rooms.length + full_rooms.length);
     			player.room = new_room;
-    			used_rooms.push(new_room);
+    			waiting_rooms.push(new_room);
     			socket.join(new_room);
     		}
     	}
@@ -284,8 +279,8 @@ io.on('connection',function(socket){
 
  	
  	socket.on("draw", function(){
- 		socket.leave(socket.player.room);
- 		db.collection("players", function(error, coll){
+ 		leave_room(socket);
+	 		db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
 				
@@ -335,10 +330,6 @@ io.on('connection',function(socket){
  	 });
     socket.on('disconnect',function(){
     	leave_room(socket);
-    	//maybe add something to this to prevent proliferation of rooms; not an essential add
-
-    	// if we wanna do game end
-	//	socket.broadcast.to(socket.player.room).emit('forfeit');
 
 	});
 
@@ -347,19 +338,25 @@ io.on('connection',function(socket){
 		if (socket.player){
 			room = socket.player.room;
 			if (room != ""){
-				console.log("room is " + room);
-				room_arr = io.sockets.adapter.rooms[room]
-				if(room_arr){
-					if (room_arr.length == 1){
-						used_rooms.splice(used_rooms.indexOf(room), 1);
+				room_exists = io.sockets.adapter.rooms[room]
+				if(room_exists){
+					if(waiting_rooms.indexOf(room) != -1){
+						waiting_rooms.splice(waiting_rooms.indexOf(room), 1);
+						insert_room(empty_rooms, room);
+					}
+					else{
+						full_rooms.splice(full_rooms.indexOf(room), 1);
 						insert_room(empty_rooms, room);
 					}
 					socket.leave(room);
 					socket.player.room = "";
+					socket.broadcast.to(room).emit('forfeit');
+
 				}
 			}
 		}
 	}
+	
 });
 
 
