@@ -183,6 +183,7 @@ io.on('connection',function(socket){
     }, 1000);
 
 	function send_moves(socket){
+		console.log("in send moves");
 		//if the player has not been initalized OR not player1
 		if (!socket.player){
 			return;
@@ -190,8 +191,10 @@ io.on('connection',function(socket){
 		if (!socket.player.player1){
 			return;
 		}
-		
 		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
+		console.log("send moves player is" + socket.player.id);
+		(console.log("send moves moves are" + JSON.stringify(moves));
+
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
 		moves.their_move = socket.player.p1_move;

@@ -1,6 +1,3 @@
-function start_function(){
-        game.paused = false;
-};  
 
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
@@ -82,10 +79,12 @@ LightBikes.prototype = {
                 // this.enemy.next = Phaser.LEFT;
 
                 this.enemyMovement();
-
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
-                Client.socket.on("start", start_function());
+                    
+                Client.socket.on("start", function(){
+                    game.paused = false;
+                });
 
                         // console.log("meeting time is " + delay);
                         // $.post("time", function(time){
