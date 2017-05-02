@@ -14,11 +14,12 @@
       var username = {"username":localStorage.getItem("username")};
 
   		$.post( "player-stats", username, function(data){
-  			var stats  = "<legend>"+ player.username+" Stats</legend>";
   			var player;
   			var wins;
   			var losses;
   			player = JSON.parse(data);
+        var stats  = "<legend>"+ player.username+" Stats</legend>";
+
 
   			stats += "<p>"+"Wins: "+player.wins+"</p>"+ "<p>"+"Losses: "+player.losses+
         "</p>" + "<p>" + "Total Games Played: " + player.games_played + "</p>" +
