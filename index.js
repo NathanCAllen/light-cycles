@@ -183,6 +183,14 @@ io.on('connection',function(socket){
     }, 1000);
 
 	function send_moves(socket){
+		//if the player has not been initalized OR not player1
+		if (!socket.player){
+			return;
+		}
+		if (!socket.player.player1){
+			return;
+		}
+		
 		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
