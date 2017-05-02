@@ -60,7 +60,7 @@ LightBikes.prototype = {
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(room){
-                    $("#status").html("<legend>Status</legend> <p> Opponent Found! You are in " + room + 
+                    $("#status").html("<legend>Status</legend> <p> Opponent Found! You are in " + room + ". " +
                     " Please wait a few seconds for their "+
                     "game to load and remember to click on the board. " )
                     game.paused = false;
