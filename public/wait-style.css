@@ -1,61 +1,118 @@
-body {
-	background-color: rgb(37,37,37);
+@media screen and (min-width: 900px) {
+	body {
+		background-color: rgb(37,37,37);
+	}
+
+	h1 {
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: 900;
+		font-size: 55px;
+		text-align: center;
+	}
+
+	h2 {
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: bold;
+		font-size: 50px;
+		text-align: center;
+	}
+
+	#logo {
+		max-width: 70%;
+		display: block;
+		margin: 0 auto;
+	}
+
+	fieldset.stats {
+		display: inline;
+	}
+
+	#start {
+		width: 35%;
+		font-family: 'Orbitron';
+		background-color: rgb(61,180,193);
+		color:(0,0,0);
+		font-weight: bold;
+		font-size: 40px;
+		text-align: center;
+		margin-left: 35%;
+		margin-top: 3%;
+	}
+
+	#userStats {
+		width: 30%;
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: bold;
+		font-size: 25px;
+		text-align: left;
+		margin-left: 40%;
+		margin-top: 3%;
+
+	}
+
+	#mobile-wall {
+		display: none;
+	}
+
 }
 
-h1 {
-	font-family: 'Orbitron';
-	color: rgb(61,180,193);
-	font-weight: 900;
-	font-size: 55px;
-	text-align: center;
-}
+@media screen and (max-width: 899px) {
 
-h2 {
-	font-family: 'Orbitron';
-	color: rgb(61,180,193);
-	font-weight: bold;
-	font-size: 50px;
-	text-align: center;
-}
+		body {
+		background-color: rgb(37,37,37);
+	}
 
-#logo {
-	max-width: 70%;
-	display: block;
-	margin: 0 auto;
-}
+	h1 {
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: 900;
+		font-size: 55px;
+		text-align: center;
+	}
 
-fieldset.stats {
-	display: inline;
-}
+	h2 {
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: bold;
+		font-size: 50px;
+		text-align: center;
+	}
 
-#start {
-	width: 35%;
-	font-family: 'Orbitron';
-	background-color: rgb(61,180,193);
-	color:(0,0,0);
-	font-weight: bold;
-	font-size: 40px;
-	text-align: center;
-	margin-left: 35%;
-	margin-top: 3%;
-}
+	#logo {
+		max-width: 100%;
+		display: block;
+		margin: 0 auto;
+	}
 
-#userStats {
-	width: 30%;
-	font-family: 'Orbitron';
-	color: rgb(61,180,193);
-	font-weight: bold;
-	font-size: 25px;
-	text-align: left;
-	margin-left: 40%;
-	margin-top: 3%;
+	#start {
+		width: 80%;
+		font-family: 'Orbitron';
+		background-color: rgb(61,180,193);
+		color:(0,0,0);
+		font-weight: bold;
+		font-size: 40px;
+		text-align: center;
+		margin-left: 35%;
+		margin-top: 3%;
+	}
 
-}
+	#userStats {
+		width: 90%;
+		font-family: 'Orbitron';
+		color: rgb(61,180,193);
+		font-weight: bold;
+		font-size: 25px;
+		text-align: left;
+		margin-left: 40%;
+		margin-top: 3%;
 
-/*#mobile-wall {
-	display: none;
-}*/
+	}
 
-#mobile-wall {
-        border: 1px rgb(61,180,193);
+	#mobile-wall {
+	        border: 1px rgb(61,180,193);
+	}
+
 }
