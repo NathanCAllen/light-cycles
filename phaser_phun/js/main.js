@@ -80,7 +80,7 @@ LightBikes.prototype = {
 
                 this.enemyMovement();
                 game.paused = true;
-                console.log("right before newplayer sent"):
+                console.log("right before newplayer sent");
                 Client.socket.emit('newplayer', username);
                 console.log("right after new player sent");
                 Client.socket.on("start", function(){
