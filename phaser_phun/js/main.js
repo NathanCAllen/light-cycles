@@ -236,12 +236,12 @@ LightBikes.prototype = {
                         }
 
                         if (opp_move == "left") {
-                                console.log("opp_left");
-                                g.move(g.enemy, Phaser.LEFT);
-
-                        } else if (opp_move == "right") {
                                 console.log("opp_right");
                                 g.move(g.enemy, Phaser.RIGHT);
+
+                        } else if (opp_move == "right") {
+                                console.log("opp_left");
+                                g.move(g.enemy, Phaser.LEFT);
                         } else if (opp_move == "up") {
                                 console.log("opp_up");
                                 g.move(g.enemy, Phaser.UP);
