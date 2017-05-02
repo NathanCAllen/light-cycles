@@ -230,12 +230,6 @@ io.on('connection',function(socket){
     	}
     	socket.player = player;
 
-  
-
-		game_arr =  io.sockets.adapter.rooms[player.room];
-		if (game_arr){
-			console.log("number or players in room " + player.room + " is  " + game_arr.length);
-		}
 
 	});
 
