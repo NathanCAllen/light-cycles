@@ -42,7 +42,7 @@ body {
 #rules {
 	max-width: 35%;
 	right: 5%;
-	top: 20%;
+	bottom: 20%;
 	font-size: 16px;
 	background-color: rgb(40,180,193);
 }
