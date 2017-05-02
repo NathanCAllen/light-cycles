@@ -46,3 +46,10 @@ body {
 	font-size: 20px;
 	background-color: rgb(80,180,193);
 }
+
+#exit-button {
+	display: none;
+	position: fixed;
+	bottom: 15%;
+	left: 20%;
+}

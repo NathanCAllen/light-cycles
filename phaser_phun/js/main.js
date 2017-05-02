@@ -295,7 +295,9 @@ LightBikes.prototype = {
                         whoDied = this.add.text(game.width * .5,
                                 game.height * .5 + 100, "You Win!", style);
                         whoDied.anchor.set(.5, .5);
-                    }
+                }
+
+                document.getElementById('exit-button').style.display = "block";
         }
 };
 
