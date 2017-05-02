@@ -99,8 +99,11 @@ LightBikes.prototype = {
                     //    this.lastUpdate = new Date().getTime();
                 // });
 
-                this.getFirstMove();
                 console.log("end o create");
+
+                // this.getFirstMove();
+
+                Client.socket.emit("my_move", "left");
         },
 
         getFirstMove: function() {
