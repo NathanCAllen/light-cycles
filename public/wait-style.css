@@ -34,7 +34,7 @@ fieldset.stats {
 	background-color: rgb(61,180,193);
 	color:(0,0,0);
 	font-weight: bold;
-	font-size: 50px;
+	font-size: 40px;
 	text-align: center;
 	margin-left: 35%;
 	margin-top: 3%;
@@ -45,7 +45,7 @@ fieldset.stats {
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
-	font-size: 40px;
+	font-size: 25px;
 	text-align: left;
 	margin-left: 40%;
 	margin-top: 3%;
