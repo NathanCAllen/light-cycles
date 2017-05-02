@@ -227,7 +227,7 @@ io.on('connection',function(socket){
     		if (empty_rooms.length != 0){
     			player.room = empty_rooms[0];
     			empty_rooms.splice(0,1);
-    			insert_room(used_rooms, socket.player.room);
+    			insert_room(used_rooms, player.room);
     			socket.join(player.room);
 
     		}
