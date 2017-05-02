@@ -199,11 +199,11 @@ io.on('connection',function(socket){
 
     	//search for people waiting in game
     	if (waiting_rooms.length != 0){
-    		player.room = waiting_rooms[i];
+    		player.room = waiting_rooms[0];
     		waiting_rooms.splice(0,1);
     		insert_room(full_rooms, player.room);
     		socket.join(player.room);
-    		io.sockets.in(waiting_rooms[i]).emit("start", player.room);			
+    		io.sockets.in(waiting_rooms[0]).emit("start", player.room);			
     			
     		
     	}
