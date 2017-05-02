@@ -326,20 +326,19 @@ io.on('connection',function(socket){
 		if (socket.player){
 			room = socket.player.room;
 			if (room != ""){
-				room_exists = io.sockets.adapter.rooms[room];
-				if(room_exists){
+				
 					if(waiting_rooms.indexOf(room) != -1){
 						waiting_rooms.splice(waiting_rooms.indexOf(room), 1);
 						insert_room(empty_rooms, room);
 					}
-					else{
+					else if (full_rooms.indexOf(room) != -1){
 						full_rooms.splice(full_rooms.indexOf(room), 1);
 						insert_room(empty_rooms, room);
 					}
 					socket.leave(room);
 					socket.player.room = "";
 
-				}
+				
 			}
 		}
 	}
