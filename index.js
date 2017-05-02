@@ -211,7 +211,7 @@ io.on('connection',function(socket){
     		if (io.sockets.adapter.rooms[rooms[i]].length == 1){
     			player.room = rooms[i];
     			socket.join(rooms[i]);
-    			io.sockets.in(room).emit("start", rooms[i]);			
+    			io.sockets.in(rooms[i]).emit("start", rooms[i]);			
     			break;
     		}
     	}
@@ -233,6 +233,7 @@ io.on('connection',function(socket){
     		player.room = new_room;
     		rooms.push(new_room);
     		socket.join(new_room);
+    		player.player1 = true;
     	}
     	socket.player = player;
 
