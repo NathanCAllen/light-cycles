@@ -168,10 +168,7 @@ function insert_room(arr, room){
 	arr.push(room);
 }
 
-var rooms = ["room1", "room2", "room3", "room4"]
-// var empty_rooms = ["room1", "room2", "room3", "room4"];
-//var waiting_rooms = [];
-//var full_rooms = [];
+var rooms = []
 io.on('connection',function(socket){
 
     setInterval(function(){
@@ -349,7 +346,6 @@ io.on('connection',function(socket){
 
     	// if we wanna do game end
 	//	socket.broadcast.to(socket.player.room).emit('forfeit');
-		socket.leave(socket.player.room);
 
 	});
 });
