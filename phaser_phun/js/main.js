@@ -83,7 +83,7 @@ LightBikes.prototype = {
 
                 Client.socket.on("forfeit", function() {
                         Client.socket.emit("win");
-                        gameOver(3);
+                        this.gameOver(3);
                 });
 
                 console.log("end o create");
