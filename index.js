@@ -250,9 +250,10 @@ io.on('connection',function(socket){
 
   
 
-		
-		console.log("number or players in room " + player.room + " is  " + io.sockets.adapter.rooms[player.room].length);
-
+		game_arr =  io.sockets.adapter.rooms[player.room];
+		if (game_arr){
+			console.log("number or players in room " + player.room + " is  " + game_arr.length);
+		}
 
 	});
 
