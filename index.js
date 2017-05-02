@@ -197,7 +197,7 @@ io.on('connection',function(socket){
     	var room = "";
     	var player = {
     		"id" : data, 
-    		"player1": false;
+    		"player1": false,
     		"p1_move": "",
     		"p2_move": "",
     		/* neccesary user data goes here---TBD */
