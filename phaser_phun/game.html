@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <script src="jquery-3.2.1.min.js"></script>
+
   <title>Light Cycles 2</title>
 
     <?php
@@ -24,13 +27,13 @@
 </head>
 <body>
   <img class="arrow" id="left" src="res/arrow-key-left.png" alt="left arrow key"
-  onclick="alert('left key pressed')" />
+  onclick="console.log('left key pressed')" />
   <img class="arrow" id="right" src="res/arrow-key-right.png" alt="right arrow key"
-  onclick="alert('right key pressed')"/>
+  onclick="console.log('right key pressed')"/>
   <img class="arrow" id="down" src="res/arrow-key-down.png" alt="down arrow key"
-  onclick="alert('down key pressed')"/>
+  onclick="console.log('down key pressed')"/>
   <img class="arrow" id="up" src="res/arrow-key-up.png" alt="up arrow key"
-  onclick="alert('up key press')"/>  
+  onclick="up-arrow-key"/>  
 
   <script>
 /*
@@ -70,24 +73,19 @@
   e.which = 37;
   $('#left').trigger(e);
 
-  document.onkeydown = checkKey;
+  var f = JQuery.Event('keypress');
+  e.which = 39;
+  $('#right').trigger(f);
+  
+  var g = JQuery.Event('keypress');
+  e.which = 40;
+  $('#down').trigger(e);
 
-  function checkKey(e) {
+  var e = JQuery.Event('keypress');
+  e.which = 38;
+  $('#up').trigger(e);
 
-    e = e || window.event;
-
-    if (e.keyCode == '38') {
-        cosole.log('up arrow pressed')// up arrow
-    }
-    else if (e.keyCode == '40') {
-        alert('down arrow pressed')// down arrow
-    }
-    else if (e.keyCode == '37') {
-       alert('left arrow pressed')// left arrow
-    }
-    else if (e.keyCode == '39') {
-       alert('right arrow pressed')// right arrow
-    }
+  
 
 }*/
 </script>

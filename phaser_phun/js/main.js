@@ -344,7 +344,7 @@ LightBikes.prototype = {
         },
 
         checkCollideSelf: function (player) {
-                for(var i = 2; i < player.length; i++) {
+                for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 console.log(i);
                                 // this.gameOver("You");
