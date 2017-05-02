@@ -124,19 +124,19 @@ LightBikes.prototype = {
 
                 document.addEventListener('keydown', function (event) {
                         if (event.key == "ArrowUp") {
-                                console.log("Up Party");
+                                // console.log("Up Party");
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
                         } else if (event.key == "ArrowDown") {
-                                console.log("Down Party");
+                                // console.log("Down Party");
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
                         } else if (event.key == "ArrowLeft") {
-                                console.log("Left Party");
+                                // console.log("Left Party");
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
                         } else if (event.key == "ArrowRight") {
-                                console.log("Right Party");
+                                // console.log("Right Party");
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
                         }
@@ -196,6 +196,9 @@ LightBikes.prototype = {
 
                         var move = moves.my_move;
                         var opp_move = moves.their_move;
+
+                        console.log("move is:" + move);
+                        console.log("opp_move is:" + opp_move);
 
                         switch (move) {
                                 case "left":
