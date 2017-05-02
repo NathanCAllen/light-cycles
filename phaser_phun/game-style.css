@@ -31,9 +31,18 @@ body {
 	left: 75%;
 }
 
+#stats {
+	max-width: 20%;
+	right: 5%;
+	top: 15%;
+	font-size: 30px;
+	background-color: rgb(80,180,193);
+}
+
 #rules {
 	max-width: 35%;
 	right: 5%;
-	top: 5%;
-	font-size: 30px;
+	top: 15%;
+	font-size: 20px;
+	background-color: rgb(80,180,193);
 }
