@@ -1,0 +1,55 @@
+body {
+	background-color: rgb(61,180,193);
+}
+
+.arrow {
+	max-width: 15%;
+	position: fixed;
+}
+
+.stats {
+	position: fixed;
+}
+
+#left {
+	left: 64%;
+	top: 20%;
+}
+
+#right {
+	right: 0px;
+	top: 20%;
+}
+
+#down {
+	top: 40%;
+	left: 75%;
+}
+
+#up {
+	top: 0px;
+	left: 75%;
+}
+
+#status {
+	max-width: 30%;
+	right: 12%;
+	top: 0px;
+	font-size: 25px;
+	background-color: rgb(40,180,193);
+}
+
+#rules {
+	max-width: 35%;
+	right: 5%;
+	bottom: 20%;
+	font-size: 16px;
+	background-color: rgb(40,180,193);
+}
+
+#exit-button {
+	display: none;
+	position: fixed;
+	bottom: 15%;
+	left: 20%;
+}
