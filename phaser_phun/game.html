@@ -5,18 +5,8 @@
 
         <title>Light Cycles 2</title>
 
-                <?php
-                if(stristr($_SERVER['HTTP_USER_AGENT'], "Mobile")){ // if mobile browser
-                ?>
-                <link rel="stylesheet" href="mobile-game-style.css" type="text/css" />
-                <?php
-                }
-                else { // desktop browser
-                ?>
-                <link rel="stylesheet" href="game-style.css" type="text/css" />
-                <?php
-                }
-                ?>
+            <link rel="stylesheet" href="game-style.css" type="text/css" />
+         
         
 
         <script class="item" id="a" src="lib/phaser.min.js"></script>
@@ -27,15 +17,18 @@
 <body>
  <fieldset class="stats" id="rules">
         <legend>Rules</legend>
-        <p>Welcome to Light Cycles!  You are the teal player on the left,
+        <p>Welcome to Light Cycles! You are the teal player on the left,
             trying to trap the green player on the right and make him run
-            into something before you do.  Please click on the game so it will start
+            into something before you do. Click on the gameboard and press 
+            an arrow key to begin (your oppenent will need to press an
+            arrow key as well to start)
             Good luck!</p>
       </fieldset>
 
 <fieldset class="stats" id="status">
         <legend>Status</legend>
         <p>Waiting for another player</p>
+
       </fieldset>
 
 </body>

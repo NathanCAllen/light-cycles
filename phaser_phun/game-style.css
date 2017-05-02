@@ -2,9 +2,12 @@ body {
 	background-color: rgb(61,180,193);
 }
 
-
 .arrow {
 	max-width: 15%;
+	position: fixed;
+}
+
+.stats {
 	position: fixed;
 }
 
@@ -28,3 +31,9 @@ body {
 	left: 75%;
 }
 
+#rules {
+	max-width: 35%;
+	right: 5%;
+	top: 5%;
+	font-size: 30px;
+}
