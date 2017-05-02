@@ -274,8 +274,9 @@ io.on('connection',function(socket){
 	 				playr.record.push("draw");
 	 				playr.games_played = playr.games_played + 1;
 	 				coll.update({"username" : socket.player.id}, playr, function(error, updates){
-				}
-	 			});
+				
+	 				});
+	 			}
 	 		});
 	 	});
 
