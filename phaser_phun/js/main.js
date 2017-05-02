@@ -81,9 +81,11 @@ LightBikes.prototype = {
                     game.paused = false;
                 });
 
+                var game = this;
+
                 Client.socket.on("forfeit", function() {
                         Client.socket.emit("win");
-                        this.gameOver(3);
+                        game.gameOver(3);
                 });
 
                 console.log("end o create");
