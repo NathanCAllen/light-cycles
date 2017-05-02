@@ -86,11 +86,20 @@ LightBikes.prototype = {
                 game.paused = true;
                 Client.socket.emit('newplayer', username);
                 Client.socket.on("start", function(delay) {
+<<<<<<< HEAD
                         // console.log("meeting time is " + delay);
                         // $.post("time", function(time){
                         //     console.log("now is " + time);
                         //     console.log("time difference is " + (delay - time));
                         //     setTimeout('start_function()', delay - time);
+=======
+                        console.log("meeting time is " + delay);
+                        $.post("time", function(data){
+                            var time = data.time;
+                            console.log("now is " + time);
+                            console.log("time difference is " + (delay - time));
+                            setTimeout('start_function()', delay - time);
+>>>>>>> origin/master
     
                         // });
                        

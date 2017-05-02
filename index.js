@@ -137,9 +137,31 @@ app.get('/', function(request, response) {
 
 });
 
-app.post("/time", function(request, repsonse){
+app.post("/player-stats", function(request, response) {
+	console.log("retrieving player stats");
+	var username = request.body.username;
+	db.collection("players", function(error, coll){
+		if (error) {
+			console.log("Error: " + error);
+			response.send(500);
+		}
+		else {
+			coll.findOne({"username":username}, function(error, item) {
+				if (item == null) {
+					response.send("this shouldn't be possible");
+				}
+				else {
+					response.send(JSON.stringify(item));
+				}
+			})
+		}
+	});
+});
+
+app.post("/time", function(request, response){
 	x = new Date().getTime();
-	response.send(x);
+	var ret = {"time": x};
+	response.send(ret);
 })
 
 function insert_room(arr, room){
