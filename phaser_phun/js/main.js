@@ -243,7 +243,7 @@ LightBikes.prototype = {
         },
 
         checkCollideOther: function () {
-                int x = 0;
+                var x = 0;
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 console.log("enemy_hit");
