@@ -185,14 +185,13 @@ io.on('connection',function(socket){
 			return;
 		}
 		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
-	//	console.log("send moves player is" + socket.player.id);
-		if (socket.player.p1_move != "right" || socket.player.p2_move != "right")
-			console.log("send moves moves are" + JSON.stringify(moves));
+		console.log("send moves player is" + socket.player.id);
+		console.log("send moves moves are" + JSON.stringify(moves));
 
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
 		moves.their_move = socket.player.p1_move;
-	//	console.log("flipped moves are " + JSON.stringify(moves));
+		console.log("flipped moves are " + JSON.stringify(moves));
 
 	 	socket.broadcast.to(socket.player.room).emit('execute_move', moves);
 	}
