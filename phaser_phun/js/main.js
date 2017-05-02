@@ -84,7 +84,7 @@ LightBikes.prototype = {
                 console.log("right after new player sent");
                 Client.socket.on("start", function(room){
                     console.log("in start and your room is " + room);
-                    $("#status").html("legend>Status</legend> <p>Other Player Found!  You are in " + 
+                    $("#status").html("<legend>Status</legend> <p>Other Player Found!  You are in " + 
                                         room + ". Please wait a few seconds for them to load, and the" + 
                                         " game will not start until both players have pressed a direction</p>");
                     game.paused = false;
