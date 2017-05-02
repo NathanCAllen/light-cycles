@@ -1,4 +1,3 @@
-
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
 console.log("Let's start the party!");
