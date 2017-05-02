@@ -336,13 +336,15 @@ io.on('connection',function(socket){
 	});
 
 	function leave_room(socket){
-		room = socket.player.room;
-		if (io.sockets.adapter.rooms[room].length == 1){
-			used_rooms.splice(used_rooms.indexOf(room), 1);
-			insert_room(empty_rooms, room);
+		if (socket.player){
+			room = socket.player.room;
+			if (io.sockets.adapter.rooms[room].length == 1){
+				used_rooms.splice(used_rooms.indexOf(room), 1);
+				insert_room(empty_rooms, room);
+			}
+			socket.leave(room);
+			socket.player.room = "";
 		}
-		socket.leave(room);
-		socket.player.room = "";
 	}
 });
 
