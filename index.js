@@ -272,23 +272,27 @@ io.on('connection',function(socket){
  	//lol who knows how gameplay will work fuck everything
    
  	socket.on('my_move', function(move){
- 		if (socket.player.player1){
- 			socket.player.p1_move = move;
- 		}
- 		else{
- 			socket.broadcast.to(socket.player.room).emit('bounce_move', move);
+ 		if (socket.player){
+ 			if (socket.player.player1){
+ 				socket.player.p1_move = move;
+ 			}
+ 			else{
+ 				socket.broadcast.to(socket.player.room).emit('bounce_move', move);
+ 			}
  		}
  		
 
  	});
 
  	socket.on('opp_move', function(move){
-		if (socket.player.player1){
- 			socket.player.p2_move = move;
- 		}
- 		else{
- 			console.log("this shouldn't be happening");
- 		}
+ 		if(socket.player){
+			if (socket.player.player1){
+ 				socket.player.p2_move = move;
+ 			}
+ 			else{
+ 				console.log("this shouldn't be happening");
+ 			}
+ 	}
  	});
 
  	
