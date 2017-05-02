@@ -93,7 +93,9 @@ LightBikes.prototype = {
 
                 // this.getFirstMove();
 
-                Client.socket.emit("my_move", "right");
+                // Client.socket.emit("my_move", "right");
+
+                this.checkKeys();
         },
 
         getFirstMove: function() {
@@ -118,23 +120,43 @@ LightBikes.prototype = {
 
         checkKeys: function (player) {
 
-                if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
-                        console.log("Left Party");
-                        Client.socket.emit("my_move", "left");
-                        player.next = Phaser.LEFT;
-                } else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
-                        console.log("Right Party");
-                        Client.socket.emit("my_move", "right");
-                        player.next = Phaser.RIGHT;
-                } else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
-                        console.log("Up Party");
-                        Client.socket.emit("my_move", "up");
-                        player.next = Phaser.UP;
-                } else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
-                        console.log("Down Party");
-                        Client.socket.emit("my_move", "down");
-                        player.next = Phaser.DOWN;
-                }
+                document.addEventListener('keydown', function (event) {
+                        if (event.key == "ArrowUp") {
+                                console.log("Up Party");
+                                Client.socket.emit("my_move", "up");
+                                player.next = Phaser.UP; 
+                        } else if (event.key == "ArrowDown") {
+                                console.log("Down Party");
+                                Client.socket.emit("my_move", "down");
+                                player.next = Phaser.DOWN; 
+                        } else if (event.key == "ArrowLeft") {
+                                console.log("Left Party");
+                                Client.socket.emit("my_move", "left");
+                                player.next = Phaser.LEFT; 
+                        } else if (event.key == "ArrowRight") {
+                                console.log("Right Party");
+                                Client.socket.emit("my_move", "right");
+                                player.next = Phaser.RIGHT; 
+                        }
+                })
+
+                // if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
+                //         console.log("Left Party");
+                //         Client.socket.emit("my_move", "left");
+                //         player.next = Phaser.LEFT;
+                // } else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
+                //         console.log("Right Party");
+                //         Client.socket.emit("my_move", "right");
+                //         player.next = Phaser.RIGHT;
+                // } else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
+                //         console.log("Up Party");
+                //         Client.socket.emit("my_move", "up");
+                //         player.next = Phaser.UP;
+                // } else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
+                //         console.log("Down Party");
+                //         Client.socket.emit("my_move", "down");
+                //         player.next = Phaser.DOWN;
+                // }
         },
 
         enemyMovement: function () {
@@ -323,7 +345,7 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                this.checkKeys(this.bike);
+                // this.checkKeys(this.bike);
 
                 // if ((this.getTimeStamp() - this.lastUpdate) < 375) {
                 //         return;
