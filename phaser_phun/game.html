@@ -2,89 +2,199 @@
 <html>
 <head>
 
-  <script src="jquery-3.2.1.min.js"></script>
+        <script src="jquery-3.2.1.min.js"></script>
 
-  <title>Light Cycles 2</title>
+        <title>Light Cycles 2</title>
 
-    <?php
-    if(stristr($_SERVER['HTTP_USER_AGENT'], "Mobile")){ // if mobile browser
-    ?>
-    <link rel="stylesheet" href="mobile-game-style.css" type="text/css" />
-    <?php
-    }
-    else { // desktop browser
-    ?>
-    <link rel="stylesheet" href="game-style.css" type="text/css" />
-    <?php
-    }
-    ?>
-  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                <?php
+                if(stristr($_SERVER['HTTP_USER_AGENT'], "Mobile")){ // if mobile browser
+                ?>
+                <link rel="stylesheet" href="mobile-game-style.css" type="text/css" />
+                <?php
+                }
+                else { // desktop browser
+                ?>
+                <link rel="stylesheet" href="game-style.css" type="text/css" />
+                <?php
+                }
+                ?>
+        
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  <script class="item" id="a" src="lib/phaser.min.js"></script>
-  <script class="item" id="b"src="/socket.io/socket.io.js"></script>
-  <script class="item" id="gameboard"src="js/main.js"></script>
-  <meta charset="utf-8"/>
+        <script class="item" id="a" src="lib/phaser.min.js"></script>
+        <script class="item" id="b"src="/socket.io/socket.io.js"></script>
+        <script class="item" id="gameboard"src="js/main.js"></script>
+        <meta charset="utf-8"/>
 </head>
 <body>
-  <img class="arrow" id="left" src="res/arrow-key-left.png" alt="left arrow key"
-  onclick="console.log('left key pressed')" />
-  <img class="arrow" id="right" src="res/arrow-key-right.png" alt="right arrow key"
-  onclick="console.log('right key pressed')"/>
-  <img class="arrow" id="down" src="res/arrow-key-down.png" alt="down arrow key"
-  onclick="console.log('down key pressed')"/>
-  <img class="arrow" id="up" src="res/arrow-key-up.png" alt="up arrow key"
-  onclick="up-arrow-key"/>  
+        <img class="arrow" id="left" src="res/arrow-key-left.png" alt="left arrow key"
+        onclick="clicked()" />
+        <img class="arrow" id="right" src="res/arrow-key-right.png" alt="right arrow key"
+        onclick="console.log('right key pressed')"/>
+        <img class="arrow" id="down" src="res/arrow-key-down.png" alt="down arrow key"
+        onclick="console.log('down key pressed')"/>
+        <img class="arrow" id="up" src="res/arrow-key-up.png" alt="up arrow key"
+        onclick="console.log('up key pressed')"/>  
 
-  <script>
-<<<<<<< HEAD
+<script>
+        // function simulateKeyPress(character) {
+        //         jQuery.event.trigger({ type : 'keydown', key : character})
+        // }
+
+        $('#left').click() = clicked;
+
+        $('#right').click(function(){
+                simulateKeyPress("ArrowRight");
+        });
+
+        $('#down').click(function(){
+                simulateKeyPress("ArrowDown");
+        });
+
+        $('#up').click(function(){
+                simulateKeyPress("ArrowUp");
+        });
 
 
-  function simulateKeyPress(character) {
-    jQuery.event.trigger({ type : 'keypress', which : character.charCodeAt(0) });
-  }
+        // function simulateKeyPress(evt) {
+        //         var key;
+                
+        //         var el = evt.srcElement;
+        //         switch(direction) {
+        //                 case "ArrowLeft":
+        //                 key = 37;
+        //                 break;
+        //                 case "ArrowRight":
+        //                 key = 39;
+        //                 break;    
+        //         }
 
-  // $(function() {
-  //   $('body').keypress(function(e) {
-  //     alert(e.which);
-  //   });
+        //         el.id = key;
 
-  //   simulateKeyPress("e");
-  // });
+        //         if (document.createEventObject) {
+        //                 var eventObj = document.createEventObject();
+        //                 eventObj.keyCode = key;
+        //                 el.fireEvent("onkeydown", eventObj);   
+        //         } else if (document.createEvent) {
+        //                 var eventObj = document.createEvent("Events");
+        //                 eventObj.initEvent("keydown", true, true);
+        //                 eventObj.which = key;
+        //                 el.dispatchEvent(eventObj);
+        //         }
+        // }
+        document.documentElement.focus();
+        // document.onkeydown = keyDown;
+        document.getElementById("up").onclick = clicked;
 
+        // function keyDown(evt)
+        // {
+        //         var key;
+        //         var el  =  document.getElementById("test");
+        //         var left;
+        //         if(!evt)
+        //         {
+        //                 evt = window.event;
+        //                 if(!evt.which)
+        //                 {
+        //                         key  =  evt.keyCode;   
+        //                 }
+        //         } else if (evt)
+        //         {
+        //                 key = evt.which;   
+        //         }
+        //         if(el.style.left)
+        //         {
+        //                 left = parseInt(el.style.left, 10);  
+        //         }else if(!el.style.left)
+        //         {
+        //                 left = 0;    
+        //         }    
+        //         switch(key)
+        //         {
+        //                 case 37:
+        //                 left -= 10;
+        //                 el.style['left'] = left + "px";
+        //                 break;     
+        //                 case  39:
+        //                 left += 10;
+        //                 el.style['left'] = left + "px";
+        //                 break;     
+        //         }
+        // }
 
-  $('#left').click(function(){
-    simulateKeyPress("ArrowLeft");
-  });
+        function clicked(evt)
+        {
+                var el;
+                if (!evt) {
+                        evt = window.event;
+                        el = evt.srcElement;    
+                } else if (evt) {
+                        el = evt.target;   
+                }
+                
+                switch(el.id)
+                {
+                        case "left":
+                        fireKey(el);
+                        break;   
+                        case "right":
+                        fireKey(el);
+                        break;     
+                }
+        }
 
-  $('#right').click(function(){
-    simulateKeyPress("ArrowRight");
-  });
+        function fireKey(el)
+        {
+                var key;
+                switch(el.id)
+                {
+                        case "left":
+                        key = 37;
+                        break;
+                        case "right":
+                        key = 39;
+                        break;    
+                }
+                if(document.createEventObject)
+                {
+                        var eventObj = document.createEventObject();
+                        eventObj.keyCode = key;
+                        el.fireEvent("onkeydown", eventObj);   
+                }else if(document.createEvent)
+                {
+                        var eventObj = document.createEvent("Events");
+                        eventObj.initEvent("keydown", true, true);
+                        eventObj.which = key;
+                        el.dispatchEvent(eventObj);
+                } 
+        }
+        // var e = JQuery.Event('keypress');
+        // e.which = 37;
+        // $('#left').trigger(e);
 
-  $('#down').click(function(){
-    simulateKeyPress("ArrowDown");
-  });
-
-  $('#up').click(function(){
-    simulateKeyPress("ArrowUp");
-  });
-
-  // var e = JQuery.Event('keypress');
-  // e.which = 37;
-  // $('#left').trigger(e);
-
-  // var f = JQuery.Event('keypress');
-  // e.which = 39;
-  // $('#right').trigger(f);
-  
-  // var g = JQuery.Event('keypress');
-  // e.which = 40;
-  // $('#down').trigger(e);
-
-  // var e = JQuery.Event('keypress');
-  // e.which = 38;
-  // $('#up').trigger(e);
-</script>
+        // var f = JQuery.Event('keypress');
+        // e.which = 39;
+        // $('#right').trigger(f);
         
+        // var g = JQuery.Event('keypress');
+        // e.which = 40;
+        // $('#down').trigger(e);
+
+        // var e = JQuery.Event('keypress');
+        // e.which = 38;
+        // $('#up').trigger(e);
+        document.addEventListener('keydown', function (event) {
+                if (event.key == "ArrowUp") {
+                        console.log("Up Party");
+                } else if (event.key == "ArrowDown") {
+                        console.log("Down Party");
+                } else if (event.key == "ArrowLeft") {
+                        console.log("Left Party");
+                } else if (event.key == "ArrowRight") {
+                        console.log("Right Party");
+                }
+        });
+</script>
+                                
 </body>
 </html>

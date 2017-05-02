@@ -423,9 +423,19 @@ LightBikes.prototype = {
                 var text = this.add.text(game.width * .5, game.height * .5, "Game Over", style);
                 text.anchor.set(.5, .5);
 
+                var whoDied;
                 if (loser == 0) {
-                        
-                }
+                        whoDied = this.add.text(game.width * .5,
+                                game.height * .5 + 100, "Draw!", style);
+                        whoDied.anchor.set(.5, .5);
+                } else if (loser == 1) {
+                        whoDied = this.add.text(game.width * .5,
+                                game.height * .5 + 100, "You Lose!", style);
+                        whoDied.anchor.set(.5, .5);
+                } else if (loser == 2) {
+                        whoDied = this.add.text(game.width * .5,
+                                game.height * .5 + 100, "You Win!", style);
+                        whoDied.anchor.set(.5, .5);
         }
 };
 
