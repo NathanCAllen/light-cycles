@@ -56,14 +56,10 @@ LightBikes.prototype = {
 
                 this.layer = this.map.createLayer('Tile Layer 1');
 
-                // this.map.setCollision(1, true, this.layer);
-
                 this.bike = [];
-                this.bike.push(this.add.sprite(0, 320, 'player'));
+                this.bike.push(this.add.sprite(160, 320, 'player'));
                 this.enemy = [];
-                this.enemy.push(this.add.sprite(624, 320, 'enemy'));
-                // this.increaseLength(this.bike);
-                // this.increaseLength(this.enemy);
+                this.enemy.push(this.add.sprite(464, 320, 'enemy'));
                 this.bike[0].anchor.set(0);
                 this.enemy[0].anchor.set(0);
 
@@ -71,11 +67,6 @@ LightBikes.prototype = {
                 this.physics.arcade.enable(this.enemy[0]);
 
                 this.cursors = this.input.keyboard.createCursorKeys();
-
-                // this.move(this.bike, Phaser.RIGHT);
-                // this.bike.next = Phaser.RIGHT;
-                // this.move(this.enemy, Phaser.LEFT);
-                // this.enemy.next = Phaser.LEFT;
 
                 this.enemyMovement();
                 game.paused = true;
@@ -86,19 +77,13 @@ LightBikes.prototype = {
                     console.log("in start and your room is " + room);
                     game.paused = false;
                 });
-       
 
                 console.log("end o create");
-
-                // this.getFirstMove();
-
-                // Client.socket.emit("my_move", "right");
 
                 this.checkKeys();
         },
 
         getFirstMove: function() {
-                //tell players to input direction
                 this.bike.next = -1;
                 while (this.bike.next == -1) {
                         this.checkKeys();
@@ -123,66 +108,24 @@ LightBikes.prototype = {
 
                 document.addEventListener('keydown', function (event) {
                         if (event.key == "ArrowUp" && this.current != Phaser.DOWN) {
-                                // console.log("Up Party");
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
                         } else if (event.key == "ArrowDown" && this.current != Phaser.UP) {
-                                // console.log("Down Party");
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
                         } else if (event.key == "ArrowLeft" && this.current != Phaser.RIGHT) {
-                                // console.log("Left Party");
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
                         } else if (event.key == "ArrowRight" && this.current != Phaser.LEFT) {
-                                // console.log("Right Party");
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
                         }
                 });
 
                 console.log("checkKeys ran");
-
-                // if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
-                //         console.log("Left Party");
-                //         Client.socket.emit("my_move", "left");
-                //         player.next = Phaser.LEFT;
-                // } else if (this.cursors.right.isDown && player.next !== Phaser.LEFT) {
-                //         console.log("Right Party");
-                //         Client.socket.emit("my_move", "right");
-                //         player.next = Phaser.RIGHT;
-                // } else if (this.cursors.up.isDown && player.next !== Phaser.DOWN) {
-                //         console.log("Up Party");
-                //         Client.socket.emit("my_move", "up");
-                //         player.next = Phaser.UP;
-                // } else if (this.cursors.down.isDown && player.next !== Phaser.UP) {
-                //         console.log("Down Party");
-                //         Client.socket.emit("my_move", "down");
-                //         player.next = Phaser.DOWN;
-                // }
         },
 
         enemyMovement: function () {
-                // var enemy = this.enemy;
-                // Client.socket.on("left", function() {
-                //      enemy.next = Phaser.LEFT;
-                // });
-                // Client.socket.on("right", function() {
-                //      enemy.next = Phaser.RIGHT;
-                // });
-                // Client.socket.on("up", function() {
-                //      enemy.next = Phaser.UP;
-                // });
-                // Client.socket.on("down", function() {
-                //      enemy.next = Phaser.DOWN;
-                // });
-
-
-
-
-
-
-
 
                 Client.socket.on("bounce_move", function (move) {
                         Client.socket.emit("opp_move", move);
@@ -204,21 +147,6 @@ LightBikes.prototype = {
 
                         console.log("move is:" + move);
                         console.log("opp_move is:" + opp_move);
-
-                        // switch (move) {
-                        //         case "left":
-                        //                 console.log("move_left");
-                        //                 g.move(g.bike, Phaser.LEFT);
-                        //         case "right":
-                        //                 console.log("move_right");
-                        //                 g.move(g.bike, Phaser.RIGHT);
-                        //         case "up":
-                        //                 console.log("move_up");
-                        //                 g.move(g.bike, Phaser.UP);
-                        //         case "down":
-                        //                 console.log("move_down");
-                        //                 g.move(g.bike, Phaser.DOWN);
-                        // }
 
                         if (move == "left") {
                                 console.log("move_left");
@@ -251,37 +179,7 @@ LightBikes.prototype = {
                                 console.log("opp_down");
                                 g.move(g.enemy, Phaser.DOWN);
                         }
-
-                        // switch (opp_move) {
-                        //         case "left":
-                        //                 console.log("enemy_right");
-                        //                 g.move(g.enemy, Phaser.RIGHT);
-                        //         case "right":
-                        //                 console.log("enemy_left");
-                        //                 g.move(g.enemy, Phaser.LEFT);
-                        //         case "up":
-                        //                 console.log("enemy_up");
-                        //                 g.move(g.enemy, Phaser.UP);
-                        //         case "down":
-                        //                 console.log("enemy_down");
-                        //                 g.move(g.enemy, Phaser.DOWN);
-                        // }
                 });
-
-
-                // if (this.cursors.left.isDown && this.enemy.next !== Phaser.RIGHT) {
-                //         console.log("Left Party");
-                //         this.enemy.next = Phaser.LEFT;
-                // } else if (this.cursors.right.isDown && this.enemy.next !== Phaser.LEFT) {
-                //         console.log("Right Party");
-                //         this.enemy.next = Phaser.RIGHT;
-                // } else if (this.cursors.up.isDown && this.enemy.next !== Phaser.DOWN) {
-                //         console.log("Up Party");
-                //         this.enemy.next = Phaser.UP;
-                // } else if (this.cursors.down.isDown && this.enemy.next !== Phaser.UP) {
-                //         console.log("Down Party");
-                //         this.enemy.next = Phaser.DOWN;
-                // }
         },
 
         move: function (player, direction) {
@@ -304,26 +202,8 @@ LightBikes.prototype = {
                         player[0].y += speed;
                 }
 
-
-                // this.moveTrain(player);
-
                 this.current = direction;
 
-        },
-
-        moveTrain: function (player) {
-  //            var oldX, oldY;
-                // for(var i = 0; i < player.length; i++) {
-                //      var x = player[i].x;
-                //      var y = player[i].y;
-                //      if(i != 0) {
-                //              player[i].x = oldX;
-                //              player[i].y = oldY;
-                //      }
-
-                //      oldX = x;
-                //      oldY = y;
-                // }
         },
 
         getTimeStamp: function () {
@@ -346,7 +226,6 @@ LightBikes.prototype = {
                 for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 console.log(i);
-                                // this.gameOver("You");
                                 return true;
                         }
                 }
@@ -357,7 +236,6 @@ LightBikes.prototype = {
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 console.log("enemy_hit");
-                                // this.gameOver(this.enemy.name);
                                 return this.enemy.name;
                         }
                 }
@@ -393,27 +271,8 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                // this.checkKeys(this.bike);
-
-                // if ((this.getTimeStamp() - this.lastUpdate) < 375) {
-                //         return;
-                // };
-
                 this.physics.arcade.collide(this.bike[0], this.layer);
                 this.physics.arcade.collide(this.enemy[0], this.layer);
-
-
-
-                // this.lastUpdate = new Date().getTime();
-
-                // this.move(this.bike, this.bike.next);
-
-                // this.move(this.enemy, this.enemy.next);
-
-                // if (this.turning !== Phaser.NONE) {
-                //      this.turn();
-                // };
-
         },
 
         gameOver: function (loser) {
