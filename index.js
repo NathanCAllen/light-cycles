@@ -326,8 +326,8 @@ io.on('connection',function(socket){
 	 		});
 	 	});
  	 });
-    socket.on('disconnect',function(player){
-    	leave_room(socket);
+    socket.on('disconnect',function(){
+    	leave_room(socket):
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
     	// if we wanna do game end
@@ -338,12 +338,14 @@ io.on('connection',function(socket){
 	function leave_room(socket){
 		if (socket.player){
 			room = socket.player.room;
-			if (io.sockets.adapter.rooms[room].length == 1){
-				used_rooms.splice(used_rooms.indexOf(room), 1);
-				insert_room(empty_rooms, room);
+			if (room != ""){
+				if (io.sockets.adapter.rooms[room].length == 1){
+					used_rooms.splice(used_rooms.indexOf(room), 1);
+					insert_room(empty_rooms, room);
+				}
+				socket.leave(room);
+				socket.player.room = "";
 			}
-			socket.leave(room);
-			socket.player.room = "";
 		}
 	}
 });
