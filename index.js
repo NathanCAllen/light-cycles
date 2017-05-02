@@ -178,7 +178,7 @@ var waiting_rooms = [];
 var full_rooms = [];
 io.on('connection',function(socket){
 
-    setInterval(function{
+    setInterval(function(){
         send_moves(socket);
     }, 1000);
 
