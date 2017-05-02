@@ -270,11 +270,11 @@ io.on('connection',function(socket){
 	 		db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
-				
-	 			playr.record.push("draw");
-	 			playr.games_played = playr.games_played + 1;
-	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
-					
+				if (playr){
+	 				playr.record.push("draw");
+	 				playr.games_played = playr.games_played + 1;
+	 				coll.update({"username" : socket.player.id}, playr, function(error, updates){
+				}
 	 			});
 	 		});
 	 	});
@@ -287,14 +287,15 @@ io.on('connection',function(socket){
  	 	db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
+				if (playr){
+	 				playr.record.push("win");
+	 				playr.games_played = playr.games_played + 1;
+	 				playr.wins = playr.wins + 1;
+	 				playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
+	 				coll.update({"username" : socket.player.id}, playr, function(error, updates){
 				
-	 			playr.record.push("win");
-	 			playr.games_played = playr.games_played + 1;
-	 			playr.wins = playr.wins + 1;
-	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] + 50);
-	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
-				
-	 			});
+	 				});
+	 			}
 	 		});
 	 	});
  	 });
@@ -304,14 +305,15 @@ io.on('connection',function(socket){
 		db.collection("players", function(error, coll){
 			
 	 		coll.findOne({"username": socket.player.id}, function(error, playr){
+				if (playr){
+	 				playr.record.push("lose");
+	 				playr.games_played = playr.games_played + 1;
+	 				playr.losses = playr.losses + 1;
+	 				playr.ELO.push(playr.ELO[playr.ELO.length - 1] - 50);
+	 				coll.update({"username" : socket.player.id}, playr, function(error, updates){
 				
-	 			playr.record.push("lose");
-	 			playr.games_played = playr.games_played + 1;
-	 			playr.losses = playr.losses + 1;
-	 			playr.ELO.push(playr.ELO[playr.ELO.length - 1] - 50);
-	 			coll.update({"username" : socket.player.id}, playr, function(error, updates){
-				
-	 			});
+	 				});
+	 			}
 	 		});
 	 	});
  	 });
@@ -326,7 +328,7 @@ io.on('connection',function(socket){
 		if (socket.player){
 			room = socket.player.room;
 			if (room != ""){
-				
+
 					if(waiting_rooms.indexOf(room) != -1){
 						waiting_rooms.splice(waiting_rooms.indexOf(room), 1);
 						insert_room(empty_rooms, room);
