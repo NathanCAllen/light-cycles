@@ -332,10 +332,13 @@ LightBikes.prototype = {
         },
 
         checkBoundaries: function (player) {
-                if(player[0].x >= this.width - 1 || player[0].x < 0) {
+                if (player[0].x >= this.width - 1 || player[0].x < 0) {
+                        console.log("x_boundary");
                         return true;
                 }
-                if(player[0].y >= this.height - 1 || player[0].y < 0) {
+
+                if (player[0].y >= this.height - 1 || player[0].y < 0) {
+                        console.log("y_boundary");
                         return true;
                 }
         },
@@ -343,7 +346,7 @@ LightBikes.prototype = {
         checkCollideSelf: function (player) {
                 for(var i = 2; i < player.length; i++) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
-                                // console.log(i);
+                                console.log(i);
                                 // this.gameOver("You");
                                 return true;
                         }
@@ -354,12 +357,15 @@ LightBikes.prototype = {
         checkCollideOther: function () {
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
+                                console.log("enemy_hit");
                                 // this.gameOver(this.enemy.name);
                                 return this.enemy.name;
                         }
                 }
+                
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
+                                console.log("player_hit");
                                 return "You";
                         }
                 }
