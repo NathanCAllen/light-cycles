@@ -84,9 +84,6 @@ LightBikes.prototype = {
                 console.log("right after new player sent");
                 Client.socket.on("start", function(room){
                     console.log("in start and your room is " + room);
-                    $("#status").html("<legend>Status</legend> <p>Other Player Found!  You are in " + 
-                                        room + ". Please wait a few seconds for them to load, and the" + 
-                                        " game will not start until both players have pressed a direction</p>");
                     game.paused = false;
                 });
        
@@ -125,19 +122,19 @@ LightBikes.prototype = {
                 var player = this.bike;
 
                 document.addEventListener('keydown', function (event) {
-                        if (event.key == "ArrowUp") {
+                        if (event.key == "ArrowUp" && this.current != Phaser.DOWN) {
                                 // console.log("Up Party");
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
-                        } else if (event.key == "ArrowDown") {
+                        } else if (event.key == "ArrowDown" && this.current != Phaser.UP) {
                                 // console.log("Down Party");
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
-                        } else if (event.key == "ArrowLeft") {
+                        } else if (event.key == "ArrowLeft" && this.current != Phaser.RIGHT) {
                                 // console.log("Left Party");
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
-                        } else if (event.key == "ArrowRight") {
+                        } else if (event.key == "ArrowRight" && this.current != Phaser.LEFT) {
                                 // console.log("Right Party");
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
@@ -439,7 +436,6 @@ LightBikes.prototype = {
                         whoDied = this.add.text(game.width * .5,
                                 game.height * .5 + 100, "You Win!", style);
                         whoDied.anchor.set(.5, .5);
-                }
         }
 };
 

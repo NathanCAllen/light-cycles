@@ -26,11 +26,11 @@
 
 <script>
 
-  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game. Really", "Escapade X", "Not Your Grandma's Web Game", "An Excercise in Futility", "Just Like in Spy Kids 3-D", "Why Did I Do This", "Where Else Did I Make a Typo", "Where am I? Hello? Is Anyone There?", "Is This The Real Life? Is This Just Fantasy?"];
+  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game. Really", "Escapade X", "Not Your Grandma's Web Game", "An Excercise in Futility", "Just Like in Spy Kids 3-D", "Why Did I Do This", "Where Else Did I Make a Typo", "Where am I? Hello? Is Anyone There?", "Is This The Real Life? Is This Just Fantasy?", "This Feels like 40"];
 
   $(document).ready(function(){
     var number = parseInt(localStorage.getItem("count"),10);
-    $("#title").html("Light Cycles " + Math.floor(Math.random()*9));
+    $("#title").html("Light Cycles " + (2+Math.floor(Math.random()*7)));
     number = Math.floor(Math.random()*subtitles.length);
     $("#subtitle").html(subtitles[number]);
   });

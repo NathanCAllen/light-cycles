@@ -52,4 +52,10 @@ fieldset.stats {
 
 }
 
+/*#mobile-wall {
+	display: none;
+}*/
 
+#mobile-wall {
+        border: 1px rgb(61,180,193);
+}
