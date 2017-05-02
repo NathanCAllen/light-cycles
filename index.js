@@ -125,7 +125,7 @@ app.post("/login", function(request, response){
 					response.sendFile(path.join(__dirname + "/public/" + "login-incorrect.html"))
 				}
 				else{
-					response.sendFile(path.join(__dirname + "/phaser_phun/" + "game.html"))
+					response.sendFile(path.join(__dirname + "/public/" + "waiting.html"))
 				}
 			});
 		}
@@ -176,8 +176,20 @@ function insert_room(arr, room){
 var empty_rooms = ["room1", "room2", "room3", "room4"];
 var waiting_rooms = [];
 var full_rooms = [];
-
 io.on('connection',function(socket){
+
+    setInterval(function{
+        send_moves(socket);
+    }, 1000);
+
+	function send_moves(socket){
+		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
+		socket.emit("execute_move", moves);
+		moves.my_move = socket.player.p2_move;
+		moves.their_move = socket.player.p1_move;
+
+	 	socket.broadcast.to(socket.player.room).emit('execute_move', moves);
+	}
 
     socket.on('newplayer',function(data){
     	console.log("in new_player server_side");
@@ -185,7 +197,9 @@ io.on('connection',function(socket){
     	var room = "";
     	var player = {
     		"id" : data, 
-
+    		"player1": false;
+    		"p1_move": "",
+    		"p2_move": "",
     		/* neccesary user data goes here---TBD */
     		"room": room
     	}
@@ -199,7 +213,6 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			var start_time = new Date().getTime();
 			start_time = start_time + 10000;
 			io.sockets.in(room).emit("start", start_time);			
 		}
@@ -217,6 +230,7 @@ io.on('connection',function(socket){
 				insert_room(waiting_rooms, room);
 				empty_rooms.splice(0,1);
 			}
+			player.player1 = true;
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
@@ -229,25 +243,27 @@ io.on('connection',function(socket){
 
  	//lol who knows how gameplay will work fuck everything
    
- 	socket.on('left', function(){
- 		socket.broadcast.to(socket.player.room).emit('right');
+ 	socket.on('my_move', function(move){
+ 		if (socket.player.player1){
+ 			socket.player.p1_move = move;
+ 		}
+ 		else{
+ 			socket.broadcast.to(socket.player.room).emit('bounce_move', move);
+ 		}
+ 		
 
  	});
 
- 	socket.on('right', function(){
- 		socket.broadcast.to(socket.player.room).emit('left');
-
+ 	socket.on('opp_move', function(move){
+		if (socket.player.player1){
+ 			socket.player.p2_move = move;
+ 		}
+ 		else{
+ 			console.log("this shouldn't be happening");
+ 		}
  	});
 
- 	socket.on('up', function(){
- 		socket.broadcast.to(socket.player.room).emit('up');
-
- 	});
-
- 	socket.on('down', function(){
- 		socket.broadcast.to(socket.player.room).emit('down');
-
- 	});
+ 	
  	socket.on("draw", function(){
 
  		db.collection("players", function(error, coll){

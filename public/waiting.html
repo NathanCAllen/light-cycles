@@ -3,14 +3,15 @@
 <html>
 	<head>
 		<title>Waiting Room</title>
-		<link rel="stylesheet" type="text/css" href="style.css">
-		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 	<script>
 
-  		var username = {"username":localStorage.getItem("username")};
+
+      var username = {"username":localStorage.getItem("username")};
 
   		$.post( "player-stats", username, function(data){
   			var stats  = "<legend>User Stats</legend>";
@@ -19,7 +20,7 @@
   			var losses;
   			player = JSON.parse(data);
 
-  			stats += "<p>"+"Wins: "+player.wins+"</p><p>"+"Losses: "+player.losses+"</p>";
+  			stats += "<p>"+"Wins: "+player.wins+"</p>"+ "<p>"+"Losses: "+player.losses+"</p>";
 
       		$("#userStats").html(stats);
 		});
@@ -27,7 +28,7 @@
 	</script>
 
 	<body>
-		<form action="/playgame" method="post">
+		<form action="/matchmake" method="post">
 
 			<fieldset class="stats" id="userStats">
         		<legend>User Stats</legend>
