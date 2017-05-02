@@ -55,7 +55,7 @@
     for (i = 0; i < 3; i++){
       player = data[i];
       ELO = player.ELO[player.ELO.length - 1];
-      stats = stats + "<p>" + (i + i) + "." + player.username + " " + ELO + "<p>";
+      stats = stats + "<p>" + (i + 1) + "." + player.username + " " + ELO + "<p>";
     }
     $("#leaderBoard").html(stats);
   });
