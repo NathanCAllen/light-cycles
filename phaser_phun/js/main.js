@@ -80,9 +80,11 @@ LightBikes.prototype = {
 
                 this.enemyMovement();
                 game.paused = true;
+                console.log("right before newplayer sent"):
                 Client.socket.emit('newplayer', username);
-                    
+                console.log("right after new player sent");
                 Client.socket.on("start", function(){
+                    console.log("in start");
                     game.paused = false;
                 });
 
@@ -98,6 +100,7 @@ LightBikes.prototype = {
                 // });
 
                 this.getFirstMove();
+                console.log("end o create");
         },
 
         getFirstMove: function() {
