@@ -30,7 +30,7 @@
 
   $(document).ready(function(){
     var number = parseInt(localStorage.getItem("count"),10);
-    $("#title").html("Light Cycles " + 2);
+    $("#title").html("Light Cycles " + (Math.random()%8 + 1);
     number = Math.floor(Math.random()*subtitles.length);
     $("#subtitle").html(subtitles[number]);
   });
@@ -82,7 +82,7 @@
 </script>
 
 <body>
-  <h1 id="title">Light Cycles</h1>
+  <h1 id="title"></h1>
   <h2 id="subtitle"></h2>
 
   <p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
