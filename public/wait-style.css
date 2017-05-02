@@ -14,7 +14,7 @@ h2 {
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 50px;
 	text-align: center;
 }
 
@@ -28,14 +28,16 @@ fieldset.stats {
 	display: inline;
 }
 
-#leaderBoard {
-	width: 20%;
+#start {
+	width: 30%;
 	font-family: 'Orbitron';
-	color: rgb(61,180,193);
+	background-color: rgb(61,180,193);
+	color:(0,0,0);
 	font-weight: bold;
-	font-size: 30px;
-	text-align: left;
-	margin-left: 10%;
+	font-size: 50px;
+	text-align: center;
+	margin-left: 35%;
+	margin-top: 3%;
 }
 
 #userStats {
@@ -43,29 +45,11 @@ fieldset.stats {
 	font-family: 'Orbitron';
 	color: rgb(61,180,193);
 	font-weight: bold;
-	font-size: 30px;
+	font-size: 40px;
 	text-align: left;
-	float: right;
-	margin-right: 10%;
+	margin-left: 40%;
+	margin-top: 3%;
+
 }
 
-#login {
-	font-family: 'Orbitron';
-	color: rgb(61,180,193);
-	font-weight: bold;
-	font-size: 30px;
-	text-align: center;
-	margin-left: 40%;
-	margin-right: 40%;
-}
 
-#register {
-	font-family: 'Orbitron';
-	color: rgb(61,180,193);
-	font-weight: bold;
-	font-size: 30px;
-	text-align: center;
-	margin-left: 40%;
-	margin-right: 40%;
-	margin-top: 10px;
-}
