@@ -118,7 +118,9 @@ LightBikes.prototype = {
                 player.push(tail);
         },
 
-        checkKeys: function (player) {
+        checkKeys: function () {
+
+                var player = this.bike;
 
                 document.addEventListener('keydown', function (event) {
                         if (event.key == "ArrowUp") {
@@ -138,7 +140,7 @@ LightBikes.prototype = {
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
                         }
-                })
+                });
 
                 // if (this.cursors.left.isDown && player.next !== Phaser.RIGHT) {
                 //         console.log("Left Party");
