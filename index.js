@@ -28,11 +28,11 @@ app.use(express.static("phaser_phun"));
 
 
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -85,26 +85,32 @@ app.post("/register", function(request, response){
 		"wins": 0,
 		"losses": 0,
 		"games_played":0,
-		"ELO": [default_ELO], //Default ELO subject to change
+		"ELO": [default_ELO],
 		"record": []
 	};
+	old_username = username.replace(/[^\w\s]/gi, '');
 
-	db.collection("players", function(error, coll){
+	//If the username has special characters
+	if (old_username != username){
+		response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"));
+	}
+	else{ 
+		db.collection("players", function(error, coll){
 		//check if username already takn
-		coll.findOne({"username":username}, function(error, item){
-			console.log("searched username is " + JSON.stringify(item));
-			if (item != null){
+			coll.findOne({"username":username}, function(error, item){
+				console.log("searched username is " + JSON.stringify(item));
+				if (item != null){
+					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"));
+				}
+				else{
+					coll.insert(new_player, function(error, update){
+						response.sendFile(path.join(__dirname + "/public/" + "registration-success.html"));
+					});
 
-					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"))
-			}
-			else{
-				coll.insert(new_player, function(error, update){
-					response.sendFile(path.join(__dirname + "/public/" + "registration-success.html"))
-				});
-
-			}
+				}
+			});
 		});
-	});
+	}
 
 });
 
@@ -343,7 +349,7 @@ io.on('connection',function(socket){
 				console.log("room is " + room);
 				room_arr = io.sockets.adapter.rooms[room]
 				if(room_arr){
-					if (io.sockets.adapter.rooms[room].length == 1){
+					if (room_arr.length == 1){
 						used_rooms.splice(used_rooms.indexOf(room), 1);
 						insert_room(empty_rooms, room);
 					}
