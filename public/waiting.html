@@ -20,9 +20,9 @@
   			var losses;
   			player = JSON.parse(data);
 
-  			stats += "<p>"+"Wins: "+player.wins+"</p>"+ "<p>"+"Losses: "+player.losses+"
-        </p>" + "<p>" + "Total Games Played: " + player.games_played + "</p>" +
-        "<p>" + "ELO: " + player.ELO[player.ELO.size()] + "</p>";
+  			stats += "<p>"+"Wins: "+player.wins+"</p>"+ "<p>"+"Losses: "+player.losses+
+        "</p>" + "<p>" + "Total Games Played: " + player.games_played + "</p>" +
+        "<p>" + "ELO: " + player.ELO[player.ELO.length - 1] + "</p>";
 
       		$("#userStats").html(stats);
 		});
