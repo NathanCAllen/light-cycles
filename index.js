@@ -218,7 +218,7 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			io.sockets.in(room).emit("start");			
+			io.sockets.in(room).emit("start", room);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{

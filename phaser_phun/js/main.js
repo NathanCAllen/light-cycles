@@ -83,8 +83,8 @@ LightBikes.prototype = {
                 console.log("right before newplayer sent");
                 Client.socket.emit('newplayer', username);
                 console.log("right after new player sent");
-                Client.socket.on("start", function(){
-                    console.log("in start");
+                Client.socket.on("start", function(room){
+                    console.log("in start and your room is " + room);
                     game.paused = false;
                 });
        
