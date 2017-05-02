@@ -87,17 +87,7 @@ LightBikes.prototype = {
                     console.log("in start");
                     game.paused = false;
                 });
-
-                        // console.log("meeting time is " + delay);
-                        // $.post("time", function(time){
-                        //     console.log("now is " + time);
-                        //     console.log("time difference is " + (delay - time));
-                        //     setTimeout('start_function()', delay - time);
-    
-                        // });
-                       
-                    //    this.lastUpdate = new Date().getTime();
-                // });
+       
 
                 console.log("end o create");
 
@@ -185,23 +175,31 @@ LightBikes.prototype = {
 
                         switch (move) {
                                 case "left":
+                                        console.log("move_left");
                                         g.move(g.bike, Phaser.LEFT);
                                 case "right":
+                                        console.log("move_right");
                                         g.move(g.bike, Phaser.RIGHT);
                                 case "up":
+                                        console.log("move_up");
                                         g.move(g.bike, Phaser.UP);
                                 case "down":
+                                        console.log("move_down");
                                         g.move(g.bike, Phaser.DOWN);
                         }
 
                         switch (opp_move) {
                                 case "left":
+                                        console.log("enemy_right");
                                         g.move(g.enemy, Phaser.RIGHT);
                                 case "right":
+                                        console.log("enemy_left");
                                         g.move(g.enemy, Phaser.LEFT);
                                 case "up":
+                                        console.log("enemy_up");
                                         g.move(g.enemy, Phaser.UP);
                                 case "down":
+                                        console.log("enemy_down");
                                         g.move(g.enemy, Phaser.DOWN);
                         }
                 });

@@ -158,12 +158,6 @@ app.post("/player-stats", function(request, response) {
 	});
 });
 
-app.post("/time", function(request, response){
-	x = new Date().getTime();
-	var ret = {"time": x};
-	response.send(ret);
-})
-
 function insert_room(arr, room){
 	for (i = 0; i < arr.length; i++){
 		if (room < arr[i]){
@@ -198,6 +192,7 @@ io.on('connection',function(socket){
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
 		moves.their_move = socket.player.p1_move;
+		console.log("flipped moves are " + JSON.stringify(moves));
 
 	 	socket.broadcast.to(socket.player.room).emit('execute_move', moves);
 	}
