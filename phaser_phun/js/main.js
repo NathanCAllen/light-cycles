@@ -75,6 +75,9 @@ LightBikes.prototype = {
                 console.log("right after new player sent");
                 Client.socket.on("start", function(room){
                     console.log("in start and your room is " + room);
+                    $("#status").html("<legend>Status</legend> <p> Opponent Found! You are in " + room + 
+                    " Please wait a few second for their"+
+                    "game to load and remember to click on the board. " )
                     game.paused = false;
                 });
 
