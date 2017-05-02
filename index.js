@@ -161,7 +161,7 @@ function insert_room(arr, room){
 	arr.push(room);
 }
 
-var empty_rooms = ["room0", "room1","room2", "room3"];
+var empty_rooms = ["Room 0", "Room 1","Room 2", "Room 3"];
 var waiting_rooms = [];
 var full_rooms = [];
 io.on('connection',function(socket){
@@ -222,7 +222,7 @@ io.on('connection',function(socket){
     	
     		//if all rooms are full
     		if (player.room == ""){
-    			var new_room = "room" + (waiting_rooms.length + full_rooms.length);
+    			var new_room = "Room " + (waiting_rooms.length + full_rooms.length);
     			player.room = new_room;
     			waiting_rooms.push(new_room);
     			socket.join(new_room);
