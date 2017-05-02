@@ -125,19 +125,19 @@ LightBikes.prototype = {
                 var player = this.bike;
 
                 document.addEventListener('keydown', function (event) {
-                        if (event.key == "ArrowUp") {
+                        if (event.key == "ArrowUp" && this.current != Phaser.DOWN) {
                                 // console.log("Up Party");
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
-                        } else if (event.key == "ArrowDown") {
+                        } else if (event.key == "ArrowDown" && this.current != Phaser.UP) {
                                 // console.log("Down Party");
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
-                        } else if (event.key == "ArrowLeft") {
+                        } else if (event.key == "ArrowLeft" && this.current != Phaser.RIGHT) {
                                 // console.log("Left Party");
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
-                        } else if (event.key == "ArrowRight") {
+                        } else if (event.key == "ArrowRight" && this.current != Phaser.LEFT) {
                                 // console.log("Right Party");
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
@@ -346,11 +346,15 @@ LightBikes.prototype = {
         },
 
         checkCollideSelf: function (player) {
+                var c = 0;
                 for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 console.log(i);
+                                c++;
+                                if (c == 3) {
+                                        return true;
+                                }
                                 // this.gameOver("You");
-                                return true;
                         }
                 }
 
