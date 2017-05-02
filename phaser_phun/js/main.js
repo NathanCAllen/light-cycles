@@ -339,7 +339,7 @@ LightBikes.prototype = {
         },
 
         checkCollideSelf: function (player) {
-                for(var i = 2; i < player.length; i++) {
+                for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 // console.log(i);
                                 // this.gameOver("You");
@@ -350,7 +350,7 @@ LightBikes.prototype = {
         },
 
         checkCollideOther: function () {
-                for (var i = this.bike.length - 2; i > 0; i--) {
+                for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 // this.gameOver(this.enemy.name);
                                 return this.enemy.name;
