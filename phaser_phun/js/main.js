@@ -261,7 +261,8 @@ LightBikes.prototype = {
                         whoDied.anchor.set(.5, .5);
                 }
 
-                document.getElementById('exit-button').style.display = "block";
+                document.getElementById('profile-button').style.display = "block";
+                document.getElementById('refresh-button').style.display = "block";
         }
 };
 
