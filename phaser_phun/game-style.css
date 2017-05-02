@@ -47,16 +47,10 @@ body {
 	background-color: rgb(40,180,193);
 }
 
-#profile-button {
+#refresh-button {
 	display: none;
 	position: fixed;
 	bottom: 15%;
 	left: 20%;
 }
 
-#refresh-button {
-	display: none;
-	position: fixed;
-	bottom: 15%;
-	left: 40%;
-}
