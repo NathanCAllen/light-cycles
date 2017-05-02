@@ -81,6 +81,11 @@ LightBikes.prototype = {
                     game.paused = false;
                 });
 
+                Client.socket.on("forfeit", function() {
+                        Client.socket.emit("win");
+                        gameOver(3);
+                });
+
                 console.log("end o create");
 
                 this.checkKeys();
@@ -298,6 +303,10 @@ LightBikes.prototype = {
                         whoDied = this.add.text(game.width * .5,
                                 game.height * .5 + 100, "You Win!", style);
                         whoDied.anchor.set(.5, .5);
+                } else if (loser == 3) {
+                        whoDied = this.add.text(game.width * .5,
+                                game.height * .5 + 100, "Your opponent has left the game.", style);
+                        whoDied.anchor.set(.5, .5);
                 }
 
                 document.getElementById('exit-button').style.display = "block";
@@ -305,3 +314,4 @@ LightBikes.prototype = {
 };
 
 game.state.add('Game', LightBikes, true);
+

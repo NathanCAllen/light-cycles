@@ -71,9 +71,6 @@ app.post("/register", function(request, response){
 	//may want to beef up the security on this
 	var username = request.body.user;
 	var password = request.body.pwd;
-	console.log("in register");
-	console.log("username is " + username);
-	console.log("passwrd is " + password);
 	var new_player = {
 		"username" : username,
 		"password": password,
@@ -93,7 +90,6 @@ app.post("/register", function(request, response){
 		db.collection("players", function(error, coll){
 		//check if username already takn
 			coll.findOne({"username":username}, function(error, item){
-				console.log("searched username is " + JSON.stringify(item));
 				if (item != null){
 					response.sendFile(path.join(__dirname + "/public/" + "registration-failed.html"));
 				}
@@ -110,9 +106,6 @@ app.post("/register", function(request, response){
 });
 
 app.post("/login", function(request, response){
-	console.log("in login");
-	console.log("username is " + request.body.username);
-	console.log("username is " + request.body.password);
 	var username = request.body.username;
 	var password = request.body.password;
 	db.collection("players", function(error, coll){
@@ -139,7 +132,6 @@ app.get('/', function(request, response) {
 });
 
 app.post("/player-stats", function(request, response) {
-	console.log("retrieving player stats");
 	var username = request.body.username;
 	db.collection("players", function(error, coll){
 		if (error) {
@@ -187,20 +179,15 @@ io.on('connection',function(socket){
 			return;
 		}
 		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
-		console.log("send moves player is" + socket.player.id);
-		console.log("send moves moves are" + JSON.stringify(moves));
 
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
 		moves.their_move = socket.player.p1_move;
-		console.log("flipped moves are " + JSON.stringify(moves));
 
 	 	socket.broadcast.to(socket.player.room).emit('execute_move', moves);
 	}
 
     socket.on('newplayer',function(data){
-    	console.log("in new_player server_side");
-    	console.log("data is " + data);
     	var player = {
     		"id" : data, 
     		"player1": false,
