@@ -103,7 +103,7 @@ LightBikes.prototype = {
 
                 // this.getFirstMove();
 
-                Client.socket.emit("my_move", "left");
+                Client.socket.emit("my_move", "right");
         },
 
         getFirstMove: function() {
