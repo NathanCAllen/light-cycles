@@ -173,6 +173,8 @@ LightBikes.prototype = {
                         Client.socket.emit("opp_move", move);
                 });
 
+                var g = this;
+
                 Client.socket.on("execute_move", function (moves) {
                         if (game.paused) {
                                 return;
@@ -183,24 +185,24 @@ LightBikes.prototype = {
 
                         switch (move) {
                                 case "left":
-                                        this.move(this.bike, Phaser.LEFT);
+                                        g.move(g.bike, Phaser.LEFT);
                                 case "right":
-                                        this.move(this.bike, Phaser.RIGHT);
+                                        g.move(g.bike, Phaser.RIGHT);
                                 case "up":
-                                        this.move(this.bike, Phaser.UP);
+                                        g.move(g.bike, Phaser.UP);
                                 case "down":
-                                        this.move(this.bike, Phaser.DOWN);
+                                        g.move(g.bike, Phaser.DOWN);
                         }
 
                         switch (opp_move) {
                                 case "left":
-                                        this.move(this.enemy, Phaser.RIGHT);
+                                        g.move(g.enemy, Phaser.RIGHT);
                                 case "right":
-                                        this.move(this.enemy, Phaser.LEFT);
+                                        g.move(g.enemy, Phaser.LEFT);
                                 case "up":
-                                        this.move(this.enemy, Phaser.UP);
+                                        g.move(g.enemy, Phaser.UP);
                                 case "down":
-                                        this.move(this.enemy, Phaser.DOWN);
+                                        g.move(g.enemy, Phaser.DOWN);
                         }
                 });
 
@@ -313,13 +315,13 @@ LightBikes.prototype = {
                         youDie = true;
                 }
                 if (youDie && theyDie) {
-                    Client.socket.emit("draw");
+                        Client.socket.emit("draw");
                         this.gameOver(0);
                 } else if (youDie) {
-                    Client.socket.emit("lose");
+                        Client.socket.emit("lose");
                         this.gameOver(1);
                 } else if (theyDie) {
-                    Client.socket.emit("win");
+                        Client.socket.emit("win");
                         this.gameOver(2);
                 }
 
