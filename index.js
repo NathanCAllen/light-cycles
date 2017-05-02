@@ -174,7 +174,7 @@ io.on('connection',function(socket){
 
     setInterval(function(){
         send_moves(socket);
-    }, 3000);
+    }, 500);
 
 	function send_moves(socket){
 		//if the player has not been initalized OR not player1
@@ -185,14 +185,13 @@ io.on('connection',function(socket){
 			return;
 		}
 		var moves = {"my_move": socket.player.p1_move, "their_move": socket.player.p2_move};
-	//	console.log("send moves player is" + socket.player.id);
-		if (socket.player.p1_move != "right" || socket.player.p2_move != "right")
-			console.log("send moves moves are" + JSON.stringify(moves));
+		console.log("send moves player is" + socket.player.id);
+		console.log("send moves moves are" + JSON.stringify(moves));
 
 		socket.emit("execute_move", moves);
 		moves.my_move = socket.player.p2_move;
 		moves.their_move = socket.player.p1_move;
-	//	console.log("flipped moves are " + JSON.stringify(moves));
+		console.log("flipped moves are " + JSON.stringify(moves));
 
 	 	socket.broadcast.to(socket.player.room).emit('execute_move', moves);
 	}
@@ -219,7 +218,7 @@ io.on('connection',function(socket){
 			player.room = room;
 			socket.player = player;
 			socket.join(room);
-			io.sockets.in(room).emit("start");			
+			io.sockets.in(room).emit("start", room);			
 		}
 		//if no waiting rooms, place  empty rooms
 		else{
