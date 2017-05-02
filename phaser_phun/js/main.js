@@ -350,7 +350,7 @@ LightBikes.prototype = {
         },
 
         checkCollideOther: function () {
-                for (var i = 1; i < this.bike.length; i++) {
+                for (var i = this.bike.length - 2; i > 0; i--) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 // this.gameOver(this.enemy.name);
                                 return this.enemy.name;
