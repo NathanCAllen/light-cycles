@@ -207,10 +207,12 @@ LightBikes.prototype = {
         },
 
         update: function () {
-
-                var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
-                var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
-                var collideOther = this.checkCollideOther();
+                var youDie = false;
+                var theyDie = false;
+                var collideOther = 0;
+                youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
+                theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
+                collideOther = this.checkCollideOther();
                 if (collideOther == 1) {
                         theyDie = true;
                 } else if (collideOther == 2) {
