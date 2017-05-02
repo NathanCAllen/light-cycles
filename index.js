@@ -327,7 +327,7 @@ io.on('connection',function(socket){
 	 	});
  	 });
     socket.on('disconnect',function(){
-    	leave_room(socket):
+    	leave_room(socket);
     	//maybe add something to this to prevent proliferation of rooms; not an essential add
 
     	// if we wanna do game end
