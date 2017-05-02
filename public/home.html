@@ -20,10 +20,21 @@
 
   <link href="https://fonts.googleapis.com/css?family=Orbitron:700,900" rel="stylesheet">
   
+  
 </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script>
+
+  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game. Really", "Escapade X", "Not Your Grandma's Web Game", "An Excercise in Futility", "Just Like in Spy Kids 3-D", "Why Did I Do This", "Where Else Did I Make a Typo", "Where am I? Hello? Is Anyone There?", "Is This The Real Life? Is This Just Fantasy?"];
+
+  $(document).ready(function(){
+    var number = parseInt(localStorage.getItem("count"),10);
+    $("#title").html("Light Cycles " + 2);
+    number = Math.floor(Math.random()*subtitles.length);
+    $("#subtitle").html(subtitles[number]);
+  });
+
 
   function ELO_sort(a,b){
     a_len = a.ELO.length;
@@ -49,8 +60,6 @@
     $("#leaderBoard").html(stats);
   });
 
-  var subtitles = ["A Reactionary Tale", "Expedition Unknown", "An Inconvenient Spoof", "Not a Tron Clone", "Ming Chow is Pretty Cool", "In Loving Memory of Free Speech at Tufts", "It's a Pretty Good Game. Really", "Escapade X", "Not Your Grandma's Web Game", "An Excercise in Futility", "Just Like in Spy Kids 3-D", "Why Did I Do This", "Where Else Did I Make a Typo", "Where am I? Hello? Is Anyone There?", "Is This The Real Life? Is This Just Fantasy?"];
-
   function onLogin() {
     var username = document.getElementById("userinput1");
     var password = document.getElementById("userinput2");
@@ -65,13 +74,6 @@
     alert("this worked!");
   }
 
-  $(document).ready(function(){
-    var number = parseInt(localStorage.getItem("count"),10);
-    $("#title").html("Light Cycles " + 2);
-    number = Math.floor(Math.random()*subtitles.length);
-    $("#subtitle").html(subtitles[number]);
-  });
-
   function onLogin() {
     var username = document.getElementById("username").value;
     localStorage.setItem("username",username);
@@ -80,8 +82,8 @@
 </script>
 
 <body>
-  <h1 id="title">Light Cycles 2</h1>
-  <h2 id="subtitle">A Reactionary Tale</h2>
+  <h1 id="title">Light Cycles</h1>
+  <h2 id="subtitle"></h2>
 
   <p> <img id="logo" src="Logo1.png" alt="light cycle logo" /></p>
 
@@ -89,9 +91,9 @@
   <form method="post" action="/login">
     <fieldset class="stats" id="leaderBoard">
         <legend>Leader Board</legend>
-        <p>1. foo 43245345</p>
-        <p>2. bar 3425345</p>
-        <p>3. doo 345</p>
+        <p></p>
+        <p></p>
+        <p></p>
       </fieldset>
 
       <fieldset class="stats" id="login">
