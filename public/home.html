@@ -67,9 +67,7 @@
 
   $(document).ready(function(){
     var number = parseInt(localStorage.getItem("count"),10);
-    if (number != null) {
-      $("#title").html("Light Cycles " + number);
-    }
+    $("#title").html("Light Cycles " + 2);
     number = Math.floor(Math.random()*subtitles.length);
     $("#subtitle").html(subtitles[number]);
   });
