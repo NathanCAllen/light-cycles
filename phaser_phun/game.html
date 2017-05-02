@@ -17,18 +17,80 @@
     ?>
   
 
-  <script id="a" src="lib/phaser.min.js"></script>
-  <script id="b" src="/socket.io/socket.io.js"></script>
-  <script id="gameboard" src="js/main.js"></script>
+  <script class="item" id="a" src="lib/phaser.min.js"></script>
+  <script class="item" id="b"src="/socket.io/socket.io.js"></script>
+  <script class="item" id="gameboard"src="js/main.js"></script>
   <meta charset="utf-8"/>
 </head>
 <body>
-  <img class="arrow" id="left" src="res/arrow-key-left.png" alt="left arrow key"/>
-  <img class="arrow" id="right" src="res/arrow-key-right.png" alt="right arrow key"/>
-  <img class="arrow" id="down" src="res/arrow-key-down.png" alt="down arrow key"/>
-  <img class="arrow" id="up" src="res/arrow-key-up.png" alt="up arrow key"/>  
+  <img class="arrow" id="left" src="res/arrow-key-left.png" alt="left arrow key"
+  onclick="alert('left key pressed')" />
+  <img class="arrow" id="right" src="res/arrow-key-right.png" alt="right arrow key"
+  onclick="alert('right key pressed')"/>
+  <img class="arrow" id="down" src="res/arrow-key-down.png" alt="down arrow key"
+  onclick="alert('down key pressed')"/>
+  <img class="arrow" id="up" src="res/arrow-key-up.png" alt="up arrow key"
+  onclick="alert('up key press')"/>  
 
+  <script>
 
+  $('#left').click(function(){
+    $(document.body).trigger({
+      type: 'keypress',
+      which: 37,
+      keyCode: 37
+    });
+  });
+
+  $('#right').click(function(){
+    $(document.body).trigger({
+      type: 'keypress',
+      which: 39,
+      keyCode: 39
+    });
+  });
+
+  $('#down').click(function(){
+    $(document.body).trigger({
+      type: 'keypress',
+      which: 40,
+      keyCode: 40
+    });
+  });
+
+  $('#up').click(function(){
+    $(document.body).trigger({
+      type: 'keypress',
+      which: 38,
+      keyCode: 38
+    });
+  });
+
+  var e = JQuery.Event('keypress');
+  e.which = 37;
+  $('#left').trigger(e);
+
+  document.onkeydown = checkKey;
+
+  function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        cosole.log('up arrow pressed')// up arrow
+    }
+    else if (e.keyCode == '40') {
+        alert('down arrow pressed')// down arrow
+    }
+    else if (e.keyCode == '37') {
+       alert('left arrow pressed')// left arrow
+    }
+    else if (e.keyCode == '39') {
+       alert('right arrow pressed')// right arrow
+    }
+
+}
+</script>
         
 </body>
 </html>
