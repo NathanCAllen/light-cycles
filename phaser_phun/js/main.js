@@ -1,7 +1,5 @@
 var game = new Phaser.Game(640, 640, Phaser.AUTO, '');
 
-console.log("Let's start the party!");
-
 var Client = {};
 Client.socket = io.connect();
 var username = localStorage.getItem("username");
@@ -12,7 +10,6 @@ if (!username) {
 
 var LightBikes = function (game) {
 
-        console.log("Pizza Party");
         this.map = null;
         this.layer = null;
         this.bike = null;
@@ -21,31 +18,29 @@ var LightBikes = function (game) {
         this.width = 640;
         this.height = 640;
 
-        this.safetile = 1;
-        this.gridsize = 32;
+        // this.safetile = 1;
+        // this.gridsize = 32;
 
         this.speed = 16;
-        this.threshold = 3;
-        this.turnSpeed = 100;
+        // this.threshold = 3;
+        // this.turnSpeed = 100;
 
-        this.lastUpdate = 0;
+        // this.lastUpdate = 0;
 
-        this.marker = new Phaser.Point();
+        // this.marker = new Phaser.Point();
         this.turnPoint = new Phaser.Point();
 
         this.directions = [null, null, null, null, null];
-        this.opposites = [Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP];
+        // this.opposites = [Phaser.NONE, Phaser.RIGHT, Phaser.LEFT, Phaser.DOWN, Phaser.UP];
 };
 
 LightBikes.prototype = {
 
         init: function () {
-                console.log("Init Party");
                 this.physics.startSystem(Phaser.Physics.ARCADE);
         },
 
         preload: function() {
-                console.log("Preload Party");
                 this.load.crossOrigin = 'anonymous';
                 this.load.image('player','res/sprite.png');
                 this.load.tilemap('map', 'res/Tilemap.json', null, Phaser.Tilemap.TILED_JSON);
@@ -55,7 +50,6 @@ LightBikes.prototype = {
 
         create: function() {
                 this.map = this.add.tilemap('map');
-                console.log("Create Party");
                 this.map.addTilesetImage('Tileset2','tile');
 
                 this.layer = this.map.createLayer('Tile Layer 1');
@@ -74,11 +68,8 @@ LightBikes.prototype = {
 
                 this.enemyMovement();
                 game.paused = true;
-                console.log("right before newplayer sent");
                 Client.socket.emit('newplayer', username);
-                console.log("right after new player sent");
                 Client.socket.on("start", function(room){
-                    console.log("in start and your room is " + room);
                     $("#status").html("<legend>Status</legend> <p> Opponent Found! You are in " + room + 
                     " Please wait a few seconds for their "+
                     "game to load and remember to click on the board. " )
@@ -87,21 +78,7 @@ LightBikes.prototype = {
 
                 var g = this;
 
-                // Client.socket.on("forfeit", function() {
-                //         Client.socket.emit("win");
-                //         g.gameOver(3);
-                // });
-
-                console.log("end o create");
-
                 this.checkKeys();
-        },
-
-        getFirstMove: function() {
-                this.bike.next = -1;
-                while (this.bike.next == -1) {
-                        this.checkKeys();
-                }
         },
 
         increaseLength: function (player) {
@@ -135,8 +112,6 @@ LightBikes.prototype = {
                                 player.next = Phaser.RIGHT; 
                         }
                 });
-
-                console.log("checkKeys ran");
         },
 
         enemyMovement: function () {
@@ -159,38 +134,23 @@ LightBikes.prototype = {
                                 return;
                         }
 
-                        console.log("move is:" + move);
-                        console.log("opp_move is:" + opp_move);
-
                         if (move == "left") {
-                                console.log("move_left");
                                 g.move(g.bike, Phaser.LEFT);
-
                         } else if (move == "right") {
-                                console.log("move_right");
                                 g.move(g.bike, Phaser.RIGHT);
                         } else if (move == "up") {
-                                console.log("move_up");
                                 g.move(g.bike, Phaser.UP);
-
                         } else if (move == "down") {
-                                console.log("move_down");
                                 g.move(g.bike, Phaser.DOWN);
                         }
 
                         if (opp_move == "left") {
-                                console.log("opp_right");
                                 g.move(g.enemy, Phaser.RIGHT);
-
                         } else if (opp_move == "right") {
-                                console.log("opp_left");
                                 g.move(g.enemy, Phaser.LEFT);
                         } else if (opp_move == "up") {
-                                console.log("opp_up");
                                 g.move(g.enemy, Phaser.UP);
-
                         } else if (opp_move == "down") {
-                                console.log("opp_down");
                                 g.move(g.enemy, Phaser.DOWN);
                         }
                 });
@@ -220,18 +180,12 @@ LightBikes.prototype = {
 
         },
 
-        getTimeStamp: function () {
-                return new Date().getTime();
-        },
-
         checkBoundaries: function (player) {
                 if (player[0].x >= this.width - 1 || player[0].x < 0) {
-                        console.log("x_boundary");
                         return true;
                 }
 
                 if (player[0].y >= this.height - 1 || player[0].y < 0) {
-                        console.log("y_boundary");
                         return true;
                 }
         },
@@ -239,7 +193,6 @@ LightBikes.prototype = {
         checkCollideSelf: function (player) {
                 for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
-                                console.log(i);
                                 return true;
                         }
                 }
@@ -250,14 +203,12 @@ LightBikes.prototype = {
                 var x = 0;
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
-                                console.log("enemy_hit");
                                 x += 1;
                         }
                 }
                 
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
-                                console.log("player_hit");
                                 x += 2;
                         }
                 }
