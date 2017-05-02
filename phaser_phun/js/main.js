@@ -87,17 +87,19 @@ LightBikes.prototype = {
 
                 var player = this.bike;
 
+                current = this.current;
+
                 document.addEventListener('keydown', function (event) {
-                        if (event.key == "ArrowUp" && this.current != Phaser.DOWN) {
+                        if (event.key == "ArrowUp" && current != Phaser.DOWN) {
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
-                        } else if (event.key == "ArrowDown" && this.current != Phaser.UP) {
+                        } else if (event.key == "ArrowDown" && current != Phaser.UP) {
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
-                        } else if (event.key == "ArrowLeft" && this.current != Phaser.RIGHT) {
+                        } else if (event.key == "ArrowLeft" && current != Phaser.RIGHT) {
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
-                        } else if (event.key == "ArrowRight" && this.current != Phaser.LEFT) {
+                        } else if (event.key == "ArrowRight" && current != Phaser.LEFT) {
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
                         }
