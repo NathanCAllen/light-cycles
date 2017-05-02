@@ -243,21 +243,22 @@ LightBikes.prototype = {
         },
 
         checkCollideOther: function () {
+                int x = 0;
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 console.log("enemy_hit");
-                                return this.enemy.name;
+                                x += 1;
                         }
                 }
                 
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
                                 console.log("player_hit");
-                                return "You";
+                                x += 2;
                         }
                 }
 
-                return false;
+                return x;
         },
 
         update: function () {
@@ -265,11 +266,15 @@ LightBikes.prototype = {
                 var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
                 var collideOther = this.checkCollideOther();
-                if (collideOther === this.enemy.name) {
+                if (collideOther == 1) {
                         theyDie = true;
-                } else if (collideOther === "You") {
+                } else if (collideOther == 2) {
                         youDie = true;
+                } else if (collideOther == 3) {
+                        youDie = true;
+                        theyDie = true;
                 }
+                
                 if (youDie && theyDie) {
                         Client.socket.emit("draw");
                         this.gameOver(0);
