@@ -194,12 +194,14 @@ LightBikes.prototype = {
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 x += 1;
+                                break;
                         }
                 }
                 
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
                                 x += 2;
+                                break;
                         }
                 }
 
