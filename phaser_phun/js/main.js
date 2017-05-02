@@ -5,6 +5,10 @@ console.log("Let's start the party!");
 var Client = {};
 Client.socket = io.connect();
 var username = localStorage.getItem("username");
+if (!username) {
+        alert("Username not found");
+        window.location.replace("https://light-cycles.herokuapp.com");
+}
 
 var LightBikes = function (game) {
 
