@@ -421,8 +421,12 @@ LightBikes.prototype = {
 
                 game.paused = true;
                 var style = {fill: '#F00'};
-                var text = this.add.text(game.width * .5, game.height * .5, "Game Over" + loser, style);
+                var text = this.add.text(game.width * .5, game.height * .5, "Game Over", style);
                 text.anchor.set(.5, .5);
+
+                if (loser == 0) {
+                        
+                }
         }
 };
 
