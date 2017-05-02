@@ -30,7 +30,7 @@
 
   $(document).ready(function(){
     var number = parseInt(localStorage.getItem("count"),10);
-    $("#title").html("Light Cycles " + Math.floor(Math.random()*9));
+    $("#title").html("Light Cycles " + (2+Math.floor(Math.random()*7)));
     number = Math.floor(Math.random()*subtitles.length);
     $("#subtitle").html(subtitles[number]);
   });
