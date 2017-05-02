@@ -84,9 +84,6 @@ LightBikes.prototype = {
                 console.log("right after new player sent");
                 Client.socket.on("start", function(room){
                     console.log("in start and your room is " + room);
-                    $("#status").html("<legend>Status</legend> <p>Other Player Found!  You are in " + 
-                                        room + ". Please wait a few seconds for them to load, and the" + 
-                                        " game will not start until both players have pressed a direction</p>");
                     game.paused = false;
                 });
        
@@ -346,15 +343,11 @@ LightBikes.prototype = {
         },
 
         checkCollideSelf: function (player) {
-                var c = 0;
                 for(var i = player.length - 2; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 console.log(i);
-                                c++;
-                                if (c == 3) {
-                                        return true;
-                                }
                                 // this.gameOver("You");
+                                return true;
                         }
                 }
 
@@ -443,7 +436,6 @@ LightBikes.prototype = {
                         whoDied = this.add.text(game.width * .5,
                                 game.height * .5 + 100, "You Win!", style);
                         whoDied.anchor.set(.5, .5);
-                }
         }
 };
 
