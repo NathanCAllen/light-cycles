@@ -87,17 +87,19 @@ LightBikes.prototype = {
 
                 var player = this.bike;
 
+                current = this.current;
+
                 document.addEventListener('keydown', function (event) {
-                        if (event.key == "ArrowUp" && this.current != Phaser.DOWN) {
+                        if (event.key == "ArrowUp" && current != Phaser.DOWN) {
                                 Client.socket.emit("my_move", "up");
                                 player.next = Phaser.UP; 
-                        } else if (event.key == "ArrowDown" && this.current != Phaser.UP) {
+                        } else if (event.key == "ArrowDown" && current != Phaser.UP) {
                                 Client.socket.emit("my_move", "down");
                                 player.next = Phaser.DOWN; 
-                        } else if (event.key == "ArrowLeft" && this.current != Phaser.RIGHT) {
+                        } else if (event.key == "ArrowLeft" && current != Phaser.RIGHT) {
                                 Client.socket.emit("my_move", "left");
                                 player.next = Phaser.LEFT; 
-                        } else if (event.key == "ArrowRight" && this.current != Phaser.LEFT) {
+                        } else if (event.key == "ArrowRight" && current != Phaser.LEFT) {
                                 Client.socket.emit("my_move", "right");
                                 player.next = Phaser.RIGHT; 
                         }
@@ -196,23 +198,27 @@ LightBikes.prototype = {
                 for (var i = 1; i < this.bike.length; i++) {
                         if (this.enemy[0].body.hitTest(this.bike[i].x, this.bike[i].y)) {
                                 x += 1;
+                                break;
                         }
                 }
                 
                 for (var i = 1; i < this.enemy.length; i++) {
                         if (this.bike[0].body.hitTest(this.enemy[i].x, this.enemy[i].y)) {
                                 x += 2;
+                                break;
                         }
                 }
 
                 return x;
         },
-
         checkDeath: function () {
+                var youDie = false;
+                var theyDie = false;
+                var collideOther = 0;
+                youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
+                theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
+                collideOther = this.checkCollideOther();
 
-                var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
-                var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
-                var collideOther = this.checkCollideOther();
                 if (collideOther == 1) {
                         theyDie = true;
                 } else if (collideOther == 2) {
