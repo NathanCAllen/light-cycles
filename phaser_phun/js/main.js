@@ -143,6 +143,8 @@ LightBikes.prototype = {
                         } else if (opp_move == "down") {
                                 g.move(g.enemy, Phaser.DOWN);
                         }
+
+                        this.checkDeath();
                 });
         },
 
@@ -206,7 +208,7 @@ LightBikes.prototype = {
                 return x;
         },
 
-        update: function () {
+        checkDeath: function () {
 
                 var youDie = this.checkCollideSelf(this.bike) || this.checkBoundaries(this.bike);
                 var theyDie = this.checkCollideSelf(this.enemy) || this.checkBoundaries(this.enemy);
@@ -231,8 +233,8 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                this.physics.arcade.collide(this.bike[0], this.layer);
-                this.physics.arcade.collide(this.enemy[0], this.layer);
+                // this.physics.arcade.collide(this.bike[0], this.layer);
+                // this.physics.arcade.collide(this.enemy[0], this.layer);
         },
 
         gameOver: function (loser) {
