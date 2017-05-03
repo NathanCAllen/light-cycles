@@ -211,6 +211,7 @@ LightBikes.prototype = {
 
                 return x;
         },
+
         checkDeath: function () {
                 var youDie = false;
                 var theyDie = false;
@@ -239,8 +240,8 @@ LightBikes.prototype = {
                         this.gameOver(2);
                 }
 
-                // this.physics.arcade.collide(this.bike[0], this.layer);
-                // this.physics.arcade.collide(this.enemy[0], this.layer);
+                this.physics.arcade.collide(this.bike[0], this.layer);
+                this.physics.arcade.collide(this.enemy[0], this.layer);
         },
 
         gameOver: function (loser) {
