@@ -146,7 +146,7 @@ LightBikes.prototype = {
                                 g.move(g.enemy, Phaser.DOWN);
                         }
 
-                        this.checkDeath();
+                        g.checkDeath();
                 });
         },
 
