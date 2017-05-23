@@ -187,7 +187,7 @@ LightBikes.prototype = {
         },
 
         checkCollideSelf: function (player) {
-                for(var i = player.length - 2; i > 0; i--) {
+                for(var i = player.length - 3; i > 0; i--) {
                         if(player[0].body.hitTest(player[i].x, player[i].y)) {
                                 console.log("Player collided with self", i);
                                 return true;
